@@ -26,3 +26,9 @@ export const USERS: Record<
     pass: adminPass
   }
 }
+
+export const SHOW_ROLES: Record<Roles, string> = {
+  [Roles.USER]: 'Usuario',
+  [Roles.EDITOR]: 'Editor',
+  [Roles.ADMIN]: 'Administrador'
+}
