@@ -5,7 +5,7 @@ export default function Page() {
   return (
     <main>
       <h1>Añadir nuevo cliente</h1>
-      <form action={createCustomerAction}>
+      <form action={createCustomerAction} className='text-black'>
         <label htmlFor='name'>
           <input type='text' name='name' placeholder='Nombre' />
         </label>
@@ -15,7 +15,9 @@ export default function Page() {
         <label htmlFor='phone'>
           <input type='tel' name='phone' placeholder='telefono' />
         </label>
-        <button type='submit'>Añadir cliente</button>
+        <button type='submit' className='text-white'>
+          Añadir cliente
+        </button>
       </form>
     </main>
   )
