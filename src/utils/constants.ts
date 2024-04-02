@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { adminPass, editorPass, userPass } from './config'
-import { Roles } from './types'
+import { Roles, VehicleType } from './types'
 
 if (userPass == null || editorPass == null || adminPass == null) {
   throw new Error('Missing user, editor or admin password. Check .env file.')
@@ -31,4 +31,10 @@ export const SHOW_ROLES: Record<Roles, string> = {
   [Roles.USER]: 'Usuario',
   [Roles.EDITOR]: 'Editor',
   [Roles.ADMIN]: 'Administrador'
+}
+
+export const VEHICLE_TYPES = {
+  [VehicleType.CAR]: 'Auto',
+  [VehicleType.MOTORCYCLE]: 'Moto',
+  [VehicleType.TRUCK]: 'Camion'
 }
