@@ -7,9 +7,13 @@ export class CustomerRepository {
   private isInicializated: boolean = false
   async init() {
     if (this.isInicializated) return
-    await AppDataSource.initialize()
-    this.customer = AppDataSource.getRepository(Customer)
-    this.isInicializated = true
+    try {
+      await AppDataSource.initialize()
+      this.customer = AppDataSource.getRepository(Customer)
+      this.isInicializated = true
+    } catch (error) {
+      console.error('Error initializing AppDataSource', error)
+    }
   }
 
   async create(data: { name: string; email: string; phone: string; address?: string }) {

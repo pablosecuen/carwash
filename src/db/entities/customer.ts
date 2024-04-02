@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, Relation } from 'typeorm'
+import { Vehicle } from './vehicle'
 
 @Entity('customers')
 export class Customer {
@@ -22,4 +23,9 @@ export class Customer {
     nullable: true
   })
   address!: string
+
+  @OneToMany(() => Vehicle, (vehicle) => vehicle.customer, {
+    cascade: true
+  })
+  vehicles!: Relation<Vehicle>[]
 }
