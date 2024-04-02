@@ -33,7 +33,7 @@ module.exports = {
     'next.config.mjs',
     'postcss.config.js'
   ],
-  plugins: ['react'],
+  plugins: ['react', 'prettier-plugin-tailwindcss'],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
     'react/react-in-jsx-scope': 'off',
