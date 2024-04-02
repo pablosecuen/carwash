@@ -29,6 +29,17 @@ export class CustomerRepository {
     await this.init()
     return this.customer.find()
   }
+
+  async findById(id: number) {
+    await this.init()
+    const customer = await this.customer.findOneBy({ id })
+    if (!customer) {
+      // TODO: handler error properly
+      throw new Error('Customer not found')
+    }
+
+    return customer
+  }
 }
 
 export const customerRepository = new CustomerRepository()
