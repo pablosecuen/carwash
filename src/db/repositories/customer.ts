@@ -12,7 +12,9 @@ export class CustomerRepository {
       this.customer = AppDataSource.getRepository(Customer)
       this.isInicializated = true
     } catch (error) {
+      // TODO: handler error properly
       console.error('Error initializing AppDataSource', error)
+      throw error
     }
   }
 
@@ -21,6 +23,11 @@ export class CustomerRepository {
     const customer = this.customer.create(data)
     await this.customer.save(customer)
     return customer
+  }
+
+  async findAll() {
+    await this.init()
+    return this.customer.find()
   }
 }
 
