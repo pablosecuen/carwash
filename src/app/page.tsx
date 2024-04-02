@@ -20,20 +20,21 @@ export default function Home() {
         <ToggleTheme />
       </div>
       <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-        {/* <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
-          /> */}
-        <h1 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight '>
+        {/* TODO: poner logo de la empresa */}
+        <img
+          className='mx-auto h-16 w-auto'
+          src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
+          alt='Your Company'
+        />
+        <h1 className='mt-4 text-center text-2xl font-bold leading-9 tracking-tight '>
           Bienvenido a Carwash
         </h1>
-        <p className='text-lg mt-5 text-center opacity-80'>
+        <p className='text-lg mt-2 text-center opacity-80'>
           Proveedor de servicios de lavado de coches.
         </p>
       </div>
 
-      <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
+      <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-sm'>
         <form action={loginForm} className='space-y-2'>
           <Select name='role'>
             <SelectTrigger>
