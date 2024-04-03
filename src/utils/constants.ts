@@ -34,7 +34,8 @@ export const SHOW_ROLES: Record<Roles, string> = {
 }
 
 export const VEHICLE_TYPES = {
-  [VehicleType.CAR]: 'Auto',
+  [VehicleType.SEDAN]: 'Auto',
+  [VehicleType.VAN]: 'Van',
   [VehicleType.MOTORCYCLE]: 'Moto',
-  [VehicleType.TRUCK]: 'Camion'
+  [VehicleType.TRUCK]: 'Camioneta'
 }

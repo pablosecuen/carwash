@@ -8,12 +8,17 @@ export enum Roles {
 export type TRole = Roles.USER | Roles.EDITOR | Roles.ADMIN
 
 export enum VehicleType {
-  CAR = 'car',
-  MOTORCYCLE = 'motorcycle',
-  TRUCK = 'truck'
+  SEDAN = 'sedan',
+  VAN = 'van',
+  TRUCK = 'truck',
+  MOTORCYCLE = 'motorcycle'
 }
 
-export type TVehicleType = VehicleType.CAR | VehicleType.MOTORCYCLE | VehicleType.TRUCK
+export type TVehicleType =
+  | VehicleType.SEDAN
+  | VehicleType.SEDAN
+  | VehicleType.MOTORCYCLE
+  | VehicleType.TRUCK
 
 export interface NavItem {
   title: string
