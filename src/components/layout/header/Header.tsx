@@ -1,5 +1,4 @@
 import { cn } from '@/lib/utils'
-import { Link } from 'lucide-react'
 import { ToggleTheme } from '../theme/ToggleTheme'
 import { MobileSidebar } from '@/components/layout'
 
