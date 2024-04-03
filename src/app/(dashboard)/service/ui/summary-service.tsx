@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 
 export const SummaryService = () => {
   return (
-    <div className='p-5 border rounded-lg m-5'>
+    <div className='p-5 border rounded-lg m-5 mb-0 flex flex-col items-start justify-between'>
       <h3>Resumen del servicio</h3>
       <div>
         <span>Fecha: </span> <span>12/12/2022</span>
@@ -23,15 +23,15 @@ export const SummaryService = () => {
       </div>
       <div>
         <p>Metodo de pago:</p>
-        <div className='flex items-center gap-x-2'>
+        <div className='flex items-center gap-x-2 mt-2'>
           <ServiceCheckbox id='efectivo' label='Efectivo' />
           <ServiceCheckbox id='tarjeta' label='Tarjeta' />
         </div>
       </div>
 
-      <Button variant={'outline'} size={'sm'}>
-        Generar ticket
-      </Button>
+      <div className='flex items-center justify-end w-full'>
+        <Button size={'sm'}>Generar ticket</Button>
+      </div>
     </div>
   )
 }

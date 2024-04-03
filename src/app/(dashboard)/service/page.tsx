@@ -11,7 +11,7 @@ export default function ServicePage() {
 
         <AddCustomer />
       </div>
-      <div className='grid grid-cols-1 lg:grid-cols-2 py-5'>
+      <div className='grid grid-cols-1 lg:grid-cols-2 pt-5 '>
         {/* formulario para agregar el servicio */}
         <FormService />
 
