@@ -31,7 +31,6 @@ export class VehicleRepository {
     // TODO: validate
     try {
       const vehicle = this.vehicle.create(data)
-      console.log('Vehicle created:', { vehicle })
       await this.vehicle.save(vehicle)
       return vehicle
     } catch (error) {

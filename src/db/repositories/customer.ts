@@ -44,7 +44,13 @@ export class CustomerRepository {
 
   async addVehicle(customerId: number, vehicle: Vehicle) {
     await this.init()
-    const customer = await this.findById(customerId)
+    const customer = await this.customer.findOne({
+      where: { id: customerId },
+      relations: ['vehicles']
+    })
+    if (!customer) {
+      throw new Error('Customer not found')
+    }
     customer.vehicles.push(vehicle)
     await this.customer.save(customer)
     return customer
