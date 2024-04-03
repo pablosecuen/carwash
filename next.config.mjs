@@ -8,6 +8,15 @@ const nextConfig = {
         pathname: '**'
       }
     ]
+  },
+  webpack(config) {
+    config.ignoreWarnings = [
+      {
+        module: /typeorm/,
+        message: /Module not found|dependency is an expression/
+      }
+    ]
+    return config
   }
 }
 
