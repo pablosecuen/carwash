@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -9,10 +10,23 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Loader2 } from 'lucide-react'
+import { useState } from 'react'
 
 export function AddCustomer() {
+  const [open, setOpen] = useState(false)
+  const [isLoad, setIsLoad] = useState(false)
+
+  // Ejemplo para poner el boton cargando cuando se haga la peticion para guardar el customer
+  const onClick = () => {
+    setIsLoad(true)
+    setTimeout(() => {
+      setIsLoad(false)
+      setOpen(false)
+    }, 5000)
+  }
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant='secondary'>Agregar cliente</Button>
       </DialogTrigger>
@@ -51,7 +65,15 @@ export function AddCustomer() {
           </div>
         </div>
         <DialogFooter>
-          <Button type='submit'>Agregar</Button>
+          <Button type='submit' onClick={onClick} disabled={isLoad}>
+            {isLoad ? (
+              <>
+                <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Guardando...
+              </>
+            ) : (
+              'Agregar'
+            )}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
