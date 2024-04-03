@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm'
 import { Customer } from './customer'
+import { VehicleType } from '@/utils/types'
 
 @Entity('vehicles')
 export class Vehicle {
@@ -7,8 +8,8 @@ export class Vehicle {
   id!: number
 
   // TODO: ask for all the possible values
-  @Column('enum', { enum: ['car', 'motorcycle', 'truck'] })
-  type!: string
+  @Column('enum', { enum: VehicleType })
+  type!: VehicleType
 
   @Column('varchar')
   model!: string
