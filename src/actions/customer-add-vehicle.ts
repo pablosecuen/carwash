@@ -1,8 +1,11 @@
+import { customerRepository } from '@/db/repositories/customer'
+import { vehicleRepository } from '@/db/repositories/vehicle'
 import { VehicleType } from '@/utils/types'
 
 export async function customerAddVehicle(customerId: number) {
   return async function (formData: FormData) {
     'use server'
+    // TODO: validate formData
     const data = {
       type: formData.get('type') as VehicleType,
       brand: formData.get('brand') as string,
@@ -11,6 +14,16 @@ export async function customerAddVehicle(customerId: number) {
       patent: formData.get('patent') as string,
       customerId
     }
-    console.log('Adding vehicle to customer:', data)
+    try {
+      // TODO: handler possible errors
+      const vehicle = await vehicleRepository.create(data)
+      if (!vehicle) {
+        throw new Error('Error creating vehicle')
+      }
+      const customer = await customerRepository.addVehicle(customerId, vehicle)
+      console.log({ customer, vehicle })
+    } catch (error) {
+      console.error('Error adding vehicle to customer:', error)
+    }
   }
 }
