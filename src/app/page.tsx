@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { loginForm } from '@/actions/login-form'
-import { ToggleTheme } from '@/components/theme/ToggleTheme'
+import { ToggleTheme } from '@/components/layout'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
