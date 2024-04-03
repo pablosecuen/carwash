@@ -1,4 +1,4 @@
-import { icons } from 'lucide-react'
+import { ReactNode } from 'react'
 export enum Roles {
   USER = 'USER',
   EDITOR = 'EDITOR',
@@ -20,7 +20,7 @@ export interface NavItem {
   href?: string
   disabled?: boolean
   external?: boolean
-  icon?: keyof typeof icons
+  icon?: ReactNode
   label?: string
   description?: string
 }
