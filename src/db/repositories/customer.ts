@@ -1,6 +1,7 @@
 import { type Repository } from 'typeorm'
 import { Customer } from '../entities/customer'
 import { AppDataSource } from '../data-source'
+import { Vehicle } from '../entities'
 
 export class CustomerRepository {
   private customer!: Repository<Customer>
@@ -8,7 +9,7 @@ export class CustomerRepository {
   async init() {
     if (this.isInicializated) return
     try {
-      await AppDataSource.initialize()
+      if (!AppDataSource.isInitialized) await AppDataSource.initialize()
       this.customer = AppDataSource.getRepository(Customer)
       this.isInicializated = true
     } catch (error) {
@@ -38,6 +39,14 @@ export class CustomerRepository {
       throw new Error('Customer not found')
     }
 
+    return customer
+  }
+
+  async addVehicle(customerId: number, vehicle: Vehicle) {
+    await this.init()
+    const customer = await this.findById(customerId)
+    customer.vehicles.push(vehicle)
+    await this.customer.save(customer)
     return customer
   }
 }
