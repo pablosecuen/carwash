@@ -1,3 +1,4 @@
+import { icons } from 'lucide-react'
 export enum Roles {
   USER = 'USER',
   EDITOR = 'EDITOR',
@@ -13,3 +14,13 @@ export enum VehicleType {
 }
 
 export type TVehicleType = VehicleType.CAR | VehicleType.MOTORCYCLE | VehicleType.TRUCK
+
+export interface NavItem {
+  title: string
+  href?: string
+  disabled?: boolean
+  external?: boolean
+  icon?: keyof typeof icons
+  label?: string
+  description?: string
+}

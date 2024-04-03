@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 
 export const ToggleTheme = () => {
   const { setTheme } = useTheme()
