@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { adminPass, editorPass, userPass } from './config'
-import { Roles, VehicleType } from './types'
+import { NavItem, Roles, VehicleType } from './types'
 
 if (userPass == null || editorPass == null || adminPass == null) {
   throw new Error('Missing user, editor or admin password. Check .env file.')
@@ -38,3 +38,13 @@ export const VEHICLE_TYPES = {
   [VehicleType.MOTORCYCLE]: 'Moto',
   [VehicleType.TRUCK]: 'Camion'
 }
+
+// TODO: Fixear los items para los que requiere la App
+// TODO: Agregar los icon para cada item
+export const navItems: NavItem[] = [
+  {
+    title: 'Clientes',
+    href: '/customer/dashboard',
+    label: 'Dashboard'
+  }
+]
