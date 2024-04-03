@@ -11,6 +11,6 @@ export const AppDataSource = new DataSource({
   password: dbPass,
   database: dbName,
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: [Customer, Vehicle]
 })
