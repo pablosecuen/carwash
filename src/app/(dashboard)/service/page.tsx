@@ -1,6 +1,6 @@
 import { Title } from '@/components/layout'
 import { FormService } from './ui/FormService'
-import { AddCustomer } from './ui/add-customer'
+import { AddCustomer } from './ui/add-customer-dialog'
 import { SummaryService } from './ui/summary-service'
 
 export default function ServicePage() {
