@@ -17,6 +17,6 @@ export class Service {
   @Column('int')
   cardPrice!: number
 
-  @Column('array')
-  vehicleType!: VehicleType[]
+  @Column('simple-array')
+  avaliableFor!: VehicleType[]
 }
