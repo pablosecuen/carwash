@@ -1,9 +1,12 @@
 'use server'
 
-import { VEHICLE_TYPES } from '@/utils/constants'
+import { serviceRepository } from '@/db/repositories/service'
+import { VehicleType } from '@/utils/types'
 
 export async function createServiceAction(formData: FormData) {
-  const avaliableFor = Object.keys(VEHICLE_TYPES).filter((type) => formData.get(type))
+  const avaliableFor = Object.values(VehicleType).filter((type) =>
+    formData.get(type)
+  ) as VehicleType[]
   const data = {
     name: formData.get('name') as string,
     description: formData.get('description') as string,
@@ -11,5 +14,10 @@ export async function createServiceAction(formData: FormData) {
     cardPrice: parseInt(formData.get('cardPrice') as string),
     avaliableFor
   }
-  console.log({ data })
+  try {
+    const service = await serviceRepository.create(data)
+    console.log({ service })
+  } catch (error) {
+    console.error(error)
+  }
 }
