@@ -1,4 +1,4 @@
-import { VehicleType } from '@/utils/types'
+import type { VehicleType } from '@/utils/types'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 @Entity('services')
 export class Service {
