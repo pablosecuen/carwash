@@ -1,12 +1,10 @@
-import { ObjectLiteral, Repository } from 'typeorm'
+import type { EntityTarget, ObjectLiteral, Repository } from 'typeorm'
 import { AppDataSource } from '../data-source'
-
-type Class = new (...args: any[]) => any
 
 export abstract class BaseRepository<Entity extends ObjectLiteral> {
   protected repository!: Repository<Entity>
   protected isInicializated: boolean = false
-  protected abstract entity: Class
+  protected abstract entity: EntityTarget<Entity>
 
   async init() {
     if (this.isInicializated) return
