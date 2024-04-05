@@ -1,23 +1,9 @@
-import { Repository } from 'typeorm'
 import { Vehicle } from '../entities'
-import { AppDataSource } from '../data-source'
-import { VehicleType } from '@/utils/types'
+import { type VehicleType } from '@/utils/types'
+import { BaseRepository } from './base-repository'
 
-export class VehicleRepository {
-  private vehicle!: Repository<Vehicle>
-  private isInicializated: boolean = false
-  async init() {
-    if (this.isInicializated) return
-    try {
-      if (!AppDataSource.isInitialized) await AppDataSource.initialize()
-      this.vehicle = AppDataSource.getRepository(Vehicle)
-      this.isInicializated = true
-    } catch (error) {
-      // TODO: handler error properly
-      console.error('Error initializing AppDataSource', error)
-      throw error
-    }
-  }
+export class VehicleRepository extends BaseRepository<Vehicle> {
+  protected entity = Vehicle
 
   async create(data: {
     type: VehicleType
@@ -30,8 +16,8 @@ export class VehicleRepository {
     await this.init()
     // TODO: validate
     try {
-      const vehicle = this.vehicle.create(data)
-      await this.vehicle.save(vehicle)
+      const vehicle = this.repository.create(data)
+      await this.repository.save(vehicle)
       return vehicle
     } catch (error) {
       console.error('Error creating vehicle:', error)

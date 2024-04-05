@@ -1,40 +1,25 @@
-import { type Repository } from 'typeorm'
 import { Customer } from '../entities/customer'
-import { AppDataSource } from '../data-source'
-import { Vehicle } from '../entities'
+import { type Vehicle } from '../entities'
+import { BaseRepository } from './base-repository'
 
-export class CustomerRepository {
-  private customer!: Repository<Customer>
-  private isInicializated: boolean = false
-  async init() {
-    if (this.isInicializated) return
-    try {
-      if (!AppDataSource.isInitialized) await AppDataSource.initialize()
-      this.customer = AppDataSource.getRepository(Customer)
-      this.isInicializated = true
-    } catch (error) {
-      // TODO: handler error properly
-      console.error('Error initializing AppDataSource', error)
-      throw error
-    }
-  }
-
+export class CustomerRepository extends BaseRepository<Customer> {
+  protected entity = Customer
   async create(data: { name: string; email: string; phone: string; address?: string }) {
     await this.init()
-    const customer = this.customer.create(data)
-    await this.customer.save(customer)
+    const customer = this.repository.create(data)
+    await this.repository.save(customer)
     return customer
   }
 
   async findAll() {
     await this.init()
-    return this.customer.find()
+    return await this.repository.find()
   }
 
   async findById(id: number) {
     await this.init()
-    const customer = await this.customer.findOneBy({ id })
-    if (!customer) {
+    const customer = await this.repository.findOneBy({ id })
+    if (customer == null) {
       // TODO: handler error properly
       throw new Error('Customer not found')
     }
@@ -44,15 +29,15 @@ export class CustomerRepository {
 
   async addVehicle(customerId: number, vehicle: Vehicle) {
     await this.init()
-    const customer = await this.customer.findOne({
+    const customer = await this.repository.findOne({
       where: { id: customerId },
       relations: ['vehicles']
     })
-    if (!customer) {
+    if (customer == null) {
       throw new Error('Customer not found')
     }
     customer.vehicles.push(vehicle)
-    await this.customer.save(customer)
+    await this.repository.save(customer)
     return customer
   }
 }
