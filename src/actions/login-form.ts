@@ -2,6 +2,7 @@
 
 import { USERS } from '@/utils/constants'
 import { type Roles } from '@/utils/types'
+import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function loginForm(formData: FormData) {
@@ -16,5 +17,6 @@ export async function loginForm(formData: FormData) {
     throw new Error('Invalid password')
   }
 
+  cookies().set('role', role)
   redirect(`/home`)
 }
