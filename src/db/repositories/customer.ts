@@ -1,6 +1,7 @@
 import { Customer } from '../entities/customer'
 import { type Vehicle } from '../entities'
 import { BaseRepository } from './base-repository'
+import { ILike } from 'typeorm'
 
 export class CustomerRepository extends BaseRepository<Customer> {
   protected entity = Customer
@@ -39,6 +40,14 @@ export class CustomerRepository extends BaseRepository<Customer> {
     customer.vehicles.push(vehicle)
     await this.repository.save(customer)
     return customer
+  }
+
+  async findByName(name: string) {
+    await this.init()
+    console.log('name', name)
+    return await this.repository.findBy({
+      name: ILike(`%${name}%`)
+    })
   }
 }
 
