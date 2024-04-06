@@ -1,7 +1,7 @@
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Product } from './product'
-import { Service } from './services'
 import { Customer } from './customer'
+import { Ticket } from './ticket'
 
 type InvoiceStatus = 'in-progress' | 'pending' | 'completed' | 'canceled'
 
@@ -22,9 +22,11 @@ export class Invoice {
   @ManyToOne(() => Customer, (customer) => customer.id)
   customer!: Customer
 
-  @ManyToMany(() => Service, (service) => service.id)
-  services!: Service[]
+  @ManyToMany(() => Ticket, (ticket) => ticket.id)
+  @JoinTable()
+  tickets!: Ticket[]
 
   @ManyToMany(() => Product, (product) => product.id)
+  @JoinTable()
   products!: Product[]
 }
