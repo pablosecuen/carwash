@@ -3,6 +3,7 @@ import {
   Hammer,
   Loader2,
   LucideIcon,
+  PieChart,
   Plus,
   Settings,
   User,
@@ -34,5 +35,6 @@ export const Icons: IconsMap = {
   add: Plus,
   user: User,
   caja: Hammer,
-  clientes: User2Icon
+  clientes: User2Icon,
+  dashboard: PieChart
 }

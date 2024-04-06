@@ -13,5 +13,10 @@ export const navItems: NavItem[] = [
     title: 'Clientes',
     href: '/customer/dashboard',
     label: 'Dashboard'
+  },
+  {
+    title: 'Dashboard',
+    href: '/dashboard',
+    label: 'Dashboard'
   }
 ]

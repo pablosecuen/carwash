@@ -43,3 +43,5 @@ export interface NavItem {
   label?: string
   description?: string
 }
+
+export type TODO = any
