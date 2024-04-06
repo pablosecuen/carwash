@@ -10,6 +10,11 @@ export class ProductRepository extends BaseRepository<Product> {
     await this.repository.save(product)
     return product
   }
+
+  async findAll() {
+    await this.init()
+    return await this.repository.find()
+  }
 }
 
 export const productRepository = new ProductRepository()
