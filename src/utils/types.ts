@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 export enum Roles {
   USER = 'USER',
   EDITOR = 'EDITOR',
@@ -13,12 +13,26 @@ export enum VehicleType {
   TRUCK = 'truck',
   MOTORCYCLE = 'motorcycle'
 }
-
 export type TVehicleType =
   | VehicleType.SEDAN
   | VehicleType.SEDAN
   | VehicleType.MOTORCYCLE
   | VehicleType.TRUCK
+
+export enum PaymentMethod {
+  CASH = 'cash',
+  CARD = 'card'
+}
+
+export type TPaymentMethod = PaymentMethod.CASH | PaymentMethod.CARD
+
+export enum TicketStatus {
+  PENDING = 'pending',
+  COMPLETED = 'completed',
+  CANCELED = 'canceled'
+}
+
+export type TTicketStatus = TicketStatus.PENDING | TicketStatus.COMPLETED | TicketStatus.CANCELED
 
 export interface NavItem {
   title: string

@@ -1,19 +1,17 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Vehicle } from '.'
 import { Service } from './services'
+import { PaymentMethod, TicketStatus } from '@/utils/types'
 
-// TODO: move
-type TicketStatus = 'pending' | 'completed' | 'canceled'
-type PaymentMethod = 'cash' | 'card'
 @Entity('tickets')
 export class Ticket {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column('enum', { enum: ['pending', 'completed', 'canceled'] })
+  @Column('enum', { enum: Object.values(TicketStatus), default: TicketStatus.PENDING })
   status!: TicketStatus
 
-  @Column('enum', { enum: ['cash', 'card'] })
+  @Column('enum', { enum: Object.values(PaymentMethod), default: PaymentMethod.CASH })
   paymentMethod!: PaymentMethod
 
   @Column('int')

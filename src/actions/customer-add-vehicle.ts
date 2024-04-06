@@ -1,6 +1,6 @@
 import { customerRepository } from '@/db/repositories/customer'
 import { vehicleRepository } from '@/db/repositories/vehicle'
-import { VehicleType } from '@/utils/types'
+import { type VehicleType } from '@/utils/types'
 
 export async function customerAddVehicle(customerId: number) {
   return async function (formData: FormData) {
@@ -17,7 +17,7 @@ export async function customerAddVehicle(customerId: number) {
     try {
       // TODO: handler possible errors
       const vehicle = await vehicleRepository.create(data)
-      if (!vehicle) {
+      if (vehicle == null) {
         throw new Error('Error creating vehicle')
       }
       const customer = await customerRepository.addVehicle(customerId, vehicle)
