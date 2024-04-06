@@ -1,5 +1,6 @@
 'use server'
 
+import { type Ticket } from '@/db/entities/ticket'
 import { serviceRepository } from '@/db/repositories/service'
 import { ticketRepository } from '@/db/repositories/ticket'
 import { vehicleRepository } from '@/db/repositories/vehicle'
@@ -19,7 +20,7 @@ export async function createTicketAction(formData: FormData) {
       vehicle,
       paymentMethod: data.paymentMethod
     })
-    console.log({ ticket })
+    return JSON.parse(JSON.stringify(ticket)) as Ticket
   } catch (error) {
     console.error(error)
   }
