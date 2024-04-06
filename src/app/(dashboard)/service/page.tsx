@@ -5,13 +5,13 @@ import { SummaryService } from './ui/summary-service'
 
 export default function ServicePage() {
   return (
-    <div className='py-5 max-w-7xl mx-auto px-10 '>
-      <div className='flex items-center justify-between flex-wrap gap-y-2 border-b pb-2'>
+    <div className='mx-auto max-w-4xl px-10 py-5 '>
+      <div className='flex flex-wrap items-center justify-between gap-y-2 border-b pb-2'>
         <Title title='Nuevo servicio' />
 
         <AddCustomer />
       </div>
-      <div className='grid grid-cols-1 lg:grid-cols-2 pt-5 '>
+      <div className='grid grid-cols-1 gap-5 pt-5 '>
         {/* formulario para agregar el servicio */}
         <FormService />
 
