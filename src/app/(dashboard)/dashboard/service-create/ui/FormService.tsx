@@ -25,13 +25,15 @@ import { z } from 'zod'
 
 const formSchema = z.object({
   name: z.string().min(4, 'Este campo es requerido *'),
-  description: z.string().min(10, 'Description is required'),
-  cashPrice: z.coerce.number().min(1, 'Cash price is required'),
-  cardPrice: z.coerce.number().min(1, 'Card price is required'),
+  description: z.string().min(10, 'Este campo es requerido *'),
+  cashPrice: z.coerce.number().min(1, 'Este campo es requerido *'),
+  cardPrice: z.coerce.number().min(1, 'Este campo es requerido *'),
   avaliableFor: z.array(
     z.enum([VehicleType.MOTORCYCLE, VehicleType.SEDAN, VehicleType.TRUCK, VehicleType.VAN])
   )
 })
+
+// TODO: Tipar el componente para que pueda recibir un servicio
 
 export function FormService() {
   const [loading, setLoading] = useState(false)
@@ -60,7 +62,6 @@ export function FormService() {
       formdata.append(type, 'true')
     })
 
-    // TODO: Crear la UI para el loading mientras se crea el servicio, success o error
     setLoading(true)
     console.log(values.avaliableFor)
     if (values.avaliableFor.length === 0) {
@@ -94,6 +95,7 @@ export function FormService() {
   return (
     <Form {...form}>
       <form className=' mt-5 flex w-full flex-col gap-4' onSubmit={form.handleSubmit(onSubmit)}>
+        {/* name */}
         <FormField
           control={form.control}
           name='name'
@@ -109,6 +111,7 @@ export function FormService() {
             )
           }}
         />
+        {/* description */}
         <FormField
           control={form.control}
           name='description'
@@ -128,37 +131,41 @@ export function FormService() {
             )
           }}
         />
-        <FormField
-          control={form.control}
-          name='cashPrice'
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Precio en efectivo *</FormLabel>
-                <FormControl>
-                  <Input type='number' {...field} placeholder='Precio en efectivo' />
-                </FormControl>
-                <FormMessage className='text-sm' />
-              </FormItem>
-            )
-          }}
-        />
-        <FormField
-          control={form.control}
-          name='cardPrice'
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Precio en tarjeta *</FormLabel>
-                <FormControl>
-                  <Input type='number' {...field} placeholder='Precio en tarjeta' />
-                </FormControl>
-                <FormMessage className='text-sm' />
-              </FormItem>
-            )
-          }}
-        />
-
+        <div className='grid grid-cols-2 gap-5'>
+          {/* price cash */}
+          <FormField
+            control={form.control}
+            name='cashPrice'
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Precio en efectivo *</FormLabel>
+                  <FormControl>
+                    <Input type='number' {...field} placeholder='Precio en efectivo' />
+                  </FormControl>
+                  <FormMessage className='text-sm' />
+                </FormItem>
+              )
+            }}
+          />
+          {/* price card */}
+          <FormField
+            control={form.control}
+            name='cardPrice'
+            render={({ field }) => {
+              return (
+                <FormItem>
+                  <FormLabel>Precio en tarjeta *</FormLabel>
+                  <FormControl>
+                    <Input type='number' {...field} placeholder='Precio en tarjeta' />
+                  </FormControl>
+                  <FormMessage className='text-sm' />
+                </FormItem>
+              )
+            }}
+          />
+        </div>
+        {/* avaliableFor */}
         <FormField
           control={form.control}
           name='avaliableFor'
