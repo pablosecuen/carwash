@@ -9,9 +9,9 @@ import {
 } from '@/components/ui/card'
 import Link from 'next/link'
 
-export const Service = async () => {
+export const ServiceCard = async () => {
   return (
-    <Card>
+    <Card className='col-span-1 md:col-span-3'>
       <CardHeader>
         <CardTitle>Servicios</CardTitle>
         <CardDescription>Agrega un nuevo servicio</CardDescription>

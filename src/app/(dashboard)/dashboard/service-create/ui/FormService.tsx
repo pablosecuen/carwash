@@ -17,7 +17,10 @@ import { VEHICLE_TYPES } from '@/utils/shared-constants'
 import { VehicleType } from '@/utils/types'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2 } from 'lucide-react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useToast } from '@/components/ui/use-toast'
 import { z } from 'zod'
 
 const formSchema = z.object({
@@ -31,6 +34,9 @@ const formSchema = z.object({
 })
 
 export function FormService() {
+  const [loading, setLoading] = useState(false)
+
+  const { toast } = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,7 +50,7 @@ export function FormService() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log({ values })
+
     const formdata = new FormData()
     formdata.append('name', values.name)
     formdata.append('description', values.description)
@@ -55,7 +61,33 @@ export function FormService() {
     })
 
     // TODO: Crear la UI para el loading mientras se crea el servicio, success o error
+    setLoading(true)
+    console.log(values.avaliableFor)
+    if (values.avaliableFor.length === 0) {
+      toast({
+        variant: 'destructive',
+        title: '⚠️ Selecciona al menos un tipo de vehículo',
+        duration: 1800
+      })
+      setLoading(false)
+      return
+    }
     await createServiceAction(formdata)
+      .then(() => {
+        toast({
+          variant: 'default',
+          title: '✅ Servicio creado',
+          duration: 1800
+        })
+      })
+      .catch(() => {
+        toast({
+          variant: 'destructive',
+          title: '❌ Error al crear el servicio',
+          duration: 1800
+        })
+      })
+    setLoading(false)
     form.reset()
   }
 
@@ -134,36 +166,39 @@ export function FormService() {
             return (
               <FormItem>
                 <FormLabel>Tipo de vehículo *</FormLabel>
-
-                {Object.entries(VEHICLE_TYPES).map(([key, value]) => {
-                  return (
-                    <FormField
-                      key={key}
-                      control={form.control}
-                      name='avaliableFor'
-                      render={({ field }) => {
-                        console.log({ field })
-                        return (
-                          <FormItem key={key}>
-                            <FormControl>
-                              <Checkbox
-                                {...field}
-                                id={key}
-                                checked={field.value?.includes(key as VehicleType)}
-                                onCheckedChange={(checked) => {
-                                  return checked
-                                    ? field.onChange([...field.value, key])
-                                    : field.onChange(field.value?.filter((value) => value !== key))
-                                }}
-                              />
-                            </FormControl>
-                            <FormLabel className='font-normal'>{value}</FormLabel>
-                          </FormItem>
-                        )
-                      }}
-                    />
-                  )
-                })}
+                <div className='flex flex-wrap items-center gap-x-5'>
+                  {Object.entries(VEHICLE_TYPES).map(([key, value]) => {
+                    return (
+                      <FormField
+                        key={key}
+                        control={form.control}
+                        name='avaliableFor'
+                        render={({ field }) => {
+                          return (
+                            <FormItem key={key} className='flex items-end'>
+                              <FormControl>
+                                <Checkbox
+                                  {...field}
+                                  id={key}
+                                  checked={field.value?.includes(key as VehicleType)}
+                                  onCheckedChange={(checked) => {
+                                    return checked
+                                      ? field.onChange([...field.value, key])
+                                      : field.onChange(
+                                          field.value?.filter((value) => value !== key)
+                                        )
+                                  }}
+                                  className='mr-2'
+                                />
+                              </FormControl>
+                              <FormLabel>{value}</FormLabel>
+                            </FormItem>
+                          )
+                        }}
+                      />
+                    )
+                  })}
+                </div>
 
                 <FormMessage className='text-sm' />
               </FormItem>
@@ -171,7 +206,16 @@ export function FormService() {
           }}
         />
 
-        <Button type='submit'>Enviar</Button>
+        <Button type='submit' disabled={loading}>
+          {loading ? (
+            <>
+              <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+              Creando...
+            </>
+          ) : (
+            'Crear servicio'
+          )}
+        </Button>
       </form>
     </Form>
   )
