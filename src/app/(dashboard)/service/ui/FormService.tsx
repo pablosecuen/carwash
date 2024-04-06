@@ -29,13 +29,13 @@ export const FormService = () => {
   return (
     <form action='' className='space-y-3'>
       <div>
-        <label htmlFor='customer' className='font-semibold text-xl'>
+        <label htmlFor='customer' className='text-xl font-semibold'>
           Cliente
         </label>
         <Input id='customer' name='customer' placeholder='Nombre del cliente' />
       </div>
       <div className='space-y-2'>
-        <label htmlFor='vehicle' className='font-semibold text-xl'>
+        <label htmlFor='vehicle' className='text-xl font-semibold'>
           Vehiculo
         </label>
         <Input id='vehicle' name='vehicle' placeholder='Nombre del vehiculo' />
@@ -56,7 +56,7 @@ export const FormService = () => {
           </Select>
         </div>
       </div>
-      <h3 className='font-semibold text-xl'>Servicios</h3>
+      <h3 className='text-xl font-semibold'>Servicios</h3>
       <div className='grid grid-cols-3 gap-1'>
         <div className='space-y-2'>
           <span className='text-sm opacity-90'>Lavado completo</span>
@@ -73,10 +73,9 @@ export const FormService = () => {
           <ServiceCheckbox id='motor-wash' label='Tapizados + alfombras + techos' />
         </div>
       </div>
-
-      <Button type='submit' className='w-full'>
-        Cargar servicio
-      </Button>
+      <div className='flex w-full items-center justify-end'>
+        <Button type='submit'>Cargar servicio</Button>
+      </div>
     </form>
   )
 }
