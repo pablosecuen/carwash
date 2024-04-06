@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, Relation } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, type Relation } from 'typeorm'
 import { Vehicle } from './vehicle'
 
 @Entity('customers')
@@ -27,5 +27,5 @@ export class Customer {
   @OneToMany(() => Vehicle, (vehicle) => vehicle.customer, {
     cascade: true
   })
-  vehicles!: Relation<Vehicle>[]
+  vehicles!: Array<Relation<Vehicle>>
 }
