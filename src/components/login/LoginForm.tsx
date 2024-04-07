@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginForm } from '@/actions/login-form'
-import { SHOW_ROLES } from '@/utils/shared-constants'
+import { SHOW_ROLES } from '@/utils/constants'
 import {
   Select,
   SelectContent,
