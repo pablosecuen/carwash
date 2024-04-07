@@ -36,6 +36,16 @@ export class ServiceRepostiory extends BaseRepository<Service> {
 
     return service
   }
+
+  async update(id: number, data: Partial<Service>) {
+    await this.init()
+    await this.repository.update(id, data)
+    const service = await this.repository.findOneBy({ id })
+    if (service == null) {
+      throw new Error('Service not found')
+    }
+    return service
+  }
 }
 
 export const serviceRepository = new ServiceRepostiory()
