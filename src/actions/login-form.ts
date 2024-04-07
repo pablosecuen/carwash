@@ -3,7 +3,6 @@
 import { USERS } from '@/utils/constants'
 import { type Roles } from '@/utils/types'
 import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 
 export async function loginForm(formData: FormData) {
   const role = formData.get('role') as keyof typeof Roles
@@ -11,12 +10,21 @@ export async function loginForm(formData: FormData) {
 
   const user = USERS[role]
   if (user == null) {
-    throw new Error('Invalid role')
+    return {
+      ok: false,
+      message: 'Las credenciales son incorrectas'
+    }
   }
   if (password !== user.pass) {
-    throw new Error('Invalid password')
+    return {
+      ok: false,
+      message: 'Las credenciales son incorrectas'
+    }
   }
 
   cookies().set('role', role)
-  redirect(`/home`)
+
+  return {
+    ok: true
+  }
 }
