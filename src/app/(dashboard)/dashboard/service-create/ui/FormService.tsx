@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { VEHICLE_TYPES } from '@/utils/shared-constants'
 import { VehicleType } from '@/utils/types'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -22,6 +21,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useToast } from '@/components/ui/use-toast'
 import { z } from 'zod'
+import { VEHICLE_TYPES } from '@/utils/constants'
 
 const formSchema = z.object({
   name: z.string().min(4, 'Este campo es requerido *'),
@@ -189,7 +189,7 @@ export function FormService() {
                                   id={key}
                                   checked={field.value?.includes(key as VehicleType)}
                                   onCheckedChange={(checked) => {
-                                    return checked
+                                    checked
                                       ? field.onChange([...field.value, key])
                                       : field.onChange(
                                           field.value?.filter((value) => value !== key)

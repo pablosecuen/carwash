@@ -1,6 +1,6 @@
 'use server'
 
-import { USERS } from '@/utils/constants'
+import { USERS } from '@/utils/users'
 import { type Roles } from '@/utils/types'
 import { cookies } from 'next/headers'
 
