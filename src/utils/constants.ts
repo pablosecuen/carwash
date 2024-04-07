@@ -7,7 +7,7 @@ export const SHOW_ROLES: Record<Roles, string> = {
   [Roles.ADMIN]: 'Administrador'
 }
 
-export const VEHICLE_TYPES = {
+export const VEHICLE_TYPES: Record<VehicleType, string> = {
   [VehicleType.SEDAN]: 'Auto',
   [VehicleType.VAN]: 'Van',
   [VehicleType.MOTORCYCLE]: 'Moto',
