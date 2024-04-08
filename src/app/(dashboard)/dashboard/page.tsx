@@ -23,6 +23,20 @@ export default function DashboardPage() {
                 </Button>
               </CardFooter>
             </Card>
+            <Card className='fade-in sm:col-span-2 '>
+              <CardHeader className='pb-3'>
+                <CardTitle>Productos</CardTitle>
+                <CardDescription className=' text-pretty leading-relaxed'>
+                  Esta sección te permite administrar los productos que se ofrecen en el sistema.
+                  Puedes agregar nuevos productos o editar los existentes.
+                </CardDescription>
+              </CardHeader>
+              <CardFooter>
+                <Button asChild>
+                  <Link href='/dashboard/products'>Ir a productos</Link>
+                </Button>
+              </CardFooter>
+            </Card>
             {/* <Card x-chunk='dashboard-05-chunk-1'>
             <CardHeader className='pb-2'>
               <CardDescription>This Week</CardDescription>
