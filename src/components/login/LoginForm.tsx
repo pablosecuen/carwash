@@ -86,7 +86,7 @@ export const LoginForm = () => {
                 return (
                   <FormItem>
                     <FormControl>
-                      <Input {...field} placeholder='Contraseña' />
+                      <Input {...field} placeholder='Contraseña' type='password' />
                     </FormControl>
                     <FormMessage className='text-sm' />
                   </FormItem>
