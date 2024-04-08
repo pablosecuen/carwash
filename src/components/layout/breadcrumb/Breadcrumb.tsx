@@ -33,13 +33,14 @@ export const Breadcrumbs = ({ className }: Props) => {
     <Breadcrumb className={className}>
       <BreadcrumbList>
         {breadcrumbArr.map((item, index) => (
-          <BreadcrumbItem key={index}>
-            <BreadcrumbLink href={item.path} className='capitalize'>
-              {item.name === '' ? 'Inicio' : item.name}
-            </BreadcrumbLink>
-
-            <BreadcrumbSeparator />
-          </BreadcrumbItem>
+          <>
+            <BreadcrumbItem key={index}>
+              <BreadcrumbLink href={item.path} className='capitalize'>
+                {item.name === '' ? 'Inicio' : item.name}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator key={`${index}-${index + 1}`} />
+          </>
         ))}
       </BreadcrumbList>
     </Breadcrumb>
