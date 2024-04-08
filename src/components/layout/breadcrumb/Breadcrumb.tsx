@@ -7,6 +7,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
+import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 
 interface Props {
@@ -17,7 +18,8 @@ const translationMap: { [key: string]: string } = {
   products: 'Productos',
   product: 'Producto',
   service: 'Servicio',
-  'create-service': 'Crear Servicio'
+  'create-service': 'Crear Servicio',
+  'new-product': 'Crear producto'
 }
 
 export const Breadcrumbs = ({ className }: Props) => {
@@ -38,12 +40,18 @@ export const Breadcrumbs = ({ className }: Props) => {
   const breadcrumbArr = getBradcrumbArr(pathname)
 
   return (
-    <Breadcrumb className={className}>
+    <Breadcrumb className={cn('fade-in', className)}>
       <BreadcrumbList>
         {breadcrumbArr.map((item, index) => (
           <>
             <BreadcrumbItem key={index}>
-              <BreadcrumbLink href={item.path} className='capitalize'>
+              <BreadcrumbLink
+                href={item.path}
+                className={cn(
+                  'capitalize',
+                  index === breadcrumbArr.length - 1 ? 'font-semibold text-primary' : 'font-normal'
+                )}
+              >
                 {item.name === '' ? 'Inicio' : item.name}
               </BreadcrumbLink>
             </BreadcrumbItem>
