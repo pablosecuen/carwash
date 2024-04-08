@@ -27,6 +27,7 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { Product } from '@/db/entities/product'
+import Link from 'next/link'
 
 interface Props {
   products: Product[]
@@ -34,7 +35,7 @@ interface Props {
 
 export function ProductsTable({ products }: Props) {
   return (
-    <Card>
+    <Card className='fade-in'>
       <CardContent>
         <Table>
           <TableHeader>
@@ -64,7 +65,9 @@ export function ProductsTable({ products }: Props) {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align='end'>
                       <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-                      <DropdownMenuItem>Editar</DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href={`/dashboard/products/${id}`}>Editar</Link>
+                      </DropdownMenuItem>
                       <DropdownMenuItem>Eliminar</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
