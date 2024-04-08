@@ -16,8 +16,14 @@ export async function createProductAction(formData: FormData) {
       cashPrice: Number(data.cashPrice),
       cardPrice: Number(data.cardPrice)
     })
-    console.log({ product })
+    return {
+      ok: true,
+      message: 'Producto creado'
+    }
   } catch (error) {
-    console.error(error)
+    return {
+      ok: false,
+      message: 'Error al crear el producto'
+    }
   }
 }
