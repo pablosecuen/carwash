@@ -17,7 +17,7 @@ interface Props {
 const translationMap: { [key: string]: string } = {
   products: 'Productos',
   product: 'Producto',
-  service: 'Servicio',
+  services: 'Servicio',
   'create-service': 'Crear Servicio',
   'new-product': 'Crear producto'
 }
