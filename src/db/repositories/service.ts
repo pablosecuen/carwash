@@ -46,6 +46,12 @@ export class ServiceRepostiory extends BaseRepository<Service> {
     }
     return service
   }
+
+  async delete(id: number) {
+    await this.init()
+    const service = await this.findById(id)
+    await this.repository.remove(service)
+  }
 }
 
 export const serviceRepository = new ServiceRepostiory()
