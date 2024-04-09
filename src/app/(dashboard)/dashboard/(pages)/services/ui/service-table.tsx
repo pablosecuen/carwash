@@ -58,7 +58,7 @@ export function ServiceTable({ services }: { services: Service[] }) {
                         <span className='sr-only'>Toggle menu</span>
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align='end'>
+                    <DropdownMenuContent align='end' className='space-y-1'>
                       <DropdownMenuLabel>Acciones</DropdownMenuLabel>
                       <DropdownMenuItem asChild>
                         <Link href={`/dashboard/products/${id}`}>Editar</Link>

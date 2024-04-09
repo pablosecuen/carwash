@@ -28,7 +28,7 @@ export function DeleteserviceBtn({ serviceId }: { serviceId: number }) {
   }
 
   return (
-    <Button size='sm' variant='destructive' onClick={handleDelete}>
+    <Button size='sm' variant='destructive' className='w-full justify-start' onClick={handleDelete}>
       Eliminar
     </Button>
   )

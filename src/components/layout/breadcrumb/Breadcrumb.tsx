@@ -20,7 +20,8 @@ const translationMap: Record<string, string> = {
   product: 'Producto',
   services: 'Servicio',
   'create-service': 'Crear Servicio',
-  'new-product': 'Crear producto'
+  'new-product': 'Crear producto',
+  'new-service': 'Crear servicio'
 }
 
 export const Breadcrumbs = ({ className }: Props) => {
