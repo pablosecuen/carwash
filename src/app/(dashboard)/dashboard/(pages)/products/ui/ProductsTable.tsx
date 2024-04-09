@@ -1,16 +1,7 @@
-import Image from 'next/image'
 import { MoreHorizontal } from 'lucide-react'
 
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,8 +17,9 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { Product } from '@/db/entities/product'
+import { type Product } from '@/db/entities/product'
 import Link from 'next/link'
+import { DeleteProductBtn } from './delete-product-btn'
 
 interface Props {
   products: Product[]
@@ -68,7 +60,7 @@ export function ProductsTable({ products }: Props) {
                       <DropdownMenuItem asChild>
                         <Link href={`/dashboard/products/${id}`}>Editar</Link>
                       </DropdownMenuItem>
-                      <DropdownMenuItem>Eliminar</DropdownMenuItem>
+                      <DeleteProductBtn productId={id} />
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>
