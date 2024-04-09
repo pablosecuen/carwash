@@ -20,6 +20,7 @@ import {
 import { VEHICLE_TYPES } from '@/utils/constants'
 import Link from 'next/link'
 import { type Service } from '@/db/entities/services'
+import { DeleteserviceBtn } from './delete-service-btn'
 
 // TODO: move to utils
 const listFormater = new Intl.ListFormat('es', { style: 'long', type: 'conjunction' })
@@ -62,7 +63,7 @@ export function ServiceTable({ services }: { services: Service[] }) {
                       <DropdownMenuItem asChild>
                         <Link href={`/dashboard/products/${id}`}>Editar</Link>
                       </DropdownMenuItem>
-                      <Button>Eliminar</Button>
+                      <DeleteserviceBtn serviceId={id} />
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>
