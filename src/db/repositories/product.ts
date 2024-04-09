@@ -18,13 +18,24 @@ export class ProductRepository extends BaseRepository<Product> {
 
   async findById(id: number) {
     await this.init()
-    return await this.repository.findOne({ where: { id } })
+    const product = await this.repository.findOne({ where: { id } })
+    if (product == null) {
+      throw new Error('Product not found')
+    }
+
+    return product
   }
 
   async update(id: number, data: Partial<Product>) {
     await this.init()
     await this.repository.update(id, data)
     return await this.findById(id)
+  }
+
+  async delete(id: number) {
+    await this.init()
+    const product = await this.findById(id)
+    await this.repository.remove(product)
   }
 }
 
