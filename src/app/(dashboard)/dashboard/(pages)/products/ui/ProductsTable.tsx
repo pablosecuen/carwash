@@ -20,6 +20,7 @@ import {
 import { type Product } from '@/db/entities/product'
 import Link from 'next/link'
 import { DeleteProductBtn } from './delete-product-btn'
+import { currencyFormat } from '@/lib/utils'
 
 interface Props {
   products: Product[]
@@ -44,8 +45,8 @@ export function ProductsTable({ products }: Props) {
             {products.map(({ name, cardPrice, cashPrice, id }) => (
               <TableRow key={id}>
                 <TableCell className='font-medium'>{name}</TableCell>
-                <TableCell className='hidden md:table-cell'>{cashPrice}</TableCell>
-                <TableCell className='hidden md:table-cell'>{cardPrice}</TableCell>
+                <TableCell className='hidden md:table-cell'>{currencyFormat(cashPrice)}</TableCell>
+                <TableCell className='hidden md:table-cell'>{currencyFormat(cardPrice)}</TableCell>
 
                 <TableCell>
                   <DropdownMenu>
