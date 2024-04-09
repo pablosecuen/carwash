@@ -9,12 +9,13 @@ import {
 } from '@/components/ui/breadcrumb'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
+import { Fragment } from 'react'
 
 interface Props {
   className?: string
 }
 
-const translationMap: { [key: string]: string } = {
+const translationMap: Record<string, string> = {
   products: 'Productos',
   product: 'Producto',
   services: 'Servicio',
@@ -28,7 +29,7 @@ export const Breadcrumbs = ({ className }: Props) => {
   const getBradcrumbArr = (pathname: string) => {
     const pathArr = pathname.split('/')
     const breadcrumb = pathArr.map((item, index) => {
-      const translatedName = translationMap[item] || item
+      const translatedName = translationMap[item] ?? item
       const path = pathArr.slice(0, index + 1).join('/')
       return {
         path,
@@ -43,8 +44,8 @@ export const Breadcrumbs = ({ className }: Props) => {
     <Breadcrumb className={cn('fade-in', className)}>
       <BreadcrumbList>
         {breadcrumbArr.map((item, index) => (
-          <>
-            <BreadcrumbItem key={index}>
+          <Fragment key={index}>
+            <BreadcrumbItem>
               <BreadcrumbLink
                 href={item.path}
                 className={cn(
@@ -56,7 +57,7 @@ export const Breadcrumbs = ({ className }: Props) => {
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator key={`${index}-${index + 1}`} />
-          </>
+          </Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>
