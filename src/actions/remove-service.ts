@@ -2,7 +2,7 @@
 
 import { serviceRepository } from '@/db/repositories/service'
 
-export async function removeSericeAction(id: number) {
+export async function removeServiceAction(id: number) {
   try {
     await serviceRepository.delete(id)
     return {
