@@ -9,7 +9,7 @@ import Link from 'next/link'
 
 export default async function ProductsPage() {
   const products = await getAllProducts()
-  console.log({ products })
+
   // Verificar si el array de productos está vacío
   if (products.length === 0) {
     return (
@@ -21,7 +21,7 @@ export default async function ProductsPage() {
   }
   return (
     <ContainerPage>
-      <header className='flex items-center justify-between'>
+      <header className='flex items-center justify-between fade-in'>
         <Title title='Productos' />
         <Button size='sm' asChild>
           <Link href={'/dashboard/products/new-product'} className='h-8 gap-1'>

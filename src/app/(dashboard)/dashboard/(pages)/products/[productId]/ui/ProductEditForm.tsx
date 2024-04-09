@@ -1,6 +1,7 @@
 'use client'
 
 import { createProductAction } from '@/actions/create-product'
+import { updateProductAction } from '@/actions/update-product'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -13,9 +14,9 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
+import { Product } from '@/db/entities/product'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -27,17 +28,21 @@ const formSchema = z.object({
   cardPrice: z.string().min(1, 'Este campo es requerido *')
 })
 
-export const FormProduct = () => {
+interface Props {
+  product: Product
+}
+
+export const ProductEditForm = ({ product }: Props) => {
   const [loading, setLoading] = useState(false)
 
   const { toast } = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      cashPrice: '0',
-      cardPrice: '0'
+      name: product.name,
+      description: product.description ?? '',
+      cashPrice: product.cashPrice.toString(),
+      cardPrice: product.cardPrice.toString()
     }
   })
   async function onSubmit(data: z.infer<typeof formSchema>) {
@@ -49,11 +54,11 @@ export const FormProduct = () => {
 
     setLoading(true)
 
-    await createProductAction(formData)
+    await updateProductAction(product.id, formData)
       .then(() => {
         toast({
           variant: 'default',
-          title: `✅ Producto creado`,
+          title: `✅ Producto actualizado`,
           duration: 1800
         })
         form.reset()
@@ -61,7 +66,7 @@ export const FormProduct = () => {
       .catch(() => {
         toast({
           variant: 'destructive',
-          title: `⚠️ No se pudo crear el producto`,
+          title: `⚠️ No se pudo actualizar el producto`,
           duration: 1800
         })
       })
@@ -154,7 +159,7 @@ export const FormProduct = () => {
               Creando...
             </>
           ) : (
-            'Crear Producto'
+            'Actualizar producto'
           )}
         </Button>
       </form>
