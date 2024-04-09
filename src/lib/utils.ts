@@ -17,3 +17,10 @@ export const currencyFormat = (value: number) => {
   // Aplicamos el formato al valor numérico y lo retornamos
   return formatter.format(value)
 }
+
+export const dateFormat = (date: Date) => {
+  // Utilizamos Intl.DateTimeFormat con el código de idioma y la configuración de fecha de Argentina
+  const formatter = new Intl.DateTimeFormat('es').format(date)
+
+  return formatter
+}
