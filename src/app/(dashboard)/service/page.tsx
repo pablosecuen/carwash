@@ -3,6 +3,8 @@ import { FormService } from './ui/FormService'
 import { AddCustomer } from './ui/add-customer-dialog'
 import { SummaryService } from './ui/summary-service'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
+import { SelectCustomer } from './SelectCustomer'
+import { Suspense } from 'react'
 
 export default function ServicePage() {
   return (
@@ -13,6 +15,9 @@ export default function ServicePage() {
         <AddCustomer />
       </div>
       <div className='grid grid-cols-1 gap-5 pt-5 '>
+        <Suspense fallback={<div className='h-10 w-full animate-pulse rounded-lg bg-muted'></div>}>
+          <SelectCustomer />
+        </Suspense>
         {/* formulario para agregar el servicio */}
         <FormService />
 
