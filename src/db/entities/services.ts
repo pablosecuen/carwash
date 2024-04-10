@@ -1,5 +1,5 @@
 import type { VehicleType } from '@/utils/types'
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 @Entity('services')
 export class Service {
   @PrimaryGeneratedColumn()
@@ -19,4 +19,7 @@ export class Service {
 
   @Column('simple-array')
   avaliableFor!: VehicleType[]
+
+  @UpdateDateColumn()
+  updatedAt!: Date
 }
