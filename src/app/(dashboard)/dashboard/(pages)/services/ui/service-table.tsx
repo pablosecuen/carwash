@@ -21,14 +21,7 @@ import { VEHICLE_TYPES } from '@/utils/constants'
 import Link from 'next/link'
 import { type Service } from '@/db/entities/services'
 import { DeleteserviceBtn } from './delete-service-btn'
-
-// TODO: move to utils
-const listFormater = new Intl.ListFormat('es', { style: 'long', type: 'conjunction' })
-const dateFormater = new Intl.DateTimeFormat('es', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric'
-})
+import { dateFormater, listFormater } from '@/utils/formatters'
 
 export function ServiceTable({ services }: { services: Service[] }) {
   return (
@@ -54,10 +47,10 @@ export function ServiceTable({ services }: { services: Service[] }) {
                 <TableCell className='hidden md:table-cell'>{cashPrice}</TableCell>
                 <TableCell className='hidden md:table-cell'>{cardPrice}</TableCell>
                 <TableCell className='hidden md:table-cell'>
-                  {listFormater.format(avaliableFor.map((a) => VEHICLE_TYPES[a]))}
+                  {listFormater(avaliableFor.map((a) => VEHICLE_TYPES[a]))}
                 </TableCell>
                 <TableCell className='hidden md:table-cell'>
-                  {dateFormater.format(new Date(updatedAt))}
+                  {dateFormater(new Date(updatedAt))}
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>
