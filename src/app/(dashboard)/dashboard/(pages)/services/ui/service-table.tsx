@@ -24,6 +24,11 @@ import { DeleteserviceBtn } from './delete-service-btn'
 
 // TODO: move to utils
 const listFormater = new Intl.ListFormat('es', { style: 'long', type: 'conjunction' })
+const dateFormater = new Intl.DateTimeFormat('es', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+})
 
 export function ServiceTable({ services }: { services: Service[] }) {
   return (
@@ -36,19 +41,23 @@ export function ServiceTable({ services }: { services: Service[] }) {
               <TableHead className='hidden md:table-cell'>Precio efectivo</TableHead>
               <TableHead className='hidden md:table-cell'>Precio Tarjeta</TableHead>
               <TableHead className='hidden md:table-cell'>Disponible para</TableHead>
+              <TableHead className='hidden md:table-cell'>Ultima Modificación</TableHead>
               <TableHead>
                 <span className='sr-only'>Acciones</span>
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {services.map(({ name, cardPrice, cashPrice, id, avaliableFor }) => (
+            {services.map(({ name, cardPrice, cashPrice, id, avaliableFor, updatedAt }) => (
               <TableRow key={id}>
                 <TableCell className='font-medium'>{name}</TableCell>
                 <TableCell className='hidden md:table-cell'>{cashPrice}</TableCell>
                 <TableCell className='hidden md:table-cell'>{cardPrice}</TableCell>
                 <TableCell className='hidden md:table-cell'>
                   {listFormater.format(avaliableFor.map((a) => VEHICLE_TYPES[a]))}
+                </TableCell>
+                <TableCell className='hidden md:table-cell'>
+                  {dateFormater.format(new Date(updatedAt))}
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>
