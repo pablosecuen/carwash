@@ -24,6 +24,11 @@ export class Customer {
   })
   address!: string
 
+  @Column('boolean', {
+    default: false
+  })
+  currentAccount!: boolean
+
   @OneToMany(() => Vehicle, (vehicle) => vehicle.customer, {
     cascade: true
   })
