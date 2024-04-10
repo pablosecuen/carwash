@@ -21,6 +21,7 @@ import { type Product } from '@/db/entities/product'
 import Link from 'next/link'
 import { DeleteProductBtn } from './delete-product-btn'
 import { currencyFormat } from '@/lib/utils'
+import { dateFormater } from '@/utils/formatters'
 
 interface Props {
   products: Product[]
@@ -36,18 +37,21 @@ export function ProductsTable({ products }: Props) {
               <TableHead>Name</TableHead>
               <TableHead className='hidden md:table-cell'>Precio efectivo</TableHead>
               <TableHead className='hidden md:table-cell'>Precio Tarjeta</TableHead>
+              <TableHead className='hidden md:table-cell'>Ultima Modificación</TableHead>
               <TableHead>
                 <span className='sr-only'>Acciones</span>
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map(({ name, cardPrice, cashPrice, id }) => (
+            {products.map(({ name, cardPrice, cashPrice, id, updatedAt }) => (
               <TableRow key={id}>
                 <TableCell className='font-medium'>{name}</TableCell>
                 <TableCell className='hidden md:table-cell'>{currencyFormat(cashPrice)}</TableCell>
                 <TableCell className='hidden md:table-cell'>{currencyFormat(cardPrice)}</TableCell>
-
+                <TableCell className='hidden md:table-cell'>
+                  {dateFormater(new Date(updatedAt))}
+                </TableCell>
                 <TableCell>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
