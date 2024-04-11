@@ -21,8 +21,9 @@ export default async function Page() {
               <td>{customer.name}</td>
               <td>{customer.email}</td>
               <td>{customer.phone}</td>
-              <td>
+              <td className='mx-2 flex gap-4'>
                 <Link href={`/customer/add-vehicle/${customer.id}`}>Añadir vehículo</Link>
+                <Link href={`/customer/dashboard/${customer.id}/vehicles`}>Vehiculos</Link>
                 <Link href={`/customer/dashboard/${customer.id}/invoices`}>Facturas</Link>
               </td>
             </tr>
