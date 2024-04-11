@@ -44,6 +44,9 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
             id: Number(customerId)
           },
           createAt
+        },
+        order: {
+          createAt: 'DESC'
         }
       })
     } catch (error) {
