@@ -1,4 +1,5 @@
 import { getByCustomerId } from '@/utils/getters/vehicles'
+import Link from 'next/link'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const vehicles = await getByCustomerId(Number(params.id))
@@ -19,7 +20,9 @@ export default async function Page({ params }: { params: { id: string } }) {
               <td>{vehicle.brand}</td>
               <td>{vehicle.model}</td>
               <td>{vehicle.patent}</td>
-              <td className='mx-2 flex gap-4'> ... </td>
+              <td className='mx-2 flex gap-4'>
+                <Link href={`/customer/dashboard/${vehicle.id}/vehicles/tickets`}>tickets</Link>
+              </td>
             </tr>
           ))}
         </tbody>
