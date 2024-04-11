@@ -23,6 +23,7 @@ export default async function Page() {
               <td>{customer.phone}</td>
               <td>
                 <Link href={`/customer/add-vehicle/${customer.id}`}>Añadir vehículo</Link>
+                <Link href={`/customer/dashboard/${customer.id}/invoices`}>Facturas</Link>
               </td>
             </tr>
           ))}
