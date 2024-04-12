@@ -5,7 +5,7 @@ export enum Roles {
   ADMIN = 'ADMIN'
 }
 
-export type TRole = Roles.USER | Roles.EDITOR | Roles.ADMIN
+export type TRole = keyof typeof Roles
 
 export enum VehicleType {
   SEDAN = 'sedan',
@@ -44,4 +44,5 @@ export interface NavItem {
   description?: string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TODO = any
