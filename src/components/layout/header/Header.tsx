@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 import { ToggleTheme } from '../theme/ToggleTheme'
 import { MobileSidebar } from '@/components/layout'
+import { LogOut } from './logout'
 
 export const Header = () => {
   return (
@@ -20,6 +21,7 @@ export const Header = () => {
 
         <div className='flex items-center gap-2'>
           {/* <UserNav /> */}
+          <LogOut />
           <ToggleTheme />
         </div>
       </nav>
