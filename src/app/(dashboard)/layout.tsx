@@ -1,11 +1,8 @@
 import { Header } from '@/components/layout/header/Header'
 import { Sidebar } from '@/components/layout/sidebar/Sidebar'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
-
+import { validateUserRole } from '@/utils/user-validate'
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const role = cookies().get('role')
-  if (role == null) redirect('/')
+  validateUserRole()
 
   return (
     <>
