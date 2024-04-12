@@ -5,7 +5,7 @@ import { BaseRepository } from './base-repository'
 export class ServiceRepostiory extends BaseRepository<Service> {
   protected entity = Service
 
-  async create(data: Omit<Service, 'id'>) {
+  async create(data: Omit<Service, 'id' | 'updatedAt'>) {
     await this.init()
     const service = this.repository.create(data)
     await this.repository.save(service)
