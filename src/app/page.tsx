@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { ToggleTheme } from '@/components/layout'
 import { LoginForm } from '@/components/login/LoginForm'
 
