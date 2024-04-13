@@ -1,5 +1,14 @@
 import { getTicketsByVehicleId } from '@/utils/getters/tickets'
 import { RangeDate } from '../../invoices/ui/range-date'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@/components/ui/table'
 
 interface Props {
   params: {
@@ -18,30 +27,34 @@ export default async function Page({ params, searchParams }: Props) {
     to: to != null ? new Date(to) : undefined
   })
   return (
-    <section>
-      <RangeDate />
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre del servicio</th>
-            <th>Estado</th>
-            <th>Metodo de pago</th>
-            <th>Precio total</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tickets.map((ticket) => (
-            <tr key={ticket.id}>
-              <td>{ticket.service.name}</td>
-              <td>{ticket.status}</td>
-              <td>{ticket.paymentMethod}</td>
-              <td>{ticket.totalPrice}</td>
-              <td className='mx-2 flex gap-4'> ... </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
+    <Card className='fade-in'>
+      <CardHeader>
+        <RangeDate />
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Nombre del servicio</TableHead>
+              <TableHead>Estado</TableHead>
+              <TableHead>Metodo de pago</TableHead>
+              <TableHead>Precio total</TableHead>
+              <TableHead>Acciones</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {tickets.map((ticket) => (
+              <TableRow key={ticket.id}>
+                <TableCell>{ticket.service.name}</TableCell>
+                <TableCell>{ticket.status}</TableCell>
+                <TableCell>{ticket.paymentMethod}</TableCell>
+                <TableCell>{ticket.totalPrice}</TableCell>
+                <TableCell className='mx-2 flex gap-4'> ... </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   )
 }
