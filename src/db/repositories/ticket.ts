@@ -1,4 +1,4 @@
-import { PaymentMethod } from '@/utils/types'
+import { PaymentMethod, TicketStatus } from '@/utils/types'
 import { Ticket } from '../entities/ticket'
 import { BaseRepository } from './base-repository'
 import { Between } from 'typeorm'
@@ -52,6 +52,28 @@ export class TicketRepository extends BaseRepository<Ticket> {
       throw new Error('Customer not found')
     }
     await this.repository.remove(customer)
+  }
+
+  async complete(id: number) {
+    await this.init()
+    const ticket = await this.repository.findOne({ where: { id } })
+    if (ticket == null) {
+      throw new Error('Ticket not found')
+    }
+    ticket.status = TicketStatus.COMPLETED
+    await this.repository.save(ticket)
+    return ticket
+  }
+
+  async cancel(id: number) {
+    await this.init()
+    const ticket = await this.repository.findOne({ where: { id } })
+    if (ticket == null) {
+      throw new Error('Ticket not found')
+    }
+    ticket.status = TicketStatus.CANCELED
+    await this.repository.save(ticket)
+    return ticket
   }
 }
 export const ticketRepository = new TicketRepository()
