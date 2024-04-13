@@ -10,12 +10,16 @@ export async function updateProductAction(id: number | string, formData: FormDat
   }
 
   try {
-    const product = await productRepository.update(Number(id), data)
+    await productRepository.update(Number(id), data)
     return {
       ok: true,
       message: 'Producto actualizado'
     }
   } catch (error) {
     console.error({ error })
+    return {
+      ok: false,
+      message: 'Error al actualizar el producto'
+    }
   }
 }

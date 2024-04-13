@@ -11,7 +11,7 @@ export async function createProductAction(formData: FormData) {
     cardPrice: string
   }
   try {
-    const product = await productRepository.create({
+    await productRepository.create({
       ...data,
       cashPrice: Number(data.cashPrice),
       cardPrice: Number(data.cardPrice)
