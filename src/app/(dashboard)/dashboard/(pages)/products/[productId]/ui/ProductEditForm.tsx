@@ -1,6 +1,5 @@
 'use client'
 
-import { createProductAction } from '@/actions/create-product'
 import { updateProductAction } from '@/actions/update-product'
 import { Button } from '@/components/ui/button'
 import {
@@ -14,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
-import { Product } from '@/db/entities/product'
+import { type Product } from '@/db/entities/product'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 import { useState } from 'react'

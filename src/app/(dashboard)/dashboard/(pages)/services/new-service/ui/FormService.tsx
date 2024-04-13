@@ -192,7 +192,7 @@ export function FormService() {
                                   id={key}
                                   checked={field.value?.includes(key as VehicleType)}
                                   onCheckedChange={(checked) => {
-                                    checked
+                                    checked === true
                                       ? field.onChange([...field.value, key])
                                       : field.onChange(
                                           field.value?.filter((value) => value !== key)
