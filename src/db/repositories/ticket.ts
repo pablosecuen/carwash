@@ -44,5 +44,14 @@ export class TicketRepository extends BaseRepository<Ticket> {
       return []
     }
   }
+
+  async delete(id: number) {
+    await this.init()
+    const customer = await this.repository.findOne({ where: { id } })
+    if (customer == null) {
+      throw new Error('Customer not found')
+    }
+    await this.repository.remove(customer)
+  }
 }
 export const ticketRepository = new TicketRepository()
