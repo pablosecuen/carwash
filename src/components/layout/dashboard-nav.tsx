@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
-import { NavItem } from '@/utils/types'
-import { Dispatch, SetStateAction } from 'react'
+import { type NavItem } from '@/utils/types'
+import { type Dispatch, type SetStateAction } from 'react'
 import { Icons } from './icons'
 
 interface DashboardNavProps {
@@ -16,7 +16,7 @@ interface DashboardNavProps {
 export function DashboardNav({ items, setOpen }: DashboardNavProps) {
   const path = usePathname()
 
-  if (!items?.length) {
+  if (items?.length === 0) {
     return null
   }
 
@@ -26,19 +26,19 @@ export function DashboardNav({ items, setOpen }: DashboardNavProps) {
         const Icon = Icons[item.title.toLocaleLowerCase()]
 
         return (
-          item.href && (
+          item.href != null && (
             <Link
               key={index}
-              href={item.disabled ? '/' : item.href}
+              href={item.disabled === true ? '/' : item.href}
               onClick={() => {
-                if (setOpen) setOpen(false)
+                if (setOpen != null) setOpen(false)
               }}
             >
               <span
                 className={cn(
                   'group flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground',
                   path.startsWith(item.href) ? 'bg-accent' : 'transparent',
-                  item.disabled && 'cursor-not-allowed opacity-80'
+                  item.disabled === true && 'cursor-not-allowed opacity-80'
                 )}
               >
                 <Icon className='mr-2 h-4 w-4' />

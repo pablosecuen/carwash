@@ -2,7 +2,7 @@ import {
   CreditCard,
   Hammer,
   Loader2,
-  LucideIcon,
+  type LucideIcon,
   PieChart,
   Plus,
   Settings,
@@ -22,9 +22,7 @@ export type IconName =
   | 'caja'
   | 'clientes'
 
-interface IconsMap {
-  [key: string]: LucideIcon
-}
+type IconsMap = Record<string, LucideIcon>
 
 export const Icons: IconsMap = {
   close: X,
