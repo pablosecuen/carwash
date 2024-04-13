@@ -99,7 +99,9 @@ export function AddCustomer() {
               <Button
                 type='button'
                 variant='secondary'
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false)
+                }}
                 disabled={isLoading}
                 className='mr-2'
               >

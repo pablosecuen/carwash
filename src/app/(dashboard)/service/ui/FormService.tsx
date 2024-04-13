@@ -10,6 +10,8 @@ import {
   SelectValue
 } from '@/components/ui/select'
 
+// TODO: use VECHICLE_TYPES to unify the types of vehicles in the app and
+// in this types van type is missing
 const TYPE_VEHICLE = [
   {
     value: 'car',
@@ -48,8 +50,10 @@ export const FormService = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {TYPE_VEHICLE.map((type) => (
-                  <SelectItem value={type.value}>{type.label}</SelectItem>
+                {TYPE_VEHICLE.map((type, i) => (
+                  <SelectItem key={i} value={type.value}>
+                    {type.label}
+                  </SelectItem>
                 ))}
               </SelectGroup>
             </SelectContent>
