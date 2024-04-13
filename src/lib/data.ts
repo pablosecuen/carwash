@@ -1,6 +1,6 @@
 // TODO: Fixear los items para los que requiere la App
 
-import { NavItem } from '@/utils/types'
+import { type NavItem } from '@/utils/types'
 
 // TODO: Agregar los icon para cada item
 export const navItems: NavItem[] = [
