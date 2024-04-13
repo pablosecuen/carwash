@@ -55,6 +55,20 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
       return []
     }
   }
+
+  async updateStatus({ id, status }: { id: number; status: Invoice['status'] }) {
+    if (!['in-progress', 'pending', 'completed', 'canceled'].includes(status)) {
+      throw new Error(`${status} is not a valid status`)
+    }
+    await this.init()
+    const invoice = await this.repository.findOne({ where: { id } })
+    if (invoice == null) {
+      throw new Error('Invoice not found')
+    }
+    invoice.status = status
+    await this.repository.save(invoice)
+    return invoice
+  }
 }
 
 export const invoiceRepository = new InvoiceRepository()
