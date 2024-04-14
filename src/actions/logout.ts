@@ -5,5 +5,6 @@ import { redirect } from 'next/navigation'
 
 export async function logoutAction() {
   cookies().delete('role')
+  cookies().delete('branch')
   redirect('/')
 }
