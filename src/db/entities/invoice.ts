@@ -2,6 +2,7 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColum
 import { Product } from './product'
 import { Customer } from './customer'
 import { Ticket } from './ticket'
+import { Branch } from '@/utils/types'
 
 type InvoiceStatus = 'in-progress' | 'pending' | 'completed' | 'canceled'
 
@@ -18,6 +19,9 @@ export class Invoice {
 
   @Column('timestamp')
   createAt!: Date
+
+  @Column('enum', { enum: Object.values(Branch), default: Branch.ONE })
+  branch!: Branch
 
   @ManyToOne(() => Customer, (customer) => customer.id)
   customer!: Customer
