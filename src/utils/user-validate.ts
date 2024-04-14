@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { Roles, type TRole } from './types'
+import { Branch, Roles, type TRole } from './types'
 
 export const validateUserRole = (permisionRole?: TRole) => {
   const role = cookies().get('role')
@@ -26,4 +26,19 @@ export const validateUserRole = (permisionRole?: TRole) => {
   if (value === permisionRole) return
 
   redirect('/')
+}
+
+export const getUserBranch = async () => {
+  const branch = cookies().get('branch')
+  if (branch == null) throw new Error('Branch is not defined')
+  if (!Object.values(Branch).includes(branch.value as Branch))
+    throw new Error('Branch is not valid')
+  return branch.value as Branch
+}
+
+export const getUserRole = async () => {
+  const role = cookies().get('role')
+  if (role == null) throw new Error('Role is required')
+  if (!Object.values(Roles).includes(role.value as Roles)) throw new Error('Role is not valid')
+  return role.value as Roles
 }
