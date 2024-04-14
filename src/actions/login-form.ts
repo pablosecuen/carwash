@@ -31,10 +31,6 @@ export async function loginForm(formData: FormData) {
   cookies().set('role', role)
   cookies().set('branch', branch)
 
-  console.log({
-    role,
-    branch
-  })
   return {
     ok: true
   }
