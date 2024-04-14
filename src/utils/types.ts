@@ -44,5 +44,13 @@ export interface NavItem {
   description?: string
 }
 
+export enum Branch {
+  ONE = 'ONE',
+  TWO = 'TWO',
+  THREE = 'THREE'
+}
+
+export type TBranch = keyof typeof Branch
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TODO = any

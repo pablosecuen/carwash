@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Roles, VehicleType } from './types'
+import { Branch, Roles, VehicleType } from './types'
 
 export const SHOW_ROLES: Record<Roles, string> = {
   [Roles.USER]: 'Usuario',
@@ -12,4 +12,10 @@ export const VEHICLE_TYPES: Record<VehicleType, string> = {
   [VehicleType.VAN]: 'Van',
   [VehicleType.MOTORCYCLE]: 'Moto',
   [VehicleType.TRUCK]: 'Camioneta'
+}
+
+export const BRANCHES = {
+  [Branch.ONE]: 'Sucursal 1',
+  [Branch.TWO]: 'Sucursal 2',
+  [Branch.THREE]: 'Sucursal 3'
 }
