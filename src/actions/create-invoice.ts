@@ -5,6 +5,7 @@ import { type Ticket } from '@/db/entities/ticket'
 import { customerRepository } from '@/db/repositories/customer'
 import { invoiceRepository } from '@/db/repositories/invoice'
 import { type PaymentMethod } from '@/utils/types'
+import { getUserBranch } from '@/utils/user-validate'
 
 export async function createInvoiceAction({
   customerId,
@@ -16,11 +17,13 @@ export async function createInvoiceAction({
   products: Array<Product & { paymentMethod: PaymentMethod }>
 }) {
   const customer = await customerRepository.findById(Number(customerId))
-
+  const branch = await getUserBranch()
   const invoice = await invoiceRepository.create({
     customer,
     tickets,
+    branch,
     products
   })
-  return JSON.parse(JSON.stringify(invoice)) as Invoice
+  console.log({ invoice })
+  return (await JSON.parse(JSON.stringify(invoice))) as Invoice
 }
