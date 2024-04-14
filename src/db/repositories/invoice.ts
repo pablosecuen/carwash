@@ -1,4 +1,4 @@
-import { PaymentMethod } from '@/utils/types'
+import { type Branch, PaymentMethod } from '@/utils/types'
 import { Invoice } from '../entities/invoice'
 import { type Product } from '../entities/product'
 import { BaseRepository } from './base-repository'
@@ -6,6 +6,14 @@ import { Between } from 'typeorm'
 
 type CreateData = Omit<Invoice, 'id' | 'total' | 'createAt' | 'products' | 'status'> & {
   products: Array<Product & { paymentMethod: PaymentMethod }>
+}
+
+interface FindOptions {
+  from?: Date
+  to?: Date
+  customerId?: number
+  branch?: Branch
+  status?: Invoice['status']
 }
 
 export class InvoiceRepository extends BaseRepository<Invoice> {
@@ -68,6 +76,30 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
     invoice.status = status
     await this.repository.save(invoice)
     return invoice
+  }
+
+  async findAll({ from, to, customerId, branch, status }: FindOptions = {}) {
+    await this.init()
+    let createAt
+    if (from != null) {
+      createAt = Between(from, to ?? new Date())
+    }
+    try {
+      return await this.repository.find({
+        where: {
+          createAt,
+          customer: customerId != null ? { id: customerId } : undefined,
+          branch,
+          status
+        },
+        order: {
+          createAt: 'DESC'
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      throw new Error('Error finding invoices')
+    }
   }
 }
 
