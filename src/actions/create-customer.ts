@@ -6,7 +6,9 @@ export async function createCustomerAction(formData: FormData) {
   const data = {
     name: formData.get('name') as string,
     email: formData.get('email') as string,
-    phone: formData.get('phone') as string
+    phone: formData.get('phone') as string,
+    address: formData.get('address') as string,
+    currentAccount: false
   }
   try {
     const customer = await customerRepository.create(data)
