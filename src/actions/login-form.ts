@@ -12,19 +12,22 @@ export async function loginForm(formData: FormData) {
   if (user == null) {
     return {
       ok: false,
-      message: 'Las credenciales son incorrectas'
+      message: 'Las credenciales son incorrectas',
+      role: null
     }
   }
   if (branch == null || branch === '') {
     return {
       ok: false,
-      message: 'Por favor selecciona una sucursal'
+      message: 'Por favor selecciona una sucursal',
+      role: null
     }
   }
   if (password !== user.pass) {
     return {
       ok: false,
-      message: 'Las credenciales son incorrectas'
+      message: 'Las credenciales son incorrectas',
+      role: null
     }
   }
 
@@ -32,6 +35,7 @@ export async function loginForm(formData: FormData) {
   cookies().set('branch', branch)
 
   return {
-    ok: true
+    ok: true,
+    role: cookies().get('role')?.value
   }
 }

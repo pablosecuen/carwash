@@ -40,7 +40,7 @@ export const LoginForm = () => {
     formData.append('password', values.password)
     formData.append('role', values.role)
     formData.append('branch', values.branch)
-    const { ok, message } = await loginForm(formData)
+    const { ok, message, role } = await loginForm(formData)
     if (!ok) {
       toast({
         variant: 'destructive',
@@ -48,7 +48,12 @@ export const LoginForm = () => {
       })
       return
     }
-    router.push('/home')
+
+    if (role === 'ADMIN' || role === 'EDITOR') {
+      router.push('/dashboard')
+      return
+    }
+    router.push('/service')
   }
   return (
     <Form {...form}>

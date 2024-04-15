@@ -1,7 +1,17 @@
 import { ToggleTheme } from '@/components/layout'
 import { LoginForm } from '@/components/login/LoginForm'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export default function Home() {
+  const cookiesStore = cookies()
+  const role = cookiesStore.get('role')?.value
+  if (role) {
+    if (role === 'ADMIN' || role === 'EDITOR') {
+      redirect('/dashboard')
+    }
+    redirect('/service')
+  }
   return (
     <main className='flex min-h-screen flex-1 flex-col justify-center px-6 py-12  fade-in lg:px-8'>
       <div className='flex items-center justify-end sm:mx-auto sm:w-full sm:max-w-sm'>
