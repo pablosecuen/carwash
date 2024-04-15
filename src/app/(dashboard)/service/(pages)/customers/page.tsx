@@ -1,4 +1,5 @@
-import { ServicesEmpty } from '@/app/(dashboard)/dashboard/(pages)/services/ui/ServicesEmpty'
+import { Suspense } from 'react'
+import Link from 'next/link'
 import { Title } from '@/components/layout'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { EmptyPage } from '@/components/layout/page/EmptyPage'
@@ -6,8 +7,6 @@ import Search from '@/components/search/Search'
 import { Button } from '@/components/ui/button'
 import { getAllCustomers } from '@/utils/getters/customer'
 import { PlusCircle } from 'lucide-react'
-import Link from 'next/link'
-import { Suspense } from 'react'
 import { TableCustomers } from './ui/TableCustomers'
 
 export default async function CustomersPage({
@@ -43,7 +42,7 @@ export default async function CustomersPage({
       <header className='flex items-center justify-between fade-in'>
         <Title title='Clientes' />
         <Button size='sm' asChild>
-          <Link href={'/dashboard/products/new-product'} className='h-8 gap-1'>
+          <Link href={'/service/customers/add-customer'} className='h-8 gap-1'>
             <PlusCircle className='h-3.5 w-3.5' />
             <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>Agregar cliente</span>
           </Link>
