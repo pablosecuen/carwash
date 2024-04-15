@@ -4,12 +4,14 @@ import { revalidatePath } from 'next/cache'
 
 export async function createCustomerAction(formData: FormData) {
   // TODO: Validate form data
+  const name = formData.get('name') as string
   const data = {
     name: formData.get('name') as string,
     email: formData.get('email') as string,
     phone: formData.get('phone') as string,
     address: formData.get('address') as string,
-    currentAccount: false
+    currentAccount: false,
+    slug: name.replace(/ /g, '_').toLocaleLowerCase()
   }
   try {
     const customer = await customerRepository.create(data)
