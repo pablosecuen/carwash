@@ -10,18 +10,24 @@ import {
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 import { Fragment } from 'react'
+import { ButtonBack } from '../button-back'
 
 interface Props {
   className?: string
 }
 
+// move this code -> new file
 const translationMap: Record<string, string> = {
   products: 'Productos',
   product: 'Producto',
+  service: 'Servicio',
   services: 'Servicio',
   'create-service': 'Crear Servicio',
   'new-product': 'Crear producto',
-  'new-service': 'Crear servicio'
+  'new-service': 'Crear servicio',
+  'new-ticket': 'Crear ticket',
+  customers: 'Clientes',
+  'add-customer': 'Crear cliente'
 }
 
 export const Breadcrumbs = ({ className }: Props) => {
@@ -42,25 +48,35 @@ export const Breadcrumbs = ({ className }: Props) => {
   const breadcrumbArr = getBradcrumbArr(pathname)
 
   return (
-    <Breadcrumb className={cn('fade-in', className)}>
-      <BreadcrumbList>
-        {breadcrumbArr.map((item, index) => (
-          <Fragment key={index}>
-            <BreadcrumbItem>
-              <BreadcrumbLink
-                href={item.path}
+    <div className='flex items-center justify-start gap-x-5'>
+      <Breadcrumb className={cn('', className)}>
+        <BreadcrumbList>
+          {breadcrumbArr.map((item, index) => (
+            <Fragment key={index}>
+              <BreadcrumbItem>
+                <BreadcrumbLink
+                  href={item.path}
+                  className={cn(
+                    'capitalize',
+                    index === breadcrumbArr.length - 1
+                      ? 'font-semibold text-primary fade-in'
+                      : 'font-normal'
+                  )}
+                >
+                  {item.name === '' ? 'Inicio' : item.name}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator
+                key={`${index}-${index + 1}`}
                 className={cn(
                   'capitalize',
-                  index === breadcrumbArr.length - 1 ? 'font-semibold text-primary' : 'font-normal'
+                  index === breadcrumbArr.length - 1 ? 'text-primary fade-in' : ''
                 )}
-              >
-                {item.name === '' ? 'Inicio' : item.name}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator key={`${index}-${index + 1}`} />
-          </Fragment>
-        ))}
-      </BreadcrumbList>
-    </Breadcrumb>
+              />
+            </Fragment>
+          ))}
+        </BreadcrumbList>
+      </Breadcrumb>
+    </div>
   )
 }
