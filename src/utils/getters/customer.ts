@@ -6,5 +6,5 @@ export async function getAllCustomers() {
 
 // TODO: hanlder error properly
 export async function getCustomerByName(name?: string) {
-  return name != null ? await customerRepository.findByName(name) : []
+  return name != null ? await customerRepository.findBySlug(name) : {}
 }
