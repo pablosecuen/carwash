@@ -1,13 +1,10 @@
 import { Button } from '@/components/ui/button'
-import { FilePenIcon } from 'lucide-react'
 import Link from 'next/link'
 
-export function UpdateCustomer({ id }: { id: string }) {
+export function UpdateCustomer({ slug }: { slug: string }) {
   return (
-    <Button asChild variant={'secondary'}>
-      <Link href={`/dashboard/invoices/${id}/edit`}>
-        <FilePenIcon className='w-5' />
-      </Link>
+    <Button asChild variant={'secondary'} className='w-full cursor-pointer justify-start gap-2'>
+      <Link href={`/service/customers/${slug}`}>Editar</Link>
     </Button>
   )
 }
