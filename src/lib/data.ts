@@ -7,16 +7,19 @@ export const navItems: NavItem[] = [
   {
     title: 'Caja',
     href: '/service',
-    label: 'Dashboard'
+    label: 'Dashboard',
+    role: ['ADMIN', 'EDITOR', 'USER']
   },
   {
     title: 'Clientes',
     href: '/customer/dashboard',
-    label: 'Dashboard'
+    label: 'Dashboard',
+    role: ['ADMIN', 'EDITOR']
   },
   {
     title: 'Dashboard',
     href: '/dashboard',
-    label: 'Dashboard'
+    label: 'Dashboard',
+    role: ['ADMIN', 'EDITOR']
   }
 ]

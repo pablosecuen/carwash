@@ -11,9 +11,10 @@ import { Icons } from './icons'
 interface DashboardNavProps {
   items: NavItem[]
   setOpen?: Dispatch<SetStateAction<boolean>>
+  role: string
 }
 
-export function DashboardNav({ items, setOpen }: DashboardNavProps) {
+export function DashboardNav({ items, setOpen, role }: DashboardNavProps) {
   const path = usePathname()
 
   if (items?.length === 0) {
@@ -33,6 +34,7 @@ export function DashboardNav({ items, setOpen }: DashboardNavProps) {
               onClick={() => {
                 if (setOpen != null) setOpen(false)
               }}
+              className={item.role.includes(role) ? 'block' : 'hidden'}
             >
               <span
                 className={cn(
