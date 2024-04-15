@@ -1,6 +1,6 @@
 'use client'
 
-import { removeProductAction } from '@/actions/remove-product'
+import { removeProductAction } from '@/actions/product/remove-product'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
 import { useRouter } from 'next/navigation'

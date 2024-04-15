@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { loginForm } from '@/actions/login-form'
+import { loginForm } from '@/actions/auth/login-form'
 import { BRANCHES, SHOW_ROLES } from '@/utils/constants'
 import {
   Select,

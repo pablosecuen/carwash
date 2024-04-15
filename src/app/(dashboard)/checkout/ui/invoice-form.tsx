@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { ProductsField } from './products-field'
 import { type Product } from '@/db/entities/product'
 import { type PaymentMethod } from '@/utils/types'
-import { createInvoiceAction } from '@/actions/create-invoice'
+import { createInvoiceAction } from '@/actions/invoice/create-invoice'
 
 type ProductAdded = Product & { paymentMethod: PaymentMethod }
 

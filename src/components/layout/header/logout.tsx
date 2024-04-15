@@ -1,5 +1,5 @@
 'use client'
-import { logoutAction } from '@/actions/logout'
+import { logoutAction } from '@/actions/auth/logout'
 import { Button } from '@/components/ui/button'
 import { LogOutIcon } from 'lucide-react'
 

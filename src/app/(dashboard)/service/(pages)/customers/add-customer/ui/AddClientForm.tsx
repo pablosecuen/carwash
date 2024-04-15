@@ -1,5 +1,5 @@
 'use client'
-import { createCustomerAction } from '@/actions/create-customer'
+import { createCustomerAction } from '@/actions/customer/create-customer'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import {

@@ -1,6 +1,6 @@
 'use client'
 
-import { updateProductAction } from '@/actions/update-product'
+import { updateProductAction } from '@/actions/product/update-product'
 import { Button } from '@/components/ui/button'
 import {
   Form,

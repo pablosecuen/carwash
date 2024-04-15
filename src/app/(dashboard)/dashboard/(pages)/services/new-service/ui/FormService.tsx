@@ -1,6 +1,6 @@
 'use client'
 
-import { createServiceAction } from '@/actions/create-service'
+import { createServiceAction } from '@/actions/service/create-service'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import {

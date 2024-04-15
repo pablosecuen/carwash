@@ -1,6 +1,6 @@
 'use client'
 
-import { removeServiceAction } from '@/actions/remove-service'
+import { removeServiceAction } from '@/actions/service/remove-service'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
 import { useRouter } from 'next/navigation'
