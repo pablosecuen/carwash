@@ -4,14 +4,14 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { cn } from '@/lib/utils'
-import { type NavItem } from '@/utils/types'
+import { Roles, type NavItem } from '@/utils/types'
 import { type Dispatch, type SetStateAction } from 'react'
 import { Icons } from './icons'
 
 interface DashboardNavProps {
   items: NavItem[]
   setOpen?: Dispatch<SetStateAction<boolean>>
-  role: string
+  role: Roles
 }
 
 export function DashboardNav({ items, setOpen, role }: DashboardNavProps) {
@@ -34,7 +34,7 @@ export function DashboardNav({ items, setOpen, role }: DashboardNavProps) {
               onClick={() => {
                 if (setOpen != null) setOpen(false)
               }}
-              className={item.role.includes(role) ? 'block' : 'hidden'}
+              className={item.role.includes(Roles[role]) ? 'block' : 'hidden'}
             >
               <span
                 className={cn(
