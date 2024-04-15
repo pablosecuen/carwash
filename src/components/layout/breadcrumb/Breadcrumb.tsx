@@ -10,7 +10,6 @@ import {
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 import { Fragment } from 'react'
-import { ButtonBack } from '../button-back'
 
 interface Props {
   className?: string
@@ -36,6 +35,17 @@ export const Breadcrumbs = ({ className }: Props) => {
   const getBradcrumbArr = (pathname: string) => {
     const pathArr = pathname.split('/')
     const breadcrumb = pathArr.map((item, index) => {
+      if (item.includes('_')) {
+        const name = item
+          .split('_')
+          .map((word) => word[0].toUpperCase() + word.slice(1))
+          .join(' ')
+
+        return {
+          path: pathArr.slice(0, index + 1).join('/'),
+          name
+        }
+      }
       const translatedName = translationMap[item] ?? item
       const path = pathArr.slice(0, index + 1).join('/')
       return {
