@@ -12,6 +12,11 @@ export class Customer {
   @Column('varchar', {
     nullable: true
   })
+  slug!: string
+
+  @Column('varchar', {
+    nullable: true
+  })
   email!: string
 
   @Column('varchar', {
