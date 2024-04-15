@@ -19,11 +19,7 @@ export default function Home() {
       </div>
       <div className=' sm:mx-auto sm:w-full sm:max-w-sm'>
         {/* TODO: poner logo de la empresa */}
-        <img
-          className='mx-auto h-16 w-auto '
-          src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
-          alt='Your Company'
-        />
+        <img className='mx-auto h-16 w-auto ' src='/carwash-logo.webp' alt='Your Company' />
         <h1 className='mt-4 text-center text-2xl font-bold leading-9 tracking-tight '>
           Bienvenido a Carwash
         </h1>
