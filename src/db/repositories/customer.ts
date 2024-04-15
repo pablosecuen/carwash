@@ -48,6 +48,11 @@ export class CustomerRepository extends BaseRepository<Customer> {
       name: ILike(`%${name}%`)
     })
   }
+
+  async deleteById(id: number) {
+    await this.init()
+    await this.repository.delete({ id })
+  }
 }
 
 export const customerRepository = new CustomerRepository()
