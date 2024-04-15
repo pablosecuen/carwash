@@ -39,7 +39,9 @@ export function AddCustomer() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant='secondary'>Agregar cliente</Button>
+        <Button variant='default' size={'sm'}>
+          Nuevo cliente
+        </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>

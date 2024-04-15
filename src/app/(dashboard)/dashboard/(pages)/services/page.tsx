@@ -6,6 +6,7 @@ import { ServiceTable } from './ui/service-table'
 import Link from 'next/link'
 import { Title } from '@/components/layout'
 import { ServicesEmpty } from './ui/ServicesEmpty'
+import { EmptyPage } from '@/components/layout/page/EmptyPage'
 
 export default async function Page() {
   const services = await getAllServices()
@@ -15,7 +16,12 @@ export default async function Page() {
     return (
       <ContainerPage>
         <Title title='Servicios' />
-        <ServicesEmpty />
+        <EmptyPage
+          title='No tienes servicios'
+          subtitle='Puedes agregar un nuevo servicio.'
+          link='/dashboard/services/new-service'
+          button_text='Crear servicio'
+        />
       </ContainerPage>
     )
   }
