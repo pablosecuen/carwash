@@ -2,13 +2,26 @@ import { ServicesEmpty } from '@/app/(dashboard)/dashboard/(pages)/services/ui/S
 import { Title } from '@/components/layout'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { EmptyPage } from '@/components/layout/page/EmptyPage'
+import Search from '@/components/search/Search'
 import { Button } from '@/components/ui/button'
 import { getAllCustomers } from '@/utils/getters/customer'
 import { PlusCircle } from 'lucide-react'
 import Link from 'next/link'
+import { Suspense } from 'react'
+import { TableCustomers } from './ui/TableCustomers'
 
-export default async function CustomersPage() {
+export default async function CustomersPage({
+  searchParams
+}: {
+  searchParams?: {
+    query?: string
+    page?: string
+  }
+}) {
   const customers = await getAllCustomers()
+
+  const query = searchParams?.query || ''
+  const currentPage = Number(searchParams?.page) || 1
 
   // Verificar si el array de customers está vacío
   if (customers.length === 0) {
@@ -36,6 +49,11 @@ export default async function CustomersPage() {
           </Link>
         </Button>
       </header>
+      <Search placeholder='Buscar cliente' />
+
+      <Suspense key={query + currentPage}>
+        <TableCustomers />
+      </Suspense>
     </ContainerPage>
   )
 }

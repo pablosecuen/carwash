@@ -22,9 +22,9 @@ export default function ServicePage() {
             <DashboardCard
               className='fade-in sm:col-span-2 '
               title='Clientes'
-              description='Esta sección te permite crear los clientes del sistema.'
+              description='Esta sección te permite administrar los clientes del sistema.'
               href='/service/customers'
-              linkLabel='Crear cliente'
+              linkLabel='Ver clientes'
             />
           </div>
 
