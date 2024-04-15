@@ -1,5 +1,6 @@
 'use server'
 import { customerRepository } from '@/db/repositories/customer'
+import { revalidatePath } from 'next/cache'
 
 export async function createCustomerAction(formData: FormData) {
   // TODO: Validate form data
@@ -13,6 +14,9 @@ export async function createCustomerAction(formData: FormData) {
   try {
     const customer = await customerRepository.create(data)
     console.log('Customer created:', customer)
+
+    // TODO: Revalidar los path que se encuentren los customers
+    revalidatePath('/service/customers')
   } catch (error) {
     console.error('Error creating customer:', error)
   }
