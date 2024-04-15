@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { boolean, z } from 'zod'
@@ -26,6 +27,7 @@ const formSchema = z.object({
 })
 
 export const AddClientForm = () => {
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
 
   const { toast } = useToast()
@@ -46,6 +48,7 @@ export const AddClientForm = () => {
     formData.append('phone', data.phone)
     formData.append('address', data.address)
 
+    setLoading(true)
     await createCustomerAction(formData)
       .then(() => {
         toast({
@@ -55,6 +58,7 @@ export const AddClientForm = () => {
           duration: 1800
         })
         form.reset()
+        router.push('/service/customers')
       })
       .catch(() => {
         toast({
