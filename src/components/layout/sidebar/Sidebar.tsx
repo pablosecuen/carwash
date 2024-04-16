@@ -1,10 +1,10 @@
 import { DashboardNav } from '@/components/layout'
 import { navItems } from '@/lib/data'
 import { cn } from '@/lib/utils'
-import { cookies } from 'next/headers'
+import { getUserRole } from '@/utils/user-validate'
 
-export const Sidebar = () => {
-  const role = cookies().get('role')!!.value
+export async function Sidebar() {
+  const role = await getUserRole()
   return (
     <nav className={cn(`relative hidden h-screen w-72  border-r lg:block`)}>
       <div className='space-y-4 py-4'>
