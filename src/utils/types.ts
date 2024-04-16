@@ -42,7 +42,7 @@ export interface NavItem {
   icon?: ReactNode
   label?: string
   description?: string
-  role: string[]
+  role: TRole[]
 }
 
 export enum Branch {
