@@ -42,16 +42,16 @@ export class CustomerRepository extends BaseRepository<Customer> {
     return customer
   }
 
-  async findBySlug(name: string) {
+  async findByName(name: string) {
     await this.init()
     return await this.repository.findOneBy({
-      slug: ILike(`%${name}%`)
+      name: ILike(`%${name}%`)
     })
   }
 
-  async updateBySlug(slug: string, data: Partial<Customer>) {
+  async updateById(id: number, data: Partial<Customer>) {
     await this.init()
-    await this.repository.update({ slug }, data)
+    await this.repository.update({ id }, { ...data, id })
   }
 
   async deleteById(id: number) {

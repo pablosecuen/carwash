@@ -1,6 +1,6 @@
 'use client'
 
-import { updateCusstomer } from '@/actions/customer/update-customer'
+import { updateCustomerBySlug } from '@/actions/customer/update-customer'
 import { Button } from '@/components/ui/button'
 
 import {
@@ -13,9 +13,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
-import { Customer } from '@/db/entities'
+import { type Customer } from '@/db/entities'
 
-import { TODO } from '@/utils/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -32,9 +31,10 @@ const formSchema = z.object({
 
 interface Props {
   customer: Customer
+  slug: string
 }
 
-export const EditFormCustomer = ({ customer }: Props) => {
+export const EditFormCustomer = ({ customer, slug }: Props) => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
@@ -57,7 +57,7 @@ export const EditFormCustomer = ({ customer }: Props) => {
     formData.append('address', data.address)
 
     setLoading(true)
-    await updateCusstomer(customer.slug, formData)
+    await updateCustomerBySlug(slug, formData)
       .then(() => {
         toast({
           title: 'Cliente actualizado',

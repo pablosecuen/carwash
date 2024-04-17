@@ -1,9 +1,5 @@
 import { Title } from '@/components/layout'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
-import { AddCustomer } from '../../ui/client/add-customer-dialog'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { PlusCircle } from 'lucide-react'
 
 export default function NamePage() {
   return (

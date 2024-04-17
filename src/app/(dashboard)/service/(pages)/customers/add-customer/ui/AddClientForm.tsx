@@ -1,7 +1,6 @@
 'use client'
 import { createCustomerAction } from '@/actions/customer/create-customer'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
 import {
   Form,
   FormControl,
@@ -17,7 +16,7 @@ import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { boolean, z } from 'zod'
+import { z } from 'zod'
 
 const formSchema = z.object({
   name: z.string().min(3, 'Este campo es requerido *'),

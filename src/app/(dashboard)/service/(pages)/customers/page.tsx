@@ -19,8 +19,8 @@ export default async function CustomersPage({
 }) {
   const customers = await getAllCustomers()
 
-  const query = searchParams?.query || ''
-  const currentPage = Number(searchParams?.page) || 1
+  const query = searchParams?.query ?? ''
+  const currentPage = Number(searchParams?.page) ?? 1
 
   // Verificar si el array de customers está vacío
   if (customers.length === 0) {

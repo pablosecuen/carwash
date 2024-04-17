@@ -6,13 +6,10 @@ export class Customer {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column('varchar')
-  name!: string
-
   @Column('varchar', {
-    nullable: true
+    nullable: false
   })
-  slug!: string
+  name!: string
 
   @Column('varchar', {
     nullable: true
