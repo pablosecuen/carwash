@@ -1,4 +1,4 @@
-import { getProductById } from '@/utils/getters/products'
+import { getProductById } from '@/actions/product/getters'
 import { ProductEditForm } from './ui/ProductEditForm'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { Title } from '@/components/layout/title/title'

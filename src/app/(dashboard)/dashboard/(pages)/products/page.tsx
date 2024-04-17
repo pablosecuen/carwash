@@ -1,6 +1,6 @@
 import { Title } from '@/components/layout'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
-import { getAllProducts } from '@/utils/getters/products'
+import { getAllProducts } from '@/actions/product/getters'
 import { ProductsEmpty } from './ui/ProductsEmpty'
 import { ProductsTable } from './ui/ProductsTable'
 import { Button } from '@/components/ui/button'
