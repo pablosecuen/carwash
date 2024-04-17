@@ -9,7 +9,7 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { getAllCustomers } from '@/utils/getters/customer'
-import { Delete, Edit, Link, MoreHorizontal, Trash, Trash2 } from 'lucide-react'
+import { MoreHorizontal } from 'lucide-react'
 import { UpdateCustomer } from './UpdateCustomer'
 import { DeleteCustomer } from './DeleteCustomer'
 import {
@@ -19,8 +19,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { DeleteserviceBtn } from '@/app/(dashboard)/dashboard/(pages)/services/ui/delete-service-btn'
 import { Button } from '@/components/ui/button'
+import { formatSlugFromCustomer } from '@/utils/slug'
 
 export const TableCustomers = async () => {
   const customers = await getAllCustomers()
@@ -56,7 +56,7 @@ export const TableCustomers = async () => {
                     <DropdownMenuContent align='end' className='space-y-1'>
                       <DropdownMenuLabel>Acciones</DropdownMenuLabel>
                       <DropdownMenuItem asChild>
-                        <UpdateCustomer slug={customer.slug}></UpdateCustomer>
+                        <UpdateCustomer slug={formatSlugFromCustomer(customer)}></UpdateCustomer>
                       </DropdownMenuItem>
                       <DeleteCustomer id={customer.id.toString()} />
                     </DropdownMenuContent>
