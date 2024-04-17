@@ -5,7 +5,7 @@ import { serviceRepository } from '@/db/repositories/service'
 export const getAllServices = async () => {
   try {
     const services = await serviceRepository.findAll()
-    return services
+    return JSON.parse(JSON.stringify(services)) as Service[]
   } catch (error) {
     console.error(error)
     return []

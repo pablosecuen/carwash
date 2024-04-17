@@ -1,4 +1,4 @@
-import { getAllServices } from '@/utils/getters/services'
+import { getAllServices } from '@/actions/service/getters'
 import { ClientField } from './ui/client-field'
 import { getCustomersByName } from '@/actions/customer/getters'
 import { getByCustomerId } from '@/utils/getters/vehicles'
@@ -12,7 +12,7 @@ interface SearchParams {
 
 export default async function Page({ searchParams }: { searchParams: SearchParams }) {
   const customers = await getCustomersByName(searchParams.customerName)
-  const services = (await getAllServices()).map((s) => ({ ...s }))
+  const services = await getAllServices()
   const vehicles = (await getByCustomerId(Number(searchParams.customerId))).map((v) => ({ ...v }))
   const products = await getAllProducts()
   return (

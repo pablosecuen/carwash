@@ -1,11 +1,10 @@
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { Button } from '@/components/ui/button'
-import { getAllServices } from '@/utils/getters/services'
+import { getAllServices } from '@/actions/service/getters'
 import { PlusCircle } from 'lucide-react'
 import { ServiceTable } from './ui/service-table'
 import Link from 'next/link'
 import { Title } from '@/components/layout'
-import { ServicesEmpty } from './ui/ServicesEmpty'
 import { EmptyPage } from '@/components/layout/page/EmptyPage'
 
 export default async function Page() {
