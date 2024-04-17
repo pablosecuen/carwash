@@ -1,5 +1,5 @@
 import { dateFormater } from '@/utils/formatters'
-import { getInvoicesByCustomerId } from '@/utils/getters/invoices'
+import { getInvoicesByCustomerId } from '@/actions/invoice/getters'
 import { RangeDate } from './ui/range-date'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import {
