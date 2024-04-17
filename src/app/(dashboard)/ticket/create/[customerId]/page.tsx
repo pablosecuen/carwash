@@ -1,5 +1,5 @@
 import { CreateTicketForm } from './ui/create-ticket-form'
-import { getByCustomerId } from '@/utils/getters/vehicles'
+import { getByCustomerId } from '@/actions/vehicle/getters'
 import { getAllServices } from '@/actions/service/getters'
 
 export default async function Page({ params }: { params: { customerId: string } }) {
@@ -8,11 +8,7 @@ export default async function Page({ params }: { params: { customerId: string } 
   return (
     <section>
       <h1>Crear ticket</h1>
-      <CreateTicketForm
-        // FIXME: This is a bug, server components don't support classes only plain objects
-        allServices={services}
-        vehicles={vehicles.map((v) => ({ ...v }))}
-      />
+      <CreateTicketForm allServices={services} vehicles={vehicles} />
     </section>
   )
 }

@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { getByCustomerId } from '@/utils/getters/vehicles'
+import { getByCustomerId } from '@/actions/vehicle/getters'
 import { ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 
