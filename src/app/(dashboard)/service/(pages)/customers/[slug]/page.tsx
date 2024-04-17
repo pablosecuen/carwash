@@ -11,16 +11,11 @@ export default async function CustomerDetailPage({
 }) {
   const { customer } = await getCustomerBySlug(slug)
 
-  let name = slug
-    .split('_')
-    .map((word) => word[0].toUpperCase() + word.slice(1))
-    .join(' ')
-
   return (
     <ContainerPage>
-      <Title title={`Editar cliente: ${name}`} />
+      <Title title={`Editar cliente: ${customer.name}`} />
 
-      <EditFormCustomer customer={customer} />
+      <EditFormCustomer customer={customer} slug={slug} />
     </ContainerPage>
   )
 }
