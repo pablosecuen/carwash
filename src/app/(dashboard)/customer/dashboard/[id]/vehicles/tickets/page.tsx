@@ -1,4 +1,4 @@
-import { getTicketsByVehicleId } from '@/utils/getters/tickets'
+import { getTicketsByVehicleId } from '@/actions/tickets/getters'
 import { RangeDate } from '../../invoices/ui/range-date'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import {

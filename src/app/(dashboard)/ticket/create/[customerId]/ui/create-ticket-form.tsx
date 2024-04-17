@@ -1,5 +1,5 @@
 'use client'
-import { createTicketAction } from '@/actions/create-ticket'
+import { createTicketAction } from '@/actions/tickets/create-ticket'
 import { type Vehicle } from '@/db/entities'
 import { type Service } from '@/db/entities/services'
 import { useState } from 'react'
