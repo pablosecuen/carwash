@@ -9,6 +9,7 @@ interface Props {
   button_text: string
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const EmptyPage = ({ title, subtitle, link, button_text }: Props) => {
   return (
     <div className='flex min-h-[70dvh] flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm fade-in'>
