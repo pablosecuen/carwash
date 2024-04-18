@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
-import { createCustomerAction } from '@/actions/create-customer'
+import { createCustomerAction } from '@/actions/customer/create-customer'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
