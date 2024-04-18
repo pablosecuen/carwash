@@ -7,7 +7,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { sleep } from '@/lib/utils'
-import { getAllCustomers } from '@/utils/getters/customer'
+import { getAllCustomers } from '@/actions/customer/getters'
 
 export const SelectCustomer = async () => {
   await sleep(2000)

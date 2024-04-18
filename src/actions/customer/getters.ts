@@ -2,7 +2,7 @@ import { type Customer } from '@/db/entities'
 import { customerRepository } from '@/db/repositories/customer'
 
 export async function getAllCustomers() {
-  return await customerRepository.findAll()
+  return JSON.parse(JSON.stringify(await customerRepository.findAll())) as Customer[]
 }
 
 // TODO: hanlder error properly

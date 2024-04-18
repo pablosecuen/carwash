@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { getAllCustomers } from '@/utils/getters/customer'
+import { getAllCustomers } from '@/actions/customer/getters'
 import { MoreHorizontal } from 'lucide-react'
 import { UpdateCustomer } from './UpdateCustomer'
 import { DeleteCustomer } from './DeleteCustomer'

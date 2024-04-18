@@ -5,7 +5,7 @@ import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { EmptyPage } from '@/components/layout/page/EmptyPage'
 import Search from '@/components/search/Search'
 import { Button } from '@/components/ui/button'
-import { getAllCustomers } from '@/utils/getters/customer'
+import { getAllCustomers } from '@/actions/customer/getters'
 import { PlusCircle } from 'lucide-react'
 import { TableCustomers } from './ui/TableCustomers'
 
