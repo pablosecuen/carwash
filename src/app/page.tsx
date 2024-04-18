@@ -6,10 +6,8 @@ import { redirect } from 'next/navigation'
 export default function Home() {
   const cookiesStore = cookies()
   const role = cookiesStore.get('role')?.value
-  if (role) {
-    if (role === 'ADMIN' || role === 'EDITOR') {
-      redirect('/dashboard')
-    }
+  if (role != null) {
+    if (role === 'ADMIN' || role === 'EDITOR') redirect('/dashboard')
     redirect('/service')
   }
   return (
