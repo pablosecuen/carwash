@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import { ToggleTheme } from '../theme/ToggleTheme'
-import { MobileSidebar } from '@/components/layout'
 import { LogOut } from './logout'
+import { MobileSidebarServer } from '../sidebar/mobile-sidebar-server'
 
 export const Header = () => {
   return (
@@ -14,7 +14,7 @@ export const Header = () => {
           <h1 className='text-xl font-semibold tracking-wide'>Carwash</h1>
         </div>
         <div className={cn('block lg:!hidden')}>
-          <MobileSidebar />
+          <MobileSidebarServer />
         </div>
 
         <div className='flex items-center gap-2'>

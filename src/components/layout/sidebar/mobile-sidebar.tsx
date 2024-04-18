@@ -6,14 +6,15 @@ import { MenuIcon } from 'lucide-react'
 import { useState } from 'react'
 import { DashboardNav } from '../dashboard-nav'
 import { navItems } from '@/lib/data'
+import { Roles } from '@/utils/types'
 
 // import { Playlist } from "../data/playlists";
 
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-  // playlists: Playlist[];
+interface SidebarProps {
+  role: Roles
 }
 
-export function MobileSidebar({ className }: SidebarProps) {
+export function MobileSidebar({ role }: SidebarProps) {
   const [open, setOpen] = useState(false)
   return (
     <>
@@ -26,7 +27,7 @@ export function MobileSidebar({ className }: SidebarProps) {
             <div className='px-3 py-2'>
               <h2 className='mb-2 px-4 text-lg font-semibold tracking-tight'>Overview</h2>
               <div className='space-y-1'>
-                <DashboardNav items={navItems} setOpen={setOpen} />
+                <DashboardNav items={navItems} setOpen={setOpen} role={role} />
               </div>
             </div>
           </div>
