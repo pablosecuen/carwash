@@ -3,7 +3,9 @@ import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { EditFormCustomer } from './ui/EditFormCustomer'
 
 import { getCustomerBySlug } from '@/actions/customer/get-customer-by-slug'
-
+import { AddFormCustomerVehicle } from './ui/AddFormCustomerVehicle'
+import { Suspense } from 'react'
+import { TableVehiclesCustomer } from './ui/TableVechiclesCustomer'
 export default async function CustomerDetailPage({
   params: { slug }
 }: {
@@ -15,7 +17,13 @@ export default async function CustomerDetailPage({
     <ContainerPage>
       <Title title={`Editar cliente: ${customer.name}`} />
 
-      <EditFormCustomer customer={customer} slug={slug} />
+      <div className='grid gap-2 md:grid-cols-6 md:gap-4'>
+        <EditFormCustomer customer={customer} slug={slug} className='md:col-span-2' />
+        <AddFormCustomerVehicle customerId={customer.id} className='md:col-span-2' />
+        <Suspense fallback={<div className='h-96 bg-red-500 md:col-span-2'>Loading</div>}>
+          <TableVehiclesCustomer customerId={customer.id} className='md:col-span-2' />
+        </Suspense>
+      </div>
     </ContainerPage>
   )
 }

@@ -14,6 +14,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
 import { type Customer } from '@/db/entities'
+import { cn } from '@/lib/utils'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
@@ -32,9 +33,10 @@ const formSchema = z.object({
 interface Props {
   customer: Customer
   slug: string
+  className?: string
 }
 
-export const EditFormCustomer = ({ customer, slug }: Props) => {
+export const EditFormCustomer = ({ customer, slug, className }: Props) => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
@@ -63,7 +65,7 @@ export const EditFormCustomer = ({ customer, slug }: Props) => {
           title: 'Cliente actualizado',
           description: 'El cliente ha sido actualizado correctamente'
         })
-        router.push(`/service/customers`)
+        // router.push(`/service/customers`)
       })
       .catch((error) => {
         setLoading(false)
@@ -81,7 +83,10 @@ export const EditFormCustomer = ({ customer, slug }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='mt-5 flex w-full flex-col gap-4 rounded-lg bg-muted/50 p-5'
+        className={cn(
+          'mt-5 flex w-full flex-col justify-between gap-4 rounded-lg bg-muted/50 p-5 fade-in',
+          className
+        )}
       >
         {/* name */}
         <FormField
