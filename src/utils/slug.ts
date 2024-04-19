@@ -2,7 +2,7 @@ import { type Customer } from '@/db/entities'
 
 export function formatSlugFromCustomer(customer: Customer) {
   const { name, id } = customer
-  return `${name.toLowerCase().replaceAll(/ /, '-')}-${id}`
+  return `${name.toLowerCase().replaceAll(/ /g, '-')}-${id}`
 }
 
 export function extractCustomerIdFromSlug(slug: string) {
