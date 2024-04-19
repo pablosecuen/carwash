@@ -1,17 +1,19 @@
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 
-import { Suspense } from 'react'
 import { DashboardCard } from '../dashboard/ui/cards/DashboardCard'
 import { TableCustomers } from './ui/server/TableCustomers'
+import { DashboardCard as DashboardCardService } from './ui/DashboardCard'
+import { getAllProducts } from '@/actions/product/getters'
+export default async function ServicePage() {
+  const products = await getAllProducts()
 
-export default function ServicePage() {
   return (
     <ContainerPage>
       <div className='grid flex-1 items-start gap-4  md:gap-8 lg:grid-cols-3 xl:grid-cols-3'>
         {/* left */}
-        <div className='grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2'>
+        <div className='grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-3'>
           {/* Cards */}
-          <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4'>
+          <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-6'>
             <DashboardCard
               className='fade-in sm:col-span-2 '
               title='Tickets'
@@ -26,18 +28,19 @@ export default function ServicePage() {
               href='/service/customers'
               linkLabel='Ver clientes'
             />
+
+            <DashboardCardService
+              className='fade-in sm:col-span-2 '
+              title='Productos'
+              description='Aqui podras ver todos los productos que hay en el sistema.'
+              data={products}
+            />
           </div>
 
-          {/* Table Orders */}
-          <Suspense fallback={<>Loading</>}>
-            <TableCustomers />
-          </Suspense>
+          <TableCustomers />
         </div>
-        {/* TODO: Ver que renderizar en esta seccion */}
-        {/* rigth */}
-        <div>
-          {/* {products.length === 0 ? <ProductsEmpty /> : <ProductsTable products={products} />} */}
-        </div>
+
+        {/* Ver que otros datos darle al empleado como forma de informacion, estadisticas */}
       </div>
     </ContainerPage>
   )
