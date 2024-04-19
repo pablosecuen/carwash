@@ -18,13 +18,14 @@ import { useState } from 'react'
 export function DeleteCustomer({ id }: { id: string }) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [open, setOpen] = useState(false)
   const { toast } = useToast()
 
   // TODO: Retornar modal para preguntar si realmente lo quiere eliminar
 
   return (
     <>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button variant='destructive' className='w-full justify-start gap-2'>
             Eliminar
@@ -47,6 +48,7 @@ export function DeleteCustomer({ id }: { id: string }) {
                 deleteCustomer(Number(id))
                   .then(async () => {
                     await sleep(200)
+                    setOpen(false)
                     router.refresh()
                   })
                   .catch(() => {
