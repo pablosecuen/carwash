@@ -19,7 +19,7 @@ export default async function Page({ searchParams }: { searchParams: SearchParam
     <div>
       <h1>Checkout</h1>
       <p>Checkout page content</p>
-      <ClientField customers={customers.map((c) => ({ ...c }))} />
+      <ClientField customers={customers} />
       <InvoiceForm {...{ services, vehicles, products, customerId: searchParams.customerId }} />
     </div>
   )

@@ -8,6 +8,6 @@ export async function getAllCustomers() {
 // TODO: hanlder error properly
 export async function getCustomersByName(name?: string) {
   return name != null
-    ? (JSON.parse(JSON.stringify(await customerRepository.findByName(name))) as Customer[])
+    ? ((await JSON.parse(JSON.stringify(await customerRepository.findByName(name)))) as Customer[])
     : ([] as Customer[])
 }
