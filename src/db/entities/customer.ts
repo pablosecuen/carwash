@@ -32,7 +32,7 @@ export class Customer {
   currentAccount!: boolean
 
   @OneToMany(() => Vehicle, (vehicle) => vehicle.customer, {
-    cascade: true
+    onDelete: 'CASCADE'
   })
   vehicles!: Array<Relation<Vehicle>>
 }
