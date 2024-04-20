@@ -44,7 +44,7 @@ export class CustomerRepository extends BaseRepository<Customer> {
 
   async findByName(name: string) {
     await this.init()
-    return await this.repository.findOneBy({
+    return await this.repository.findBy({
       name: ILike(`%${name}%`)
     })
   }
