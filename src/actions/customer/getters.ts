@@ -11,3 +11,7 @@ export async function getCustomersByName(name?: string) {
     ? ((await JSON.parse(JSON.stringify(await customerRepository.findByName(name)))) as Customer[])
     : ([] as Customer[])
 }
+
+export async function getCustomerById(id: number | string) {
+  return JSON.parse(JSON.stringify(await customerRepository.findById(Number(id)))) as Customer
+}

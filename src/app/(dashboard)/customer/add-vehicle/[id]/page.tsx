@@ -1,5 +1,5 @@
-import { customerAddVehicle } from '@/actions/customer-add-vehicle'
-import { customerRepository } from '@/db/repositories/customer'
+import { customerAddVehicle } from '@/actions/customer/customer-add-vehicle'
+import { getCustomerById } from '@/actions/customer/getters'
 import { VEHICLE_TYPES } from '@/utils/constants'
 
 interface PageProps {
@@ -11,12 +11,17 @@ export default async function Page(props: PageProps) {
   // TODO: validate id
   const { id } = props.params
   // TODO: move this to a hook or a helper
-  const customer = await customerRepository.findById(Number(id))
+  const customer = await getCustomerById(id)
 
   return (
     <main>
       <h1>Agregar vehiculo a {customer.name}</h1>
-      <form action={await customerAddVehicle(Number(id))}>
+      <form
+        action={async (formData: FormData) => {
+          'use server'
+          await customerAddVehicle(customer.id, formData)
+        }}
+      >
         <label htmlFor='type'>
           Tipo
           <select name='type' id='type'>
