@@ -14,6 +14,11 @@ interface FindOptions {
   customerId?: number
   branch?: Branch
   status?: Invoice['status']
+  joins?: {
+    products?: true
+    tickets?: true
+    customer?: true
+  }
 }
 
 export class InvoiceRepository extends BaseRepository<Invoice> {
@@ -78,7 +83,7 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
     return invoice
   }
 
-  async findAll({ from, to, customerId, branch, status }: FindOptions = {}) {
+  async findAll({ from, to, customerId, branch, status, joins }: FindOptions = {}) {
     await this.init()
     let createAt
     if (from != null) {
@@ -94,7 +99,8 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
         },
         order: {
           createAt: 'DESC'
-        }
+        },
+        relations: joins
       })
     } catch (error) {
       console.log(error)
