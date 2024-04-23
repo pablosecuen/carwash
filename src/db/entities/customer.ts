@@ -31,8 +31,6 @@ export class Customer {
   })
   currentAccount!: boolean
 
-  @OneToMany(() => Vehicle, (vehicle) => vehicle.customer, {
-    onDelete: 'CASCADE'
-  })
+  @OneToMany(() => Vehicle, (vehicle) => vehicle.customer)
   vehicles!: Array<Relation<Vehicle>>
 }

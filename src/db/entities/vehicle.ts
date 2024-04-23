@@ -23,6 +23,8 @@ export class Vehicle {
   @Column('varchar')
   patent!: string
 
-  @ManyToOne(() => Customer, (customer) => customer.vehicles)
+  @ManyToOne(() => Customer, (customer) => customer.vehicles, {
+    onDelete: 'CASCADE'
+  })
   customer!: Relation<Customer>
 }
