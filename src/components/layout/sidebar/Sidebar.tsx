@@ -6,7 +6,7 @@ import { getUserRole } from '@/utils/user-validate'
 export async function Sidebar() {
   const role = await getUserRole()
   return (
-    <nav className={cn(`relative hidden h-screen w-72  border-r lg:block`)}>
+    <nav className={cn(`relative hidden min-h-screen w-72  border-r lg:block`)}>
       <div className='space-y-4 py-4'>
         <div className='px-3 py-2'>
           <div className='space-y-1 fade-in'>
