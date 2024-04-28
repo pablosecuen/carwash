@@ -38,7 +38,21 @@ export const getUserBranch = async () => {
 
 export const getUserRole = async () => {
   const role = cookies().get('role')
-  if (role == null) throw new Error('Role is required')
+  if (role?.value == null) throw new Error('Role is required')
   if (!Object.values(Roles).includes(role.value as Roles)) throw new Error('Role is not valid')
   return role.value as Roles
+}
+
+export const hasPermission = async (role?: TRole) => {
+  try {
+    const userRole = await getUserRole()
+    // if role is null, permit the access to ADMIN
+    if (role == null) return userRole === Roles.ADMIN
+    if (userRole === Roles.ADMIN) return true
+    if (userRole === role) return true
+    if (role === Roles.USER) return true
+    return false
+  } catch {
+    return false
+  }
 }
