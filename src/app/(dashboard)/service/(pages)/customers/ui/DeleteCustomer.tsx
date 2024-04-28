@@ -1,5 +1,8 @@
 'use client'
 
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Loader2, Trash2 } from 'lucide-react'
 import { deleteCustomer } from '@/actions/customer/delete-customer'
 import { Button } from '@/components/ui/button'
 import {
@@ -10,10 +13,6 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import { useToast } from '@/components/ui/use-toast'
-import { sleep } from '@/lib/utils'
-import { Loader2, Trash2 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 
 export function DeleteCustomer({ id }: { id: string }) {
   const router = useRouter()
@@ -21,8 +20,30 @@ export function DeleteCustomer({ id }: { id: string }) {
   const [open, setOpen] = useState(false)
   const { toast } = useToast()
 
-  // TODO: Retornar modal para preguntar si realmente lo quiere eliminar
-
+  const onDeleteCustomer = () => {
+    setLoading(true)
+    deleteCustomer(Number(id))
+      .then(async () => {
+        toast({
+          title: 'Eliminado',
+          description: 'El cliente ha sido eliminado correctamente',
+          duration: 1300
+        })
+        setOpen(false)
+        router.refresh()
+      })
+      .catch(() => {
+        toast({
+          title: 'Error',
+          description: 'Error al eliminar el cliente',
+          duration: 1300,
+          variant: 'destructive'
+        })
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
@@ -43,26 +64,7 @@ export function DeleteCustomer({ id }: { id: string }) {
             <Button
               variant={'destructive'}
               className='w-full justify-center gap-2'
-              onClick={() => {
-                setLoading(true)
-                deleteCustomer(Number(id))
-                  .then(async () => {
-                    await sleep(200)
-                    setOpen(false)
-                    router.refresh()
-                  })
-                  .catch(() => {
-                    toast({
-                      title: 'Error',
-                      description: 'Error al eliminar el cliente',
-                      duration: 900,
-                      variant: 'destructive'
-                    })
-                  })
-                  .finally(() => {
-                    setLoading(false)
-                  })
-              }}
+              onClick={onDeleteCustomer}
               disabled={loading}
             >
               {loading ? (
