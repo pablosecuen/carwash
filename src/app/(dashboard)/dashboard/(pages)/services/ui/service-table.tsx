@@ -21,7 +21,7 @@ import { VEHICLE_TYPES } from '@/utils/constants'
 import Link from 'next/link'
 import { type Service } from '@/db/entities/services'
 import { DeleteserviceBtn } from './delete-service-btn'
-import { dateFormater, listFormater } from '@/utils/formatters'
+import { DateFormatter, listFormater } from '@/utils/formatters'
 
 export function ServiceTable({ services }: { services: Service[] }) {
   return (
@@ -50,7 +50,7 @@ export function ServiceTable({ services }: { services: Service[] }) {
                   {listFormater(avaliableFor.map((a) => VEHICLE_TYPES[a]))}
                 </TableCell>
                 <TableCell className='hidden md:table-cell'>
-                  {dateFormater(new Date(updatedAt))}
+                  {DateFormatter(new Date(updatedAt))}
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>
