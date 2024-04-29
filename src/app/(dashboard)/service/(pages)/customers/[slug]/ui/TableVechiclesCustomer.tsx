@@ -24,7 +24,7 @@ export const TableVehiclesCustomer = async ({ customerId, className }: Props) =>
       <CardHeader>
         <CardTitle className='text-base font-bold'>Vehiculos</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className='p-0'>
         <Table>
           <TableHeader>
             <TableRow>

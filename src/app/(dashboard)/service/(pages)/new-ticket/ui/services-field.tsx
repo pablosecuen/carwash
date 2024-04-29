@@ -91,7 +91,7 @@ export function ServiceField({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handlerSumbit)}
-          className=' flex flex-1  flex-col gap-2 bg-muted/50 p-5'
+          className=' flex h-full flex-1 flex-col  justify-between gap-2 bg-muted/50 p-10 py-8'
         >
           <FormField
             name='vehicle'

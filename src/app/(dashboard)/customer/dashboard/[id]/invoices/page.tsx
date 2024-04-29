@@ -1,4 +1,4 @@
-import { dateFormater } from '@/utils/formatters'
+import { DateFormatter } from '@/utils/formatters'
 import { getInvoicesByCustomerId } from '@/actions/invoice/getters'
 import { RangeDate } from './ui/range-date'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -46,7 +46,7 @@ export default async function Page({ params, searchParams }: Props) {
           <TableBody>
             {invoices.map((invoice) => (
               <TableRow key={invoice.id}>
-                <TableCell>{dateFormater(new Date(invoice.createAt))}</TableCell>
+                <TableCell>{DateFormatter(new Date(invoice.createAt))}</TableCell>
                 <TableCell>{invoice.status}</TableCell>
                 <TableCell>{invoice.total}</TableCell>
                 <TableCell> - </TableCell>

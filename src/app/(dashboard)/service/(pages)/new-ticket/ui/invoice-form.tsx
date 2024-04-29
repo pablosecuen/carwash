@@ -55,17 +55,15 @@ export function InvoiceForm({
         </div>
       </Card>
 
-      {
-        tickets.map(ticket => (
-          <Card key={ticket.id} className='mt-10 p-5'>
-            <div className='flex flex-col gap-5 md:flex-row'>
-              {currencyFormat(ticket.totalPrice)}
-              {/* <ServiceField {...{ allServices: services, vehicles }} addTicket={addTicket} /> */}
-              {/* <ProductsField products={allProducts} addProduct={addProduct} /> */}
-            </div>
-          </Card>
-        ))
-      }
+      {tickets.map((ticket) => (
+        <Card key={ticket.id} className='mt-10 p-5'>
+          <div className='flex flex-col gap-5 md:flex-row'>
+            {currencyFormat(ticket.totalPrice)}
+            {/* <ServiceField {...{ allServices: services, vehicles }} addTicket={addTicket} /> */}
+            {/* <ProductsField products={allProducts} addProduct={addProduct} /> */}
+          </div>
+        </Card>
+      ))}
       <Button onClick={onCreateInvoice}>Generar Resumen</Button>
     </>
   )

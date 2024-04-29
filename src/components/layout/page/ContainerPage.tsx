@@ -8,7 +8,7 @@ interface Props {
 
 export const ContainerPage = ({ children, className }: Props) => {
   return (
-    <div className={cn('h-full space-y-4 p-4 sm:px-6 ', className)}>
+    <div className={cn('mx-auto h-full max-w-[1600px] space-y-4 p-4 sm:px-6 ', className)}>
       <Breadcrumbs />
       {children}
     </div>

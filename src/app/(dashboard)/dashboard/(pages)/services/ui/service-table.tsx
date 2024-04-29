@@ -1,4 +1,4 @@
-import { MoreHorizontal } from 'lucide-react'
+import { Edit, MoreHorizontal } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -21,12 +21,12 @@ import { VEHICLE_TYPES } from '@/utils/constants'
 import Link from 'next/link'
 import { type Service } from '@/db/entities/services'
 import { DeleteserviceBtn } from './delete-service-btn'
-import { dateFormater, listFormater } from '@/utils/formatters'
+import { DateFormatter, listFormater } from '@/utils/formatters'
 
 export function ServiceTable({ services }: { services: Service[] }) {
   return (
     <Card className='fade-in'>
-      <CardContent>
+      <CardContent className='p-0'>
         <Table>
           <TableHeader>
             <TableRow>
@@ -50,24 +50,17 @@ export function ServiceTable({ services }: { services: Service[] }) {
                   {listFormater(avaliableFor.map((a) => VEHICLE_TYPES[a]))}
                 </TableCell>
                 <TableCell className='hidden md:table-cell'>
-                  {dateFormater(new Date(updatedAt))}
+                  {DateFormatter(new Date(updatedAt))}
                 </TableCell>
-                <TableCell>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button aria-haspopup='true' size='icon' variant='ghost'>
-                        <MoreHorizontal className='h-4 w-4' />
-                        <span className='sr-only'>Toggle menu</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align='end' className='space-y-1'>
-                      <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/dashboard/products/${id}`}>Editar</Link>
-                      </DropdownMenuItem>
-                      <DeleteserviceBtn serviceId={id} />
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                <TableCell className='flex gap-2'>
+                  <Button asChild variant={'ghost'}>
+                    <Link href={`/dashboard/products/${id}`} className='flex gap-2'>
+                      <Edit />
+                      Editar
+                    </Link>
+                  </Button>
+
+                  <DeleteserviceBtn serviceId={id} />
                 </TableCell>
               </TableRow>
             ))}
