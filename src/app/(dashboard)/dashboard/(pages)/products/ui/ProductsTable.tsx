@@ -1,4 +1,4 @@
-import { MoreHorizontal } from 'lucide-react'
+import { Edit, MoreHorizontal } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
@@ -30,7 +30,7 @@ interface Props {
 export function ProductsTable({ products }: Props) {
   return (
     <Card className='fade-in'>
-      <CardContent>
+      <CardContent className='p-0'>
         <Table>
           <TableHeader>
             <TableRow>
@@ -44,39 +44,40 @@ export function ProductsTable({ products }: Props) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map(({ name, cardPrice, cashPrice, id, updatedAt }) => (
-              <TableRow key={id}>
-                <TableCell className='font-medium'>{name}</TableCell>
-                <TableCell className='hidden md:table-cell'>{currencyFormat(cashPrice)}</TableCell>
-                <TableCell className='hidden md:table-cell'>{currencyFormat(cardPrice)}</TableCell>
-                <TableCell className='hidden md:table-cell'>
-                  {DateFormatter(new Date(updatedAt))}
-                </TableCell>
-                <TableCell>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button aria-haspopup='true' size='icon' variant='ghost'>
-                        <MoreHorizontal className='h-4 w-4' />
-                        <span className='sr-only'>Toggle menu</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align='end'>
-                      <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-                      <DropdownMenuItem asChild>
-                        <Link href={`/dashboard/products/${id}`}>Editar</Link>
-                      </DropdownMenuItem>
-                      <DeleteProductBtn productId={id} />
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            ))}
+            {products.map(({ name, cardPrice, cashPrice, id, updatedAt }) => {
+              console.log({ id })
+              return (
+                <TableRow key={id}>
+                  <TableCell className='font-medium'>{name}</TableCell>
+                  <TableCell className='hidden md:table-cell'>
+                    {currencyFormat(cashPrice)}
+                  </TableCell>
+                  <TableCell className='hidden md:table-cell'>
+                    {currencyFormat(cardPrice)}
+                  </TableCell>
+                  <TableCell className='hidden md:table-cell'>
+                    {DateFormatter(new Date(updatedAt))}
+                  </TableCell>
+                  <TableCell className='flex gap-x-4'>
+                    <Button asChild variant={'ghost'}>
+                      <Link href={`/dashboard/products/${id}`} className='flex gap-x-2'>
+                        <Edit />
+                        Editar
+                      </Link>
+                    </Button>
+
+                    <DeleteProductBtn productId={id} />
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
       </CardContent>
       <CardFooter>
         <div className='text-xs text-muted-foreground'>
-          Showing <strong>1-10</strong> of <strong>32</strong> products
+          Mostrando <strong>1-{products.length < 10 ? products.length : '10'}</strong> de{' '}
+          <strong>{products.length}</strong> productos
         </div>
       </CardFooter>
     </Card>

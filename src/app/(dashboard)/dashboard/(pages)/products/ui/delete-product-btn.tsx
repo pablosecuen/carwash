@@ -3,6 +3,7 @@
 import { removeProductAction } from '@/actions/product/remove-product'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
+import { Delete, DeleteIcon, Octagon, OctagonX } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 export function DeleteProductBtn({ productId }: { productId: number }) {
@@ -27,7 +28,8 @@ export function DeleteProductBtn({ productId }: { productId: number }) {
   }
 
   return (
-    <Button size='sm' variant='destructive' className='w-full justify-start' onClick={handleDelete}>
+    <Button size='sm' variant='destructive' className='gap-2' onClick={handleDelete}>
+      <OctagonX />
       Eliminar
     </Button>
   )

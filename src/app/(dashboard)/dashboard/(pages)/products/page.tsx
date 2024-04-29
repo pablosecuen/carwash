@@ -19,6 +19,7 @@ export default async function ProductsPage() {
       </ContainerPage>
     )
   }
+  console.log({ products })
   return (
     <ContainerPage>
       <header className='flex items-center justify-between fade-in'>

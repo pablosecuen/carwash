@@ -3,6 +3,7 @@
 import { removeServiceAction } from '@/actions/service/remove-service'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
+import { OctagonX } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 // FIXME: close dropdown after delete
@@ -28,7 +29,8 @@ export function DeleteserviceBtn({ serviceId }: { serviceId: number }) {
   }
 
   return (
-    <Button size='sm' variant='destructive' className='w-full justify-start' onClick={handleDelete}>
+    <Button size='sm' variant='destructive' className='gap-2' onClick={handleDelete}>
+      <OctagonX />
       Eliminar
     </Button>
   )
