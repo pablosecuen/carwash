@@ -14,8 +14,8 @@ export function ProductsField({
   addProduct: (product: Product & { paymentMethod: PaymentMethod }) => void
 }) {
   return (
-    <Card className='flex-1  bg-muted/50'>
-      <ul className='p-5 max-h-96 overflow-scroll'>
+    <Card className=' flex-1 bg-muted/50'>
+      <ul className='scrollbar-none max-h-96 overflow-scroll p-5'>
         {products.map((product) => (
           <li className='mb-7 flex flex-1 flex-col items-start gap-2' key={product.id}>
             <div className='flex-1'>
