@@ -1,7 +1,5 @@
 import { invoiceRepository } from '@/db/repositories/invoice'
-import { type Branch } from '@/utils/types'
 import { getBranch } from '@/utils/user-validate'
-import { cookies } from 'next/headers'
 
 export async function getInvoicesByCustomerId(
   customerId: string,
@@ -11,17 +9,22 @@ export async function getInvoicesByCustomerId(
 }
 
 export const getDailyInvoices = async () => {
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
-  const tomorrow = new Date(today)
-  tomorrow.setDate(tomorrow.getDate() + 1)
-  const branch = cookies().get('branch')?.value as Branch
-  const invoices = await invoiceRepository.findAll({
-    branch,
-    from: today,
-    to: tomorrow
-  })
-  return JSON.parse(JSON.stringify(invoices)) as typeof invoices
+  try {
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    const branch = getBranch()
+    const invoices = await invoiceRepository.findAll({
+      branch,
+      from: today,
+      to: tomorrow
+    })
+    return JSON.parse(JSON.stringify(invoices)) as typeof invoices
+  } catch (error) {
+    console.log(error)
+    return []
+  }
 }
 
 export const getPaginatedInvoices = async ({
