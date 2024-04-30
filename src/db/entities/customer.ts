@@ -1,10 +1,17 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn, type Relation } from 'typeorm'
 import { Vehicle } from './vehicle'
+import { Branch } from '@/utils/types'
 
 @Entity('customers')
 export class Customer {
   @PrimaryGeneratedColumn()
   id!: number
+
+  @Column('varchar', {
+    nullable: false,
+    default: Branch.ONE
+  })
+  branch!: Branch
 
   @Column('varchar', {
     nullable: false
