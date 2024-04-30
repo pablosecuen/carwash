@@ -2,7 +2,13 @@ import { Customer } from '../entities/customer'
 import { type Vehicle } from '../entities'
 import { BaseRepository } from './base-repository'
 import { ILike } from 'typeorm'
+import { type Branch } from '@/utils/types'
 
+interface FilterOpts {
+  branch: Branch
+  limit?: number
+  offset?: number
+}
 export class CustomerRepository extends BaseRepository<Customer> {
   protected entity = Customer
   async create(data: Omit<Customer, 'id' | 'vehicles' | 'currentAccount'>) {
@@ -12,9 +18,14 @@ export class CustomerRepository extends BaseRepository<Customer> {
     return customer
   }
 
-  async findAll() {
+  async findAll(filter?: FilterOpts) {
+    const { branch, limit = 20, offset = 0 } = filter ?? {}
     await this.init()
-    return await this.repository.find()
+    return await this.repository.find({
+      where: { branch },
+      take: limit,
+      skip: offset
+    })
   }
 
   async findById(id: number) {
@@ -42,10 +53,16 @@ export class CustomerRepository extends BaseRepository<Customer> {
     return customer
   }
 
-  async findByName(name: string) {
+  async findByName(name: string, filter?: FilterOpts) {
+    const { branch, limit = 20, offset = 0 } = filter ?? {}
     await this.init()
-    return await this.repository.findBy({
-      name: ILike(`%${name}%`)
+    return await this.repository.find({
+      where: {
+        name: ILike(`%${name}%`),
+        branch
+      },
+      take: limit,
+      skip: offset
     })
   }
 
