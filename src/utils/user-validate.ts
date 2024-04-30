@@ -56,3 +56,11 @@ export const hasPermission = async (role?: TRole) => {
     return false
   }
 }
+
+export const getBranch = () => {
+  const branch = cookies().get('branch')
+  if (branch?.value == null) throw new Error('Branch is not defined')
+  if (!Object.values(Branch).includes(branch.value as Branch))
+    throw new Error('Branch is not valid')
+  return branch.value as Branch
+}
