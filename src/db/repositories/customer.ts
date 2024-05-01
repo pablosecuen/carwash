@@ -5,7 +5,7 @@ import { ILike } from 'typeorm'
 import { type Branch } from '@/utils/types'
 
 interface FilterOpts {
-  branch: Branch
+  branch?: Branch
   limit?: number
   offset?: number
 }
