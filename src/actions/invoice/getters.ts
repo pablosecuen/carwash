@@ -1,5 +1,5 @@
 import { invoiceRepository } from '@/db/repositories/invoice'
-import { getBranch } from '@/utils/user-validate'
+import { getBranch, hasPermission } from '@/utils/user-validate'
 
 export async function getInvoicesByCustomerId(
   customerId: string,
@@ -35,11 +35,16 @@ export const getPaginatedInvoices = async ({
   limit?: number | string
 }) => {
   try {
-    const branch = getBranch()
+    const branch = (await hasPermission()) ? undefined : getBranch()
     const invoices = await invoiceRepository.findAll({
       branch,
       limit: Number(limit),
-      offset: Number(page) * Number(limit)
+      offset: Number(page) * Number(limit),
+      joins: {
+        customer: true,
+        tickets: true,
+        products: true
+      }
     })
     return JSON.parse(JSON.stringify(invoices)) as typeof invoices
   } catch (error) {
