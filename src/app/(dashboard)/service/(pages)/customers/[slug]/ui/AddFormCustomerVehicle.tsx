@@ -82,7 +82,6 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
   })
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data.type)
     if (data.type.length !== 1) {
       // Si el array 'type' no tiene exactamente un elemento seleccionado, mostrar un mensaje de error
       toast({

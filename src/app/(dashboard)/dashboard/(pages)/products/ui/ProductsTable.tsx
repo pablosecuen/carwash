@@ -45,7 +45,6 @@ export function ProductsTable({ products }: Props) {
           </TableHeader>
           <TableBody>
             {products.map(({ name, cardPrice, cashPrice, id, updatedAt }) => {
-              console.log({ id })
               return (
                 <TableRow key={id}>
                   <TableCell className='font-medium'>{name}</TableCell>

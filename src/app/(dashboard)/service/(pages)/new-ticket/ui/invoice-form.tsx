@@ -37,14 +37,12 @@ export function InvoiceForm({
   if (customerId == null) return null
   const onCreateInvoice = async () => {
     if (customerId == null) return
-    console.log('first')
+
     const invoice = await createInvoiceAction({
       customerId,
       tickets,
       products
     })
-
-    console.log({ invoice })
   }
   return (
     <>

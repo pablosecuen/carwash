@@ -45,7 +45,6 @@ export function ClientField({ customers }: { customers: Customer[] }) {
     updatePathname(`${pathname}?${params.toString()}`)
   }
   const handlerSelect = (customer: string) => {
-    console.log('first')
     const params = new URLSearchParams(searchParams)
     params.set('customerId', customer)
     router.replace(`${pathname}?${params.toString()}`)

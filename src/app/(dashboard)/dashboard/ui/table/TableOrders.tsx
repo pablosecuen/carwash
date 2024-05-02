@@ -21,7 +21,6 @@ import { ListFilter, File } from 'lucide-react'
 import { DateFormatter } from '@/utils/formatters'
 
 export const TableOrders = () => {
-  console.log(Date.now())
   return (
     <div className='fade-in'>
       <div className=' mb-2 flex items-center justify-end gap-2'>
@@ -45,7 +44,7 @@ export const TableOrders = () => {
           <span className='sr-only sm:not-sr-only'>Exportar</span>
         </Button>
       </div>
-      <Card>
+      <Card className='shadow-cards'>
         <CardHeader className='px-7'>
           <CardTitle>Ordenes</CardTitle>
           <CardDescription>Ordenes recientes.</CardDescription>

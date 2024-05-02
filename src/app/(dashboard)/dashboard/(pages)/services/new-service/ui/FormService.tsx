@@ -63,7 +63,7 @@ export function FormService() {
     })
 
     setLoading(true)
-    console.log(values.avaliableFor)
+
     if (values.avaliableFor.length === 0) {
       toast({
         variant: 'destructive',
