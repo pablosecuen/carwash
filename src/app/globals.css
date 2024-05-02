@@ -95,3 +95,7 @@ body,
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
 }
+
+.shadow-cards{
+  @apply shadow-xl dark:shadow-slate-50/10
+}
