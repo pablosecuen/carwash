@@ -16,21 +16,21 @@ export default async function ManagerPage() {
               className='sm:col-span-2 '
               title='Facturas'
               description='Esta sección te permite administrar las facturas que se ofrecen en el sistema.'
-              href='/dashboard/invoices'
+              href='/manager/invoices'
               linkLabel='Ir a facturas'
             />
             <DashboardCard
               className='sm:col-span-2 '
               title='Servicios'
               description='Esta sección te permite administrar los servicios que se ofrecen en el sistema.'
-              href='/dashboard/services'
+              href='/manager/services'
               linkLabel='Ir a servicios'
             />
             <DashboardCard
               className='sm:col-span-2 '
               title='Productos'
               description='Esta sección te permite administrar los productos que se ofrecen en el sistema.'
-              href='/dashboard/products'
+              href='/manager/products'
               linkLabel='Ir a productos'
             />
           </div>
