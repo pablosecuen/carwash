@@ -1,9 +1,9 @@
+import { getAllProducts } from '@/actions/product/getters'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
-
 import { DashboardCard } from '../dashboard/ui/cards/DashboardCard'
 import { TableCustomers } from './ui/server/TableCustomers'
 import { DashboardCard as DashboardCardService } from './ui/DashboardCard'
-import { getAllProducts } from '@/actions/product/getters'
+
 export default async function ServicePage() {
   const products = await getAllProducts()
 
@@ -15,14 +15,14 @@ export default async function ServicePage() {
           {/* Cards */}
           <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-6'>
             <DashboardCard
-              className='fade-in sm:col-span-2 '
+              className=' sm:col-span-2 '
               title='Tickets'
               description='Esta sección te permite crear tickets para registrar en el sistema.'
               href='/service/new-ticket'
               linkLabel='Crear ticket'
             />
             <DashboardCard
-              className='fade-in sm:col-span-2 '
+              className=' sm:col-span-2 '
               title='Clientes'
               description='Esta sección te permite administrar los clientes del sistema.'
               href='/service/customers'
@@ -30,7 +30,7 @@ export default async function ServicePage() {
             />
 
             <DashboardCardService
-              className='fade-in sm:col-span-2 '
+              className=' sm:col-span-2 '
               title='Productos'
               description='Aqui podras ver todos los productos que hay en el sistema.'
               data={products}

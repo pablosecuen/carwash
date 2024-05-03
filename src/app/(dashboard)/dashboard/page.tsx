@@ -20,21 +20,21 @@ export default async function DashboardPage() {
           {/* Cards */}
           <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-6'>
             <DashboardCard
-              className='fade-in sm:col-span-2 '
+              className='sm:col-span-2 '
               title='Facturas'
               description='Esta sección te permite administrar las facturas que se ofrecen en el sistema.'
               href='/dashboard/invoices'
               linkLabel='Ir a facturas'
             />
             <DashboardCard
-              className='fade-in sm:col-span-2 '
+              className='sm:col-span-2 '
               title='Servicios'
               description='Esta sección te permite administrar los servicios que se ofrecen en el sistema.'
               href='/dashboard/services'
               linkLabel='Ir a servicios'
             />
             <DashboardCard
-              className='fade-in sm:col-span-2 '
+              className='sm:col-span-2 '
               title='Productos'
               description='Esta sección te permite administrar los productos que se ofrecen en el sistema.'
               href='/dashboard/products'

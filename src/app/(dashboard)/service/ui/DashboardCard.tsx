@@ -1,5 +1,5 @@
 'use client'
-import { currencyFormat } from '@/lib/utils'
+import { cn, currencyFormat } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -27,7 +27,7 @@ interface Props {
 
 export const DashboardCard = ({ className, description, title, data }: Props) => {
   return (
-    <Card className={className}>
+    <Card className={cn('shadow-cards fade-in', className)}>
       <CardHeader className='pb-3'>
         <CardTitle>{title}</CardTitle>
         <CardDescription className=' text-pretty leading-relaxed'>{description}</CardDescription>
