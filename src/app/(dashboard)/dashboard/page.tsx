@@ -18,7 +18,14 @@ export default async function DashboardPage() {
         {/* left */}
         <div className='grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-3'>
           {/* Cards */}
-          <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4'>
+          <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-6'>
+            <DashboardCard
+              className='fade-in sm:col-span-2 '
+              title='Facturas'
+              description='Esta sección te permite administrar las facturas que se ofrecen en el sistema.'
+              href='/dashboard/invoices'
+              linkLabel='Ir a facturas'
+            />
             <DashboardCard
               className='fade-in sm:col-span-2 '
               title='Servicios'
@@ -34,14 +41,6 @@ export default async function DashboardPage() {
               linkLabel='Ir a productos'
             />
           </div>
-
-          {/* Table Orders */}
-          <TableOrders />
-        </div>
-        {/* TODO: Ver que renderizar en esta seccion */}
-        {/* rigth */}
-        <div>
-          {/* {products.length === 0 ? <ProductsEmpty /> : <ProductsTable products={products} />} */}
         </div>
       </div>
     </ContainerPage>
