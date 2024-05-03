@@ -1,4 +1,5 @@
 import { invoiceRepository } from '@/db/repositories/invoice'
+import { Branch } from '@/utils/types'
 import { getBranch, hasPermission } from '@/utils/user-validate'
 
 export async function getInvoicesByCustomerId(
@@ -28,8 +29,8 @@ export const getDailyInvoices = async () => {
 }
 
 export const getPaginatedInvoices = async ({
-  page,
-  limit = 20
+  page = 1,
+  limit = 10
 }: {
   page: number | string
   limit?: number | string
