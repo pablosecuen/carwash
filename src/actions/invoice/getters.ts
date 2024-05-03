@@ -1,6 +1,8 @@
 import { invoiceRepository } from '@/db/repositories/invoice'
+import { sleep } from '@/lib/utils'
 import { Branch } from '@/utils/types'
 import { getBranch, hasPermission } from '@/utils/user-validate'
+import { cookies } from 'next/headers'
 
 export async function getInvoicesByCustomerId(
   customerId: string,
@@ -47,6 +49,34 @@ export const getPaginatedInvoices = async ({
         products: true
       }
     })
+    return JSON.parse(JSON.stringify(invoices)) as typeof invoices
+  } catch (error) {
+    console.log(error)
+    return []
+  }
+}
+
+export const getPaginatedInvoicesByBranch = async ({
+  page = 1,
+  limit = 0
+}: {
+  page: number | string
+  limit?: number | string
+}) => {
+  try {
+    const branch = (cookies().get('branch')?.value as Branch) ?? undefined
+
+    const invoices = await invoiceRepository.findAll({
+      branch,
+      limit: Number(limit),
+      offset: Number(page) * Number(limit),
+      joins: {
+        customer: true,
+        tickets: true,
+        products: true
+      }
+    })
+
     return JSON.parse(JSON.stringify(invoices)) as typeof invoices
   } catch (error) {
     console.log(error)
