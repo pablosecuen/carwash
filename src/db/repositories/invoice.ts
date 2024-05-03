@@ -16,7 +16,12 @@ interface FindOptions {
   status?: Invoice['status']
   joins?: {
     products?: true
-    tickets?: true
+    tickets?:
+      | true
+      | {
+          vehicle?: true
+          service?: true
+        }
     customer?: true
   }
   limit?: number
@@ -113,7 +118,9 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
         order: {
           createAt: 'DESC'
         },
-        relations: joins
+        relations: {
+          ...joins
+        }
       })
     } catch (error) {
       console.log(error)
