@@ -26,7 +26,8 @@ const translationMap: Record<string, string> = {
   'new-service': 'Crear servicio',
   'new-ticket': 'Crear ticket',
   customers: 'Clientes',
-  'add-customer': 'Crear cliente'
+  'add-customer': 'Crear cliente',
+  invoices: 'Facturas'
 }
 
 export const Breadcrumbs = ({ className }: Props) => {
