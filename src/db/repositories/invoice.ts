@@ -12,7 +12,7 @@ interface FindOptions {
   from?: Date
   to?: Date
   customerId?: number
-  branch?: Branch
+  branch?: Branch | undefined
   status?: Invoice['status']
   joins?: {
     products?: true
