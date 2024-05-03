@@ -25,7 +25,7 @@ interface Props {
   data: any
 }
 
-export const DashboardCard = ({ className, description, title, data }: Props) => {
+export const DashboardCardProducts = ({ className, description, title, data }: Props) => {
   return (
     <Card className={cn('shadow-cards fade-in', className)}>
       <CardHeader className='pb-3'>

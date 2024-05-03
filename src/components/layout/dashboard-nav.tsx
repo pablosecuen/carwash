@@ -38,14 +38,18 @@ export function DashboardNav({ items, setOpen, role }: DashboardNavProps) {
             >
               <span
                 className={cn(
-                  'group flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground',
-                  path.startsWith(item.href) ? 'bg-accent' : 'transparent',
+                  'group flex flex-col items-start rounded-md px-3 py-2 text-sm font-medium transition-all duration-75 hover:bg-accent hover:text-accent-foreground',
+                  path.startsWith(item.href)
+                    ? 'bg-accent font-bold shadow-lg  '
+                    : 'transparent shadow-sm',
                   item.disabled === true && 'cursor-not-allowed opacity-80'
                 )}
               >
-                <Icon className='mr-2 h-4 w-4' />
-
-                <span>{item.title}</span>
+                <div className='flex items-center'>
+                  <Icon className='mr-2 h-4 w-4' />
+                  <span>{item.title}</span>
+                </div>
+                <small>{item.label}</small>
               </span>
             </Link>
           )

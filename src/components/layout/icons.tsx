@@ -20,7 +20,7 @@ export type IconName =
   | 'add'
   | 'user'
   | 'caja'
-  | 'clientes'
+  | 'gerencia'
 
 type IconsMap = Record<string, LucideIcon>
 
@@ -33,6 +33,6 @@ export const Icons: IconsMap = {
   add: Plus,
   user: User,
   caja: Hammer,
-  clientes: User2Icon,
+  gerencia: User2Icon,
   dashboard: PieChart
 }

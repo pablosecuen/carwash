@@ -1,8 +1,8 @@
 import { getAllProducts } from '@/actions/product/getters'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
-import { DashboardCard } from '../dashboard/ui/cards/DashboardCard'
+import { DashboardCard } from '../../../components/DashboardCard'
 import { TableCustomers } from './ui/server/TableCustomers'
-import { DashboardCard as DashboardCardService } from './ui/DashboardCard'
+import { DashboardCardProducts } from '@/components/DashboardCardProducts'
 
 export default async function ServicePage() {
   const products = await getAllProducts()
@@ -29,7 +29,7 @@ export default async function ServicePage() {
               linkLabel='Ver clientes'
             />
 
-            <DashboardCardService
+            <DashboardCardProducts
               className=' sm:col-span-2 '
               title='Productos'
               description='Aqui podras ver todos los productos que hay en el sistema.'
