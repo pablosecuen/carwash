@@ -1,15 +1,14 @@
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
-// import { getAllProducts } from '@/utils/getters/products'
-import { TableOrders } from './ui/table/TableOrders'
-import { DashboardCard } from '../../../components/DashboardCard'
-import { cookies } from 'next/headers'
+
+import { DashboardCard } from '@/components/DashboardCard'
+
 import { redirect } from 'next/navigation'
+import { hasPermission } from '@/utils/user-validate'
 
 export default async function DashboardPage() {
-  const cookiesStore = cookies()
-  const role = cookiesStore.get('role')?.value
-  if (role === 'USER') {
-    redirect('/service')
+  const isAdmin = await hasPermission()
+  if (!isAdmin) {
+    redirect('/')
   }
   // const products = await getAllProducts()
   return (
