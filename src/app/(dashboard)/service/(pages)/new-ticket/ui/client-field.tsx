@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -11,6 +12,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { type Customer } from '@/db/entities'
+import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
@@ -57,7 +59,7 @@ export function ClientField({ customers }: { customers: Customer[] }) {
 
   return (
     <>
-      <Label htmlFor='customerName' className=''>
+      <Label htmlFor='customerName' className='col-span-1'>
         Nombre del cliente:
         <Input
           type='text'
@@ -70,10 +72,12 @@ export function ClientField({ customers }: { customers: Customer[] }) {
           placeholder='Nombre del cliente'
         />
       </Label>
-      <div className='my-5'>
-        {customers.length !== 0 && (
+      {customers.length !== 0 && (
+        <div className='col-span-2 my-5'>
           <Select
-            onValueChange={(e) => handlerSelect(e)}
+            onValueChange={(e) => {
+              handlerSelect(e)
+            }}
             defaultValue={searchParams.get('customerId') ?? ''}
           >
             <SelectTrigger>
@@ -93,14 +97,24 @@ export function ClientField({ customers }: { customers: Customer[] }) {
               </SelectGroup>
             </SelectContent>
           </Select>
-        )}
+        </div>
+      )}
 
-        {searchParams.get('customerName') && customers.length === 0 && (
+      {searchParams.get('customerName') != null && customers.length === 0 && (
+        <div className='col-span-2 my-5 flex items-center gap-4'>
           <p className='mt-1 text-xs text-red-500 sm:text-sm md:text-base lg:text-lg xl:text-xl'>
-            No se encontraron clientes
+            No se encontraron clientes.
           </p>
-        )}
-      </div>
+          <Button size={'sm'} variant={'ghost'}>
+            <Link
+              className='inline-block '
+              href={`/service/customers/add-customer?customerName=${searchParams.get('customerName')}`}
+            >
+              ¿Quieres agregar el cliente {searchParams.get('customerName')}?
+            </Link>
+          </Button>
+        </div>
+      )}
     </>
   )
 }

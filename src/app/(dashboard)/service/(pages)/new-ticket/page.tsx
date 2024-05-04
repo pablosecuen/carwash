@@ -21,7 +21,7 @@ export default async function NamePage({ searchParams }: { searchParams: SearchP
       <header className='flex items-center justify-between fade-in'>
         <Title title='Nuevo ticket' />
       </header>
-      <div className='grid w-max grid-cols-2 place-content-center items-start gap-5'>
+      <div className='grid w-max grid-cols-3 place-content-center items-start gap-5'>
         <ClientField customers={customers} />
       </div>
 

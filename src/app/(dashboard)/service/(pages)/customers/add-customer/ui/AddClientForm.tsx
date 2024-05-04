@@ -25,7 +25,7 @@ const formSchema = z.object({
   address: z.string().min(10, 'Este campo es requerido *')
 })
 
-export const AddClientForm = () => {
+export const AddClientForm = ({ customerName = '' }: { customerName?: string }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
 
@@ -33,7 +33,7 @@ export const AddClientForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
+      name: customerName,
       email: '',
       phone: '',
       address: ''
@@ -80,6 +80,7 @@ export const AddClientForm = () => {
         <FormField
           name='name'
           control={form.control}
+          defaultValue={customerName}
           render={({ field }) => {
             return (
               <FormItem>
