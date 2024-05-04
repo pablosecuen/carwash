@@ -13,7 +13,7 @@ interface Props {
 
 export const DashboardCard = async ({ className, description, href, linkLabel, title }: Props) => {
   return (
-    <Card className={cn('shadow-cards  fade-in', className)}>
+    <Card className={cn('  fade-in', className)}>
       <CardHeader className='pb-3'>
         <CardTitle>{title}</CardTitle>
         <CardDescription className=' text-pretty leading-relaxed'>{description}</CardDescription>

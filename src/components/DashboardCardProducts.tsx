@@ -1,4 +1,3 @@
-'use client'
 import { cn, currencyFormat } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import {
@@ -18,16 +17,18 @@ import {
   Sheet
 } from '@/components/ui/sheet'
 
+import { getAllProducts } from '@/actions/product/getters'
+
 interface Props {
   className?: string
   title: string
   description: string
-  data: any
 }
 
-export const DashboardCardProducts = ({ className, description, title, data }: Props) => {
+export const DashboardCardProducts = async ({ className, description, title }: Props) => {
+  const products = await getAllProducts()
   return (
-    <Card className={cn('shadow-cards fade-in', className)}>
+    <Card className={cn('fade-in', className)}>
       <CardHeader className='pb-3'>
         <CardTitle>{title}</CardTitle>
         <CardDescription className=' text-pretty leading-relaxed'>{description}</CardDescription>
@@ -45,21 +46,20 @@ export const DashboardCardProducts = ({ className, description, title, data }: P
               </SheetDescription>
             </SheetHeader>
             <div className='grid gap-2'>
-              {data &&
-                data.map((product: any) => {
-                  return (
-                    <Card key={product.id}>
-                      <CardHeader>
-                        <CardTitle className='text-lg'>{product.name}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p>Precio efectivo: {currencyFormat(product.cardPrice)}</p>
-                        <p>Precio con tarjeta: {currencyFormat(product.cashPrice)}</p>
-                      </CardContent>
-                    </Card>
-                  )
-                })}
-              {!data && <p>No hay productos</p>}
+              {products?.map((product) => {
+                return (
+                  <Card key={product.id}>
+                    <CardHeader>
+                      <CardTitle className='text-lg'>{product.name}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p>Precio efectivo: {currencyFormat(product.cardPrice)}</p>
+                      <p>Precio con tarjeta: {currencyFormat(product.cashPrice)}</p>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+              {products.length === 0 && <p>No hay productos</p>}
             </div>
           </SheetContent>
         </Sheet>
