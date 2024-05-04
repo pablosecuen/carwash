@@ -7,7 +7,7 @@ export const getAllCashClosures = async (ops: { page?: number | string; branch?:
     const isAdmin = await hasPermission('ADMIN')
     const page = ops?.page != null ? Number(ops.page) : 0
     const cashClosures = await cashClosuresRepository.findAll({
-      branch: isAdmin ? undefined : ops?.branch ?? getBranch(),
+      branch: isAdmin ? ops?.branch : getBranch(),
       offset: page * 20
     })
     return JSON.parse(JSON.stringify(cashClosures)) as typeof cashClosures
