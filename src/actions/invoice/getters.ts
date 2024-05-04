@@ -1,6 +1,5 @@
 import { invoiceRepository } from '@/db/repositories/invoice'
-import { sleep } from '@/lib/utils'
-import { Branch } from '@/utils/types'
+import { type Branch } from '@/utils/types'
 import { getBranch, hasPermission } from '@/utils/user-validate'
 import { cookies } from 'next/headers'
 
@@ -21,7 +20,12 @@ export const getDailyInvoices = async () => {
     const invoices = await invoiceRepository.findAll({
       branch,
       from: today,
-      to: tomorrow
+      to: tomorrow,
+      joins: {
+        customer: true,
+        tickets: true,
+        products: true
+      }
     })
     return JSON.parse(JSON.stringify(invoices)) as typeof invoices
   } catch (error) {
