@@ -4,7 +4,7 @@ import { getDailyInvoices } from '@/actions/invoice/getters'
 export default async function Page() {
   const invoices = await getDailyInvoices()
   const total = invoices.reduce((acc, invoice) => acc + invoice.total, 0)
-  const paymentToEmployees = total * 0.3
+  const paymentToEmployees = Math.round(total * 0.3)
   return (
     <div>
       <h1>Cierre de caja</h1>
