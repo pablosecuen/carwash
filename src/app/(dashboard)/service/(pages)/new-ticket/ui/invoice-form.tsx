@@ -38,7 +38,7 @@ export function InvoiceForm({
   const onCreateInvoice = async () => {
     if (customerId == null) return
 
-    const invoice = await createInvoiceAction({
+    await createInvoiceAction({
       customerId,
       tickets,
       products

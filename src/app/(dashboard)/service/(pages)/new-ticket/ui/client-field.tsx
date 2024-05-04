@@ -110,7 +110,7 @@ export function ClientField({ customers }: { customers: Customer[] }) {
               className='inline-block '
               href={`/service/customers/add-customer?customerName=${searchParams.get('customerName')}`}
             >
-              ¿Quieres agregar el cliente {searchParams.get('customerName')}?
+              ¿Quieres agregar el cliente?
             </Link>
           </Button>
         </div>
