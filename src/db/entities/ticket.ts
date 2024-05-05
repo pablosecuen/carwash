@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { Vehicle } from '.'
+import { Vehicle } from './vehicle'
 import { Service } from './services'
 import { PaymentMethod, TicketStatus } from '@/utils/types'
 
