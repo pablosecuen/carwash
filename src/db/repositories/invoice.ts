@@ -127,6 +127,23 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
       throw new Error('Error finding invoices')
     }
   }
+
+  async findById(id: number, opts: { joins?: FindOptions['joins'] }) {
+    try {
+      await this.init()
+      return await this.repository.findOne({
+        where: {
+          id
+        },
+        relations: {
+          ...opts.joins
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      throw new Error('Error finding invoice')
+    }
+  }
 }
 
 export const invoiceRepository = new InvoiceRepository()
