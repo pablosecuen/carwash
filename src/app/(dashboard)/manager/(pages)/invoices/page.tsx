@@ -1,13 +1,13 @@
 // TODO: poner esto en las paginas que lo requieran
 // Opt out of caching for all data requests in the route segment
-export const dynamic = 'force-dynamic'
-
 import { Title } from '@/components/layout'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { TableInvoices } from './ui/TableInvoices'
 import { Suspense } from 'react'
 import { Loader2 } from 'lucide-react'
 import { cookies } from 'next/headers'
+
+export const dynamic = 'force-dynamic'
 
 export default function InvoicesPage({
   searchParams

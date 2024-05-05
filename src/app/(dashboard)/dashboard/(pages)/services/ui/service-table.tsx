@@ -1,14 +1,7 @@
-import { Edit, MoreHorizontal } from 'lucide-react'
+import { Edit } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
 import {
   Table,
   TableBody,

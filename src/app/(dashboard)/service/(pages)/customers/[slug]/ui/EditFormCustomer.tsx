@@ -18,7 +18,6 @@ import { cn } from '@/lib/utils'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -37,7 +36,6 @@ interface Props {
 }
 
 export const EditFormCustomer = ({ customer, slug, className }: Props) => {
-  const router = useRouter()
   const [loading, setLoading] = useState(false)
 
   const { toast } = useToast()

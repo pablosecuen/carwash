@@ -15,7 +15,6 @@ import {
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
-import { VehicleType } from '@/utils/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -199,7 +198,7 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
                             <Checkbox
                               checked={field.value?.includes(item.id)}
                               onCheckedChange={(checked) => {
-                                return checked
+                                checked === true
                                   ? field.onChange([...field.value, item.id])
                                   : field.onChange(
                                       field.value?.filter((value) => value !== item.id)

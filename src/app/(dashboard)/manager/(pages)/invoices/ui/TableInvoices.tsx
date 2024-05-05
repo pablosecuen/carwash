@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers'
 import Search from '@/components/search/Search'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -10,13 +9,6 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
-import {
   Table,
   TableBody,
   TableCell,
@@ -26,9 +18,9 @@ import {
 } from '@/components/ui/table'
 import { dateFormat, currencyFormat } from '@/lib/utils'
 
-import { ListFilter, Info } from 'lucide-react'
+import { Info } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
-import { getPaginatedInvoices, getPaginatedInvoicesByBranch } from '@/actions/invoice/getters'
+import { getPaginatedInvoicesByBranch } from '@/actions/invoice/getters'
 
 interface Props {
   params?: {
@@ -37,7 +29,6 @@ interface Props {
 }
 export const TableInvoices = async ({ params }: Props) => {
   const page = params?.page
-  const branch = cookies().get('branch')?.value
   // TODO: action que traiga las invoices por branch
   const invoices = await getPaginatedInvoicesByBranch({
     page: page ?? 1
@@ -66,7 +57,7 @@ export const TableInvoices = async ({ params }: Props) => {
             <TableBody>
               {invoices.map(
                 ({ branch, id, total, createAt, status, customer, products, tickets }, index) => (
-                  <TableRow className={index % 2 == 1 ? 'bg-muted' : ''} key={id}>
+                  <TableRow className={index % 2 === 1 ? 'bg-muted' : ''} key={id}>
                     <TableCell>{id}</TableCell>
                     <TableCell>Imanol</TableCell>
                     <TableCell>{branch}</TableCell>

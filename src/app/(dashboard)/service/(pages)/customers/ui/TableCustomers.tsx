@@ -9,7 +9,6 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { getAllCustomers } from '@/actions/customer/getters'
-import { UpdateCustomer } from './UpdateCustomer'
 import { formatSlugFromCustomer } from '@/utils/slug'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'

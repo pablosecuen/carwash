@@ -76,9 +76,10 @@ export function ServiceField({
     }
   })
 
-  const vehicle = form.watch('vehicle')
-    ? vehicles.find((vehicle) => vehicle.id === +form.watch('vehicle'))
-    : null
+  const vehicle =
+    form.watch('vehicle') !== null
+      ? vehicles.find((vehicle) => vehicle.id === +form.watch('vehicle'))
+      : null
 
   useEffect(() => {
     if (vehicle == null) return
