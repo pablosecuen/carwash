@@ -1,5 +1,9 @@
+import Link from 'next/link'
 import { Edit } from 'lucide-react'
-
+import { DateFormatter, listFormater } from '@/utils/formatters'
+import { currencyFormat } from '@/lib/utils'
+import { type Service } from '@/db/entities/services'
+import { VEHICLE_TYPES } from '@/utils/constants'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import {
@@ -10,11 +14,7 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { VEHICLE_TYPES } from '@/utils/constants'
-import Link from 'next/link'
-import { type Service } from '@/db/entities/services'
 import { DeleteserviceBtn } from './delete-service-btn'
-import { DateFormatter, listFormater } from '@/utils/formatters'
 
 export function ServiceTable({ services }: { services: Service[] }) {
   return (
@@ -27,7 +27,7 @@ export function ServiceTable({ services }: { services: Service[] }) {
               <TableHead className='hidden md:table-cell'>Precio efectivo</TableHead>
               <TableHead className='hidden md:table-cell'>Precio Tarjeta</TableHead>
               <TableHead className='hidden md:table-cell'>Disponible para</TableHead>
-              <TableHead className='hidden md:table-cell'>Ultima Modificación</TableHead>
+              <TableHead className='hidden lg:table-cell'>Última Modificación</TableHead>
               <TableHead>
                 <span className='sr-only'>Acciones</span>
               </TableHead>
@@ -37,17 +37,17 @@ export function ServiceTable({ services }: { services: Service[] }) {
             {services.map(({ name, cardPrice, cashPrice, id, avaliableFor, updatedAt }) => (
               <TableRow key={id}>
                 <TableCell className='font-medium'>{name}</TableCell>
-                <TableCell className='hidden md:table-cell'>{cashPrice}</TableCell>
-                <TableCell className='hidden md:table-cell'>{cardPrice}</TableCell>
+                <TableCell className='hidden md:table-cell'>{currencyFormat(cashPrice)}</TableCell>
+                <TableCell className='hidden md:table-cell'>{currencyFormat(cardPrice)}</TableCell>
                 <TableCell className='hidden md:table-cell'>
                   {listFormater(avaliableFor.map((a) => VEHICLE_TYPES[a]))}
                 </TableCell>
-                <TableCell className='hidden md:table-cell'>
+                <TableCell className='hidden lg:table-cell'>
                   {DateFormatter(new Date(updatedAt))}
                 </TableCell>
                 <TableCell className='flex gap-2'>
                   <Button asChild variant={'ghost'}>
-                    <Link href={`/dashboard/products/${id}`} className='flex gap-2'>
+                    <Link href={`/dashboard/services/${id}`} className='flex gap-2'>
                       <Edit />
                       Editar
                     </Link>
