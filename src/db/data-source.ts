@@ -15,6 +15,7 @@ export const AppDataSource = new DataSource({
   username: dbUser,
   password: dbPass,
   database: dbName,
+  ssl: { rejectUnauthorized: false },
   synchronize: true,
   logging: false,
   entities: [Customer, Vehicle, Product, Service, Ticket, Invoice, CashClosures]
