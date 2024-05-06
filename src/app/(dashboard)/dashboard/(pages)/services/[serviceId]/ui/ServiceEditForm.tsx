@@ -64,7 +64,7 @@ export const ServiceEditForm = ({ service }: Props) => {
     })
 
     setLoading(true)
-    const { ok, message } = await updateServiceAction(service.id as number, formData)
+    const { ok, message } = await updateServiceAction(service.id, formData)
 
     if (!ok) {
       toast({
