@@ -19,6 +19,6 @@ export const getServiceById = async (id: string | number) => {
     return JSON.parse(JSON.stringify(service)) as Service
   } catch (error) {
     console.error(error)
-    return null
+    return JSON.parse(JSON.stringify({})) as Service
   }
 }
