@@ -33,7 +33,7 @@ export default async function DashboardPage() {
               linkLabel='Ir a servicios'
             />
             <DashboardCard
-              className='sm:col-span-2 '
+              className='sm:col-span-2 md:col-span-full lg:col-span-2 '
               title='Productos'
               description='Esta sección te permite administrar los productos que se ofrecen en el sistema.'
               href='/dashboard/products'
