@@ -7,7 +7,8 @@ export default function Home() {
   const cookiesStore = cookies()
   const role = cookiesStore.get('role')?.value
   if (role != null) {
-    if (role === 'ADMIN' || role === 'EDITOR') redirect('/dashboard')
+    if (role === 'ADMIN') redirect('/dashboard')
+    if (role === 'EDITOR') redirect('/manager')
     redirect('/service')
   }
   return (

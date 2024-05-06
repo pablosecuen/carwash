@@ -44,7 +44,7 @@ export const TableOrders = () => {
           <span className='sr-only sm:not-sr-only'>Exportar</span>
         </Button>
       </div>
-      <Card className='shadow-cards'>
+      <Card className=''>
         <CardHeader className='px-7'>
           <CardTitle>Ordenes</CardTitle>
           <CardDescription>Ordenes recientes.</CardDescription>

@@ -20,6 +20,6 @@ export const navItems: NavItem[] = [
     title: 'Dashboard',
     href: '/dashboard',
     label: 'Dashboard de administrador',
-    role: ['ADMIN', 'EDITOR']
+    role: ['ADMIN']
   }
 ]

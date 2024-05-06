@@ -3,7 +3,7 @@
 import { removeProductAction } from '@/actions/product/remove-product'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/use-toast'
-import { Delete, DeleteIcon, Octagon, OctagonX } from 'lucide-react'
+import { OctagonX } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 export function DeleteProductBtn({ productId }: { productId: number }) {

@@ -78,7 +78,7 @@ export const TableInvoices = async ({ params }: Props) => {
             <TableBody>
               {invoices.map(
                 ({ branch, id, total, createAt, status, customer, products, tickets }, index) => (
-                  <TableRow className={index % 2 == 1 ? 'bg-muted' : ''} key={id}>
+                  <TableRow className={index % 2 === 1 ? 'bg-muted' : ''} key={id}>
                     <TableCell>{id}</TableCell>
                     <TableCell>Imanol</TableCell>
                     <TableCell>{branch}</TableCell>

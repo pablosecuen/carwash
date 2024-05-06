@@ -70,7 +70,7 @@ export const Breadcrumbs = ({ className }: Props) => {
                   className={cn(
                     'capitalize',
                     index === breadcrumbArr.length - 1
-                      ? 'font-semibold text-primary fade-in'
+                      ? 'font-semibold text-primary'
                       : 'font-normal'
                   )}
                 >
@@ -81,7 +81,7 @@ export const Breadcrumbs = ({ className }: Props) => {
                 key={`${index}-${index + 1}`}
                 className={cn(
                   'capitalize',
-                  index === breadcrumbArr.length - 1 ? 'text-primary fade-in' : ''
+                  index === breadcrumbArr.length - 1 ? 'text-primary' : ''
                 )}
               />
             </Fragment>

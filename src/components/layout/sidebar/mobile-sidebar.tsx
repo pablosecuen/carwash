@@ -6,7 +6,7 @@ import { MenuIcon } from 'lucide-react'
 import { useState } from 'react'
 import { DashboardNav } from '../dashboard-nav'
 import { navItems } from '@/lib/data'
-import { Roles } from '@/utils/types'
+import { type Roles } from '@/utils/types'
 
 // import { Playlist } from "../data/playlists";
 

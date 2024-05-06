@@ -1,12 +1,9 @@
-import { getAllProducts } from '@/actions/product/getters'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { DashboardCard } from '../../../components/DashboardCard'
 import { TableCustomers } from './ui/server/TableCustomers'
 import { DashboardCardProducts } from '@/components/DashboardCardProducts'
 
 export default async function ServicePage() {
-  const products = await getAllProducts()
-
   return (
     <ContainerPage>
       <div className='grid flex-1 items-start gap-4  md:gap-8 lg:grid-cols-3 xl:grid-cols-3'>
@@ -33,7 +30,6 @@ export default async function ServicePage() {
               className=' sm:col-span-2 '
               title='Productos'
               description='Aqui podras ver todos los productos que hay en el sistema.'
-              data={products}
             />
           </div>
 
