@@ -25,6 +25,8 @@ import { currencyFormat, dateFormat } from '@/lib/utils'
 import { Info } from 'lucide-react'
 import { DropdownFilterBranch } from './DropdownFilterBranch'
 import { type Branch } from '@/utils/types'
+
+import { SelectStatus } from './select-status'
 interface Props {
   params?: {
     page?: string
@@ -92,12 +94,15 @@ export const TableInvoices = async ({ params }: Props) => {
                             <h4>Servicios: </h4>
                             <h4>
                               {tickets.map((item) => (
-                                <p key={item.id}>
-                                  {item.service.name} {item.vehicle.patent}
-                                </p>
+                                <div key={item.id}>
+                                  <p>{item.service.name} </p>
+                                  <p>Auto: {item.vehicle.patent}</p>
+                                </div>
                               ))}
                             </h4>
                             <h4>Total: {currencyFormat(total)}</h4>
+
+                            <SelectStatus status={status} id={id} />
                           </DialogContent>
                         </Dialog>
                       </TableCell>
