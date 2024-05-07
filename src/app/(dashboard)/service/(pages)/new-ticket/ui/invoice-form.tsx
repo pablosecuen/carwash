@@ -12,6 +12,8 @@ import { createInvoiceAction } from '@/actions/invoice/create-invoice'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { currencyFormat } from '@/lib/utils'
+import { useToast } from '@/components/ui/use-toast'
+import { useRouter } from 'next/navigation'
 
 type ProductAdded = Product & { paymentMethod: PaymentMethod }
 
@@ -26,6 +28,8 @@ export function InvoiceForm({
   vehicles: Vehicle[]
   products: Product[]
 }) {
+  const router = useRouter()
+  const { toast } = useToast()
   const [tickets, setTickets] = useState<Ticket[]>([])
   const [products, setProducts] = useState<ProductAdded[]>([])
   const addTicket = (ticket: Ticket) => {
@@ -38,11 +42,21 @@ export function InvoiceForm({
   const onCreateInvoice = async () => {
     if (customerId == null) return
 
-    await createInvoiceAction({
+    const { ok, message } = await createInvoiceAction({
       customerId,
       tickets,
       products
     })
+    if (!ok) {
+      toast({
+        title: message,
+        variant: 'destructive'
+      })
+    }
+    toast({
+      title: message
+    })
+    router.push('/service')
   }
   return (
     <>
@@ -53,10 +67,13 @@ export function InvoiceForm({
         </div>
       </Card>
 
-      {tickets.map((ticket) => (
-        <Card key={ticket.id} className='mt-10 p-5'>
+      {tickets.map(({ id, totalPrice, vehicle, service, paymentMethod }) => (
+        <Card key={id} className='mt-10 p-5'>
           <div className='flex flex-col gap-5 md:flex-row'>
-            {currencyFormat(ticket.totalPrice)}
+            <p>{vehicle.patent}</p>
+
+            <p>{service.name}</p>
+            {currencyFormat(totalPrice)}
             {/* <ServiceField {...{ allServices: services, vehicles }} addTicket={addTicket} /> */}
             {/* <ProductsField products={allProducts} addProduct={addProduct} /> */}
           </div>

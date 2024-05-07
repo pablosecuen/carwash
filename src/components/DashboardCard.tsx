@@ -6,14 +6,14 @@ import Link from 'next/link'
 interface Props {
   className?: string
   title: string
-  description: string
+  description?: string
   href: string
   linkLabel: string
 }
 
 export const DashboardCard = async ({ className, description, href, linkLabel, title }: Props) => {
   return (
-    <Card className={cn('  fade-in', className)}>
+    <Card className={cn('  ', className)}>
       <CardHeader className='pb-3'>
         <CardTitle>{title}</CardTitle>
         <CardDescription className=' text-pretty leading-relaxed'>{description}</CardDescription>

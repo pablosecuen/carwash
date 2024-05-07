@@ -9,11 +9,12 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { currencyFormat } from '@/lib/utils'
+import { currencyFormat, sleep } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
 
 export async function TableInfoDay() {
+  await sleep(2000)
   const invoiceDayData = await getDailyInvoices()
 
   const totalPriceDaily = invoiceDayData.reduce((acc, invoice) => acc + invoice.total, 0)

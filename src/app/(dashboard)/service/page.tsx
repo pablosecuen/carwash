@@ -1,7 +1,7 @@
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { DashboardCard } from '../../../components/DashboardCard'
-import { TableCustomers } from './ui/server/TableCustomers'
 import { DashboardCardProducts } from '@/components/DashboardCardProducts'
+import { TableDailyInvoices } from './ui/TableDailyInvoices'
 
 export default async function ServicePage() {
   return (
@@ -27,13 +27,13 @@ export default async function ServicePage() {
             />
 
             <DashboardCardProducts
-              className=' sm:col-span-2 '
+              className=' sm:col-span-2 md:col-span-full lg:col-span-2'
               title='Productos'
               description='Aqui podras ver todos los productos que hay en el sistema.'
             />
           </div>
 
-          <TableCustomers />
+          <TableDailyInvoices />
         </div>
 
         {/* Ver que otros datos darle al empleado como forma de informacion, estadisticas */}

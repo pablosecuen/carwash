@@ -1,4 +1,4 @@
-import { getPaginatedInvoices } from '@/actions/invoice/getters'
+import { getPaginatedInvoicesByBranchDashboard } from '@/actions/invoice/getters'
 
 import Search from '@/components/search/Search'
 import { Badge } from '@/components/ui/badge'
@@ -11,13 +11,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+
 import {
   Table,
   TableBody,
@@ -28,36 +22,30 @@ import {
 } from '@/components/ui/table'
 import { currencyFormat, dateFormat } from '@/lib/utils'
 
-import { Info, ListFilter } from 'lucide-react'
+import { Info } from 'lucide-react'
+import { DropdownFilterBranch } from './DropdownFilterBranch'
+import { type Branch } from '@/utils/types'
 interface Props {
   params?: {
     page?: string
+    branch?: Branch
+    query?: string
   }
 }
 export const TableInvoices = async ({ params }: Props) => {
   const page = params?.page
-  const invoices = await getPaginatedInvoices({
-    page: page ?? 1
-  })
+  const branch = params?.branch
 
+  const invoices = await getPaginatedInvoicesByBranchDashboard({
+    page: page ?? 0,
+    branch
+  })
+  console.log({ invoicesnuevos: invoices })
   return (
     <div className='fade-in'>
       <div className=' mb-2 flex items-center justify-end gap-2'>
         <Search placeholder='' />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='outline' size='sm' className='h-7 gap-1 text-sm'>
-              <ListFilter className='h-3.5 w-3.5' />
-              <span className='sr-only sm:not-sr-only'>sucursal</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuSeparator />
-            <DropdownMenuCheckboxItem checked>Sucursal 1</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Sucursal 2</DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem>Sucursal 3</DropdownMenuCheckboxItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <DropdownFilterBranch />
       </div>
       <Card className='fade-in'>
         <CardContent className='p-0'>
@@ -77,37 +65,45 @@ export const TableInvoices = async ({ params }: Props) => {
             </TableHeader>
             <TableBody>
               {invoices.map(
-                ({ branch, id, total, createAt, status, customer, products, tickets }, index) => (
-                  <TableRow className={index % 2 === 1 ? 'bg-muted' : ''} key={id}>
-                    <TableCell>{id}</TableCell>
-                    <TableCell>Imanol</TableCell>
-                    <TableCell>{branch}</TableCell>
-                    <TableCell>
-                      <Badge variant={'success'}>{status}</Badge>
-                    </TableCell>
-                    <TableCell>{dateFormat(new Date(createAt))}</TableCell>
-                    <TableCell>{currencyFormat(total)}</TableCell>
-                    <TableCell>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button variant={'outline'}>
-                            <Info className='mr-2 h-5 w-5' />
-                            Mas info
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Detalle de la factura</DialogTitle>
-                          </DialogHeader>
-                          Aca va toda la info de la factura {id}
-                          {JSON.stringify(customer, null, 2)}
-                          {JSON.stringify(products, null, 2)}
-                          {JSON.stringify(tickets, null, 2)}
-                        </DialogContent>
-                      </Dialog>
-                    </TableCell>
-                  </TableRow>
-                )
+                ({ branch, id, total, createAt, status, customer, products, tickets }, index) => {
+                  return (
+                    <TableRow className={index % 2 === 1 ? 'bg-muted' : ''} key={id}>
+                      <TableCell>{id}</TableCell>
+                      <TableCell>{customer.name}</TableCell>
+                      <TableCell>{branch}</TableCell>
+                      <TableCell>
+                        <Badge variant={'success'}>{status}</Badge>
+                      </TableCell>
+                      <TableCell>{dateFormat(new Date(createAt))}</TableCell>
+                      <TableCell>{currencyFormat(total)}</TableCell>
+                      <TableCell>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button variant={'outline'}>
+                              <Info className='mr-2 h-5 w-5' />
+                              Mas info
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle>Detalle de la factura {id}</DialogTitle>
+                            </DialogHeader>
+                            <h4>Cliente: {customer.name}</h4>
+                            <h4>Servicios: </h4>
+                            <h4>
+                              {tickets.map((item) => (
+                                <p key={item.id}>
+                                  {item.service.name} {item.vehicle.patent}
+                                </p>
+                              ))}
+                            </h4>
+                            <h4>Total: {currencyFormat(total)}</h4>
+                          </DialogContent>
+                        </Dialog>
+                      </TableCell>
+                    </TableRow>
+                  )
+                }
               )}
             </TableBody>
           </Table>

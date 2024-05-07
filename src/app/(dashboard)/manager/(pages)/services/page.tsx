@@ -1,14 +1,10 @@
-// TODO: poner esto en las paginas que lo requieran
-// Opt out of caching for all data requests in the route segment
-
 import { Title } from '@/components/layout'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
-import { TableInvoices } from './ui/TableInvoices'
-import { Suspense } from 'react'
-import { Loader2 } from 'lucide-react'
 import { type Branch } from '@/utils/types'
+import { Loader2 } from 'lucide-react'
 import { redirect } from 'next/navigation'
-export const dynamic = 'force-dynamic'
+import { Suspense } from 'react'
+import { TableServices } from './ui/TableServices'
 
 enum BranchType {
   ONE,
@@ -16,7 +12,7 @@ enum BranchType {
   THREE
 }
 
-export default function InvoicesPage({
+export default function ServicesPage({
   searchParams
 }: {
   searchParams?: {
@@ -36,7 +32,7 @@ export default function InvoicesPage({
   }
   return (
     <ContainerPage>
-      <Title title={`Facturas de la sucursal ${branch}`} />
+      <Title title={`Servicios de la sucursal ${branch}`} />
 
       <Suspense
         fallback={
@@ -45,7 +41,7 @@ export default function InvoicesPage({
           </div>
         }
       >
-        <TableInvoices params={searchParams} />
+        <TableServices params={searchParams} />
       </Suspense>
     </ContainerPage>
   )
