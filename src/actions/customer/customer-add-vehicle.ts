@@ -17,14 +17,12 @@ export async function customerAddVehicle(customerId: number, formData: FormData)
   }
   try {
     // TODO: handler possible errors
-    console.log({ data })
     const vehicle = await vehicleRepository.create(data)
     if (vehicle == null) {
       throw new Error('Error creating vehicle')
     }
     const customer = await customerRepository.addVehicle(customerId, vehicle)
     revalidatePath(`/service/customers/${formatSlugFromCustomer(customer)}`)
-    console.log({ customer, vehicle })
   } catch (error) {
     console.error('Error adding vehicle to customer:', error)
   }
