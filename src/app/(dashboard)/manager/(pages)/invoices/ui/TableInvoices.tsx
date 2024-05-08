@@ -70,7 +70,7 @@ export const TableInvoices = async ({ params }: Props) => {
                     <TableCell>Imanol</TableCell>
                     <TableCell>{branch}</TableCell>
                     <TableCell>
-                      <Badge variant={'success'}>{status}</Badge>
+                      <Badge variant={'completed'}>{status}</Badge>
                     </TableCell>
                     <TableCell>{dateFormat(new Date(createAt))}</TableCell>
                     <TableCell>{currencyFormat(total)}</TableCell>

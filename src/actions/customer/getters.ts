@@ -2,7 +2,7 @@ import { type Customer } from '@/db/entities'
 import { customerRepository } from '@/db/repositories/customer'
 import { getBranch, hasPermission } from '@/utils/user-validate'
 
-export async function getAllCustomers(name: string | undefined) {
+export async function getAllCustomers(name?: string) {
   try {
     const isAdmin = await hasPermission('ADMIN')
     return JSON.parse(
