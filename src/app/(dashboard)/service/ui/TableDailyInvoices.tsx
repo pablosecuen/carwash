@@ -36,7 +36,7 @@ export const TableDailyInvoices = async () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {invoicesDaily.map(({ id, customer, branch, status, createAt, total }) => {
+              {invoicesDaily.map(({ id, customer, branch, status, total }) => {
                 return (
                   <TableRow key={id}>
                     <TableCell>{customer.name}</TableCell>
