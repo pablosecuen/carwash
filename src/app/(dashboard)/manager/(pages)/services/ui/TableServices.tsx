@@ -1,5 +1,4 @@
 import { getAllServices } from '@/actions/service/getters'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import {
   Table,
@@ -13,8 +12,6 @@ import { currencyFormat } from '@/lib/utils'
 import { VEHICLE_TYPES } from '@/utils/constants'
 import { DateFormatter, listFormater } from '@/utils/formatters'
 import { type Branch } from '@/utils/types'
-import { Edit } from 'lucide-react'
-import Link from 'next/link'
 import React from 'react'
 
 interface Props {
@@ -24,9 +21,6 @@ interface Props {
   }
 }
 export const TableServices = async ({ params }: Props) => {
-  const page = params?.page
-  const branch = params?.branch
-
   const services = await getAllServices()
   return (
     <Card className='fade-in'>
