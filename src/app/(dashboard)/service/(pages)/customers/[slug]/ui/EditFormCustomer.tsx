@@ -86,6 +86,7 @@ export const EditFormCustomer = ({ customer, slug, className }: Props) => {
           className
         )}
       >
+        <h4 className='text-center font-bold tracking-wide'>Informacion del cliente</h4>
         {/* name */}
         <FormField
           name='name'
