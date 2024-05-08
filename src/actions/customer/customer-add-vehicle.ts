@@ -1,7 +1,9 @@
 'use server'
 import { customerRepository } from '@/db/repositories/customer'
 import { vehicleRepository } from '@/db/repositories/vehicle'
+import { formatSlugFromCustomer } from '@/utils/slug'
 import { type VehicleType } from '@/utils/types'
+import { revalidatePath } from 'next/cache'
 
 export async function customerAddVehicle(customerId: number, formData: FormData) {
   // TODO: validate formData
@@ -15,11 +17,13 @@ export async function customerAddVehicle(customerId: number, formData: FormData)
   }
   try {
     // TODO: handler possible errors
+    console.log({ data })
     const vehicle = await vehicleRepository.create(data)
     if (vehicle == null) {
       throw new Error('Error creating vehicle')
     }
     const customer = await customerRepository.addVehicle(customerId, vehicle)
+    revalidatePath(`/service/customers/${formatSlugFromCustomer(customer)}`)
     console.log({ customer, vehicle })
   } catch (error) {
     console.error('Error adding vehicle to customer:', error)
