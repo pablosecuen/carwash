@@ -2,7 +2,7 @@ import { type Branch, PaymentMethod } from '@/utils/types'
 import { Invoice } from '../entities/invoice'
 import { type Product } from '../entities/product'
 import { BaseRepository } from './base-repository'
-import { Between } from 'typeorm'
+import { Between, type FindOperator, ILike } from 'typeorm'
 
 type CreateData = Omit<Invoice, 'id' | 'total' | 'createAt' | 'products' | 'status'> & {
   products: Array<Product & { paymentMethod: PaymentMethod }>
@@ -24,6 +24,7 @@ interface FindOptions {
         }
     customer?: true
   }
+  customerName?: string
   limit?: number
   offset?: number
 }
@@ -98,6 +99,7 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
     status,
     joins,
     limit = 20,
+    customerName,
     offset = 0
   }: FindOptions = {}) {
     await this.init()
@@ -109,7 +111,7 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
       return await this.repository.find({
         where: {
           createAt,
-          customer: customerId != null ? { id: customerId } : undefined,
+          customer: this.buildCustomerWhereClause({ customerId, customerName }),
           branch,
           status
         },
@@ -126,6 +128,13 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
       console.log(error)
       throw new Error('Error finding invoices')
     }
+  }
+
+  private buildCustomerWhereClause({ customerId, customerName }: FindOptions) {
+    const customer: { id?: number; name?: FindOperator<string> } | undefined = {}
+    if (customerId != null) customer.id = customerId
+    if (customerName != null) customer.name = ILike(`%${customerName}%`)
+    return Object.keys(customer).length === 0 ? customer : undefined
   }
 
   async findById(id: number, opts: { joins?: FindOptions['joins'] }) {
