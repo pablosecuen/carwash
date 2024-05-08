@@ -1,5 +1,5 @@
 import { getDailyInvoices } from '@/actions/invoice/getters'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import {
   Table,
@@ -10,9 +10,9 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { currencyFormat } from '@/lib/utils'
+import { currencyFormat, variantBadge } from '@/lib/utils'
 import { DateFormatter } from '@/utils/formatters'
-import { PaginationTable } from './pagination'
+import { Badge } from '@/components/ui/badge'
 
 export const TableDailyInvoices = async () => {
   const invoicesDaily = await getDailyInvoices()
@@ -21,6 +21,9 @@ export const TableDailyInvoices = async () => {
   return (
     <>
       <Card>
+        <CardHeader>
+          <CardTitle className='text-lg font-semibold'>Facturas del día</CardTitle>
+        </CardHeader>
         <CardContent className='p-0'>
           <Table>
             <TableHeader>
@@ -40,7 +43,9 @@ export const TableDailyInvoices = async () => {
                     <TableCell>{id}</TableCell>
                     <TableCell>{customer.name}</TableCell>
                     <TableCell>{branch}</TableCell>
-                    <TableCell>{status}</TableCell>
+                    <TableCell>
+                      <Badge variant={variantBadge(status)}>{status}</Badge>
+                    </TableCell>
                     <TableCell>{DateFormatter(new Date(createAt))}</TableCell>
                     <TableCell className='text-right'>{currencyFormat(total)}</TableCell>
                   </TableRow>
@@ -65,14 +70,14 @@ export const TableDailyInvoices = async () => {
           </Table>
         </CardContent>
       </Card>
-      {invoicesDaily.length > 0 && (
+      {/* {invoicesDaily.length > 0 && (
         <div className='mt-4 text-right'>
           <span className='text-sm text-gray-500'>
             Mostrando {invoicesDaily.length} de {invoicesDaily.length}
           </span>
         </div>
-      )}
-      {invoicesDaily.length > 0 && <PaginationTable />}
+      )} */}
+      {/* {invoicesDaily.length > 0 && <PaginationTable />} */}
     </>
   )
 }
