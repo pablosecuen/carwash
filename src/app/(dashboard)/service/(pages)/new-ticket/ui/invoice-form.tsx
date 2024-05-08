@@ -70,12 +70,12 @@ export function InvoiceForm({
       {tickets.map(({ id, totalPrice, vehicle, service, paymentMethod }) => (
         <Card key={id} className='mt-10 p-5'>
           <div className='flex flex-col gap-5 md:flex-row'>
-            <p>{vehicle.patent}</p>
+            <p>Vehiculo: {vehicle.patent}</p>
 
-            <p>{service.name}</p>
+            <p>Servicio: {service.name}</p>
             {currencyFormat(totalPrice)}
-            {/* <ServiceField {...{ allServices: services, vehicles }} addTicket={addTicket} /> */}
-            {/* <ProductsField products={allProducts} addProduct={addProduct} /> */}
+            {/* <ServiceField {...{ allServices: services, vehicles }} addTicket={addTicket} />
+            <ProductsField products={allProducts} addProduct={addProduct} /> */}
           </div>
         </Card>
       ))}
