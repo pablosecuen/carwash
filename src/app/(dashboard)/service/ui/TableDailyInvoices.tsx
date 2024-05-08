@@ -49,14 +49,30 @@ export const TableDailyInvoices = async () => {
             </TableBody>
             <TableFooter>
               <TableRow>
-                <TableCell colSpan={5}>Total</TableCell>
-                <TableCell className='text-right'>{currencyFormat(totalDaily)}</TableCell>
+                {invoicesDaily.length === 0 && (
+                  <TableCell colSpan={6} className='py-10 text-center'>
+                    No hay facturas
+                  </TableCell>
+                )}
+                {invoicesDaily.length > 0 && (
+                  <>
+                    <TableCell colSpan={5}>Total</TableCell>
+                    <TableCell className='text-right'>{currencyFormat(totalDaily)}</TableCell>
+                  </>
+                )}
               </TableRow>
             </TableFooter>
           </Table>
         </CardContent>
       </Card>
-      <PaginationTable />
+      {invoicesDaily.length > 0 && (
+        <div className='mt-4 text-right'>
+          <span className='text-sm text-gray-500'>
+            Mostrando {invoicesDaily.length} de {invoicesDaily.length}
+          </span>
+        </div>
+      )}
+      {invoicesDaily.length > 0 && <PaginationTable />}
     </>
   )
 }
