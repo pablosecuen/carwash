@@ -29,7 +29,7 @@ interface Props {
 export const DashboardCardProducts = async ({ className, description, title }: Props) => {
   const products = await getAllProducts()
   return (
-    <Card className={cn('overflow-scroll', className)}>
+    <Card className={cn('', className)}>
       <CardHeader className='pb-3'>
         <CardTitle>{title}</CardTitle>
         <CardDescription className='text-pretty leading-relaxed'>{description}</CardDescription>
