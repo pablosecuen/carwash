@@ -13,9 +13,12 @@ import { formatSlugFromCustomer } from '@/utils/slug'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Edit } from 'lucide-react'
+import { sleep } from '@/lib/utils'
 
-export const TableCustomers = async () => {
-  const customers = await getAllCustomers()
+export const TableCustomers = async ({ name }: { name?: string }) => {
+  await sleep(2000)
+  const customers = await getAllCustomers(name)
+  console.log({ customers })
   return (
     <Card>
       <CardContent className='p-0'>

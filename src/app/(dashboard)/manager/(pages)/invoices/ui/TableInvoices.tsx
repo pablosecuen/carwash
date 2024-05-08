@@ -21,18 +21,26 @@ import { dateFormat, currencyFormat } from '@/lib/utils'
 import { Info } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { getPaginatedInvoicesByBranch } from '@/actions/invoice/getters'
+import { type Branch } from '@/utils/types'
+import { EmptyPage } from '@/components/layout/page/EmptyPage'
 
 interface Props {
   params?: {
     page: string
+    branch: Branch
   }
 }
 export const TableInvoices = async ({ params }: Props) => {
   const page = params?.page
-  // TODO: action que traiga las invoices por branch
+  const branch = params?.branch
+
   const invoices = await getPaginatedInvoicesByBranch({
-    page: page ?? 1
+    page: page ?? 1,
+    branch
   })
+  if (invoices.length === 0) {
+    return <EmptyPage link='/manager' button_text='Regresar' title='No hay servicios' />
+  }
   return (
     <div className='fade-in'>
       <div className=' mb-2 flex items-center justify-end gap-2'>
@@ -62,7 +70,7 @@ export const TableInvoices = async ({ params }: Props) => {
                     <TableCell>Imanol</TableCell>
                     <TableCell>{branch}</TableCell>
                     <TableCell>
-                      <Badge variant={'success'}>{status}</Badge>
+                      <Badge variant={'completed'}>{status}</Badge>
                     </TableCell>
                     <TableCell>{dateFormat(new Date(createAt))}</TableCell>
                     <TableCell>{currencyFormat(total)}</TableCell>

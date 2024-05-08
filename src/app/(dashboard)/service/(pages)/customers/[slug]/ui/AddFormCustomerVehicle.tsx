@@ -36,7 +36,7 @@ const items = [
     label: 'Camioneta'
   },
   {
-    id: 'motorcyle',
+    id: 'motorcycle',
     label: 'Moto'
   }
 ] as const
@@ -130,50 +130,7 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
           className
         )}
       >
-        {/* name */}
-        {/* <FormField
-          control={form.control}
-          name='type'
-          render={() => (
-            <>
-              <FormItem className='flex items-end space-x-3  '>
-                <div className='mb-4'>
-                  <FormLabel className='text-base'>Sidebar</FormLabel>
-                </div>
-                {items.map((item) => (
-                  <FormField
-                    key={item.id}
-                    control={form.control}
-                    name='type'
-                    render={({ field }) => {
-                      return (
-                        <FormItem
-                          key={item.id}
-                          className='flex flex-row items-end space-x-1 space-y-0'
-                        >
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value?.includes(item.id)}
-                              onCheckedChange={(checked) => {
-                                return checked
-                                  ? field.onChange([...field.value, item.id])
-                                  : field.onChange(
-                                      field.value?.filter((value) => value !== item.id)
-                                    )
-                              }}
-                            />
-                          </FormControl>
-                          <FormLabel className='font-normal'>{item.label}</FormLabel>
-                        </FormItem>
-                      )
-                    }}
-                  />
-                ))}
-              </FormItem>
-              <FormMessage />
-            </>
-          )}
-        /> */}
+        <h4 className='text-center font-bold tracking-wide'>Agregar vehículo</h4>
         <FormField
           control={form.control}
           name='type'
@@ -243,7 +200,7 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
               <FormItem>
                 <FormLabel>Modelo *</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder='Teléfono del cliente' />
+                  <Input {...field} placeholder='Teléfono del cliente' autoComplete='off' />
                 </FormControl>
                 <FormMessage className='text-sm' />
               </FormItem>
@@ -260,7 +217,12 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
               <FormItem>
                 <FormLabel>Año *</FormLabel>
                 <FormControl>
-                  <Input {...field} type='number' placeholder='Dirección del cliente' />
+                  <Input
+                    {...field}
+                    type='number'
+                    placeholder='Dirección del cliente'
+                    autoComplete='off'
+                  />
                 </FormControl>
                 <FormMessage className='text-sm' />
               </FormItem>
@@ -277,7 +239,7 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
               <FormItem>
                 <FormLabel>Patente *</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder='Patente del cliente' />
+                  <Input {...field} placeholder='Patente del cliente' autoComplete='off' />
                 </FormControl>
                 <FormMessage className='text-sm' />
               </FormItem>

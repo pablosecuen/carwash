@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { getAllCustomers } from '@/actions/customer/getters'
 import { PlusCircle } from 'lucide-react'
 import { TableCustomers } from './ui/TableCustomers'
+import { TableSkeleton } from '@/components/skeletons/table-skeleton'
 
 export default async function CustomersPage({
   searchParams
@@ -17,7 +18,7 @@ export default async function CustomersPage({
     page?: string
   }
 }) {
-  const customers = await getAllCustomers()
+  const customers = await getAllCustomers(searchParams?.query)
 
   const currentPage = Number(searchParams?.page) ?? 1
   const query = searchParams?.query ?? ''
@@ -48,10 +49,10 @@ export default async function CustomersPage({
           </Link>
         </Button>
       </header>
-      <Search placeholder='Buscar cliente' />
+      <Search placeholder='Busca un cliente por nombre' />
 
-      <Suspense key={query + currentPage}>
-        <TableCustomers />
+      <Suspense key={query + currentPage} fallback={<TableSkeleton />}>
+        <TableCustomers name={query} />
       </Suspense>
     </ContainerPage>
   )

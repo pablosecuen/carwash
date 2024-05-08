@@ -5,6 +5,7 @@ import { ILike } from 'typeorm'
 import { type Branch } from '@/utils/types'
 
 interface FilterOpts {
+  name?: string
   branch?: Branch
   limit?: number
   offset?: number
@@ -22,7 +23,7 @@ export class CustomerRepository extends BaseRepository<Customer> {
     const { branch, limit = 20, offset = 0 } = filter ?? {}
     await this.init()
     return await this.repository.find({
-      where: { branch },
+      where: { branch, name: ILike(`%${filter?.name ?? ''}%`) },
       take: limit,
       skip: offset
     })

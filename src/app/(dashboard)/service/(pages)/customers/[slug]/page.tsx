@@ -17,13 +17,13 @@ export default async function CustomerDetailPage({
     <ContainerPage>
       <Title title={`Editar cliente: ${customer.name}`} />
 
-      <div className='grid gap-2 md:grid-cols-6 md:gap-4'>
-        <EditFormCustomer customer={customer} slug={slug} className='md:col-span-2' />
-        <AddFormCustomerVehicle customerId={customer.id} className='md:col-span-2' />
-        <Suspense fallback={<div className='h-96 bg-red-500 md:col-span-2'>Loading</div>}>
-          <TableVehiclesCustomer customerId={customer.id} className='md:col-span-2' />
-        </Suspense>
+      <div className='grid gap-2 md:grid-cols-2 md:gap-4'>
+        <EditFormCustomer customer={customer} slug={slug} className='' />
+        <AddFormCustomerVehicle customerId={customer.id} className='' />
       </div>
+      <Suspense fallback={<div className='h-96 bg-red-500 md:col-span-2'>Loading</div>}>
+        <TableVehiclesCustomer customerId={customer.id} className='md:col-span-2' />
+      </Suspense>
     </ContainerPage>
   )
 }
