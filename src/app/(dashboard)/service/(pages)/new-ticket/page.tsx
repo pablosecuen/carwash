@@ -1,4 +1,3 @@
-import { Title } from '@/components/layout'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 
 import { getAllProducts } from '@/actions/product/getters'
@@ -21,9 +20,6 @@ export default async function NamePage({ searchParams }: { searchParams: SearchP
   const { customerName } = searchParams
   return (
     <ContainerPage>
-      <header className='flex items-center justify-between fade-in'>
-        <Title title='Nuevo ticket' />
-      </header>
       <div className='grid w-max grid-cols-3 place-content-center items-start gap-5'>
         <Suspense fallback={<></>}>
           <CustomerFieldServer customerName={customerName ?? ''} />
