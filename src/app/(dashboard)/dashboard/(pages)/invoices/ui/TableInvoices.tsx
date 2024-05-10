@@ -95,7 +95,7 @@ export const TableInvoices = async ({ params }: Props) => {
                             <h4>
                               {tickets.map((item) => (
                                 <div key={item.id}>
-                                  <p>{item.service.name} </p>
+                                  <p>{item.service?.name ?? ''} </p>
                                   <p>Auto: {item.vehicle.patent}</p>
                                 </div>
                               ))}

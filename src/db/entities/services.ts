@@ -1,5 +1,13 @@
 import type { VehicleType } from '@/utils/types'
-import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  type Relation,
+  UpdateDateColumn
+} from 'typeorm'
+import { Ticket } from './ticket'
 @Entity('services')
 export class Service {
   @PrimaryGeneratedColumn()
@@ -19,6 +27,9 @@ export class Service {
 
   @Column('simple-array')
   avaliableFor!: VehicleType[]
+
+  @OneToMany(() => Ticket, (ticket) => ticket.service)
+  tickets?: Array<Relation<Ticket>>
 
   @UpdateDateColumn()
   updatedAt!: Date
