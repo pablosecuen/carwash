@@ -48,9 +48,25 @@ export class ServiceRepostiory extends BaseRepository<Service> {
   }
 
   async delete(id: number) {
-    await this.init()
-    const service = await this.findById(id)
-    await this.repository.remove(service)
+    try {
+      await this.init()
+      const service = await this.repository.findOne({
+        where: { id },
+        relations: {
+          tickets: true
+        }
+      })
+      if (service == null) {
+        throw new Error('Service not found')
+      }
+      service.tickets = []
+      await this.repository.save(service)
+
+      await this.repository.remove(service)
+    } catch (error) {
+      console.error('Error deleting service:', error)
+      throw new Error('Error deleting service')
+    }
   }
 }
 

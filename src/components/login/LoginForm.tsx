@@ -17,6 +17,7 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form'
 import { toast } from '../ui/use-toast'
+import { Roles } from '@/utils/types'
 
 const formSchema = z.object({
   password: z.string().min(1, 'Este campo es requerido *'),
@@ -46,14 +47,18 @@ export const LoginForm = () => {
         variant: 'destructive',
         title: message
       })
-      return
+    }
+    console.log({ role })
+    if (role === Roles.ADMIN) {
+      router.push('/dashboard')
     }
 
-    if (role === 'ADMIN' || role === 'EDITOR') {
-      router.push('/dashboard')
-      return
+    if (role === Roles.EDITOR) {
+      router.push('/manager')
     }
-    router.push('/service')
+    if (role === Roles.USER) {
+      router.push('/service')
+    }
   }
   return (
     <Form {...form}>

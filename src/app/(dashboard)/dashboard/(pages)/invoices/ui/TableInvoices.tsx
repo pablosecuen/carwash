@@ -20,13 +20,13 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { currencyFormat, dateFormat } from '@/lib/utils'
+import { currencyFormat, dateFormat, variantBadge } from '@/lib/utils'
 
 import { Info } from 'lucide-react'
 import { DropdownFilterBranch } from './DropdownFilterBranch'
 import { type Branch } from '@/utils/types'
 
-import { SelectStatus } from './select-status'
+import { SelectStatus } from '../../../../../../components/invoice/select-status'
 interface Props {
   params?: {
     page?: string
@@ -68,21 +68,13 @@ export const TableInvoices = async ({ params }: Props) => {
             <TableBody>
               {invoices.map(
                 ({ branch, id, total, createAt, status, customer, products, tickets }, index) => {
-                  const variantBadge =
-                    status === 'pending'
-                      ? 'pending'
-                      : status === 'completed'
-                        ? 'completed'
-                        : status === 'canceled'
-                          ? 'canceled'
-                          : 'default'
                   return (
                     <TableRow className={index % 2 === 1 ? 'bg-muted' : ''} key={id}>
                       <TableCell>{id}</TableCell>
                       <TableCell>{customer.name}</TableCell>
                       <TableCell>{branch}</TableCell>
                       <TableCell>
-                        <Badge variant={variantBadge}>{status}</Badge>
+                        <Badge variant={variantBadge(status)}>{status}</Badge>
                       </TableCell>
                       <TableCell>{dateFormat(new Date(createAt))}</TableCell>
                       <TableCell>{currencyFormat(total)}</TableCell>
@@ -103,7 +95,7 @@ export const TableInvoices = async ({ params }: Props) => {
                             <h4>
                               {tickets.map((item) => (
                                 <div key={item.id}>
-                                  <p>{item.service.name} </p>
+                                  <p>{item.service?.name ?? ''} </p>
                                   <p>Auto: {item.vehicle.patent}</p>
                                 </div>
                               ))}

@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/sheet'
 
 import { getAllProducts } from '@/actions/product/getters'
+
 import { Banknote, CreditCard } from 'lucide-react'
 
 interface Props {
@@ -49,16 +50,16 @@ export const DashboardCardProducts = async ({ className, description, title }: P
             <div className='grid gap-2'>
               {products?.map((product) => {
                 return (
-                  <Card key={product.id}>
-                    <CardHeader className='pb-2'>
-                      <CardTitle className='text-base'>{product.name}</CardTitle>
+                  <Card key={product.id} className=''>
+                    <CardHeader className='pb-4'>
+                      <CardTitle className='text-center text-base'>{product.name}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p>
+                      <p className='text-start'>
                         <Banknote className='mr-2 inline-flex h-5 w-5' /> Efectivo:{' '}
                         {currencyFormat(product.cardPrice)}
                       </p>
-                      <p>
+                      <p className='text-start'>
                         <CreditCard className='mr-2 inline-flex h-5 w-5' />
                         Tarjeta: {currencyFormat(product.cashPrice)}
                       </p>
