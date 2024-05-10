@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm'
 import { Vehicle } from './vehicle'
 import { Service } from './services'
 import { PaymentMethod, TicketStatus } from '@/utils/types'
@@ -20,8 +20,8 @@ export class Ticket {
   @ManyToOne(() => Vehicle, (vehicle) => vehicle.id)
   vehicle!: Vehicle
 
-  @ManyToOne(() => Service, (service) => service.id)
-  service!: Service
+  @ManyToOne(() => Service, (service) => service.id, { nullable: true })
+  service?: Relation<Service>
 
   @Column('timestamp')
   createdAt!: Date
