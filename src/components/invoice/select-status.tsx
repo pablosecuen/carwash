@@ -74,9 +74,9 @@ export const SelectStatus = ({ status, id }: Props) => {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value='pending'>pending</SelectItem>
-          <SelectItem value='completed'>completed</SelectItem>
-          <SelectItem value='canceled'>canceled</SelectItem>
+          <SelectItem value='pending'>Pendiente</SelectItem>
+          <SelectItem value='completed'>Pagado</SelectItem>
+          <SelectItem value='canceled'>Rechazado</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
