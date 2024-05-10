@@ -69,6 +69,7 @@ export function InvoiceForm({
     toast({
       title: message
     })
+
     router.push('/service')
   }
 

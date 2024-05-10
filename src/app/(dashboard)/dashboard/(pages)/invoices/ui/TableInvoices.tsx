@@ -26,7 +26,7 @@ import { Info } from 'lucide-react'
 import { DropdownFilterBranch } from './DropdownFilterBranch'
 import { type Branch } from '@/utils/types'
 
-import { SelectStatus } from './select-status'
+import { SelectStatus } from '../../../../../../components/invoice/select-status'
 interface Props {
   params?: {
     page?: string
