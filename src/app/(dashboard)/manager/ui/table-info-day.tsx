@@ -1,5 +1,5 @@
 import { getDailyInvoices } from '@/actions/invoice/getters'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Table,
   TableBody,
@@ -9,17 +9,21 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { currencyFormat, sleep } from '@/lib/utils'
+import { currencyFormat, variantBadge } from '@/lib/utils'
+import { SelectStatus } from '../../../../components/invoice/select-status'
+import { Badge } from '@/components/ui/badge'
 
 export const dynamic = 'force-dynamic'
 
 export async function TableInfoDay() {
-  await sleep(2000)
   const invoiceDayData = await getDailyInvoices()
 
   const totalPriceDaily = invoiceDayData.reduce((acc, invoice) => acc + invoice.total, 0)
   return (
     <Card>
+      <CardHeader>
+        <CardTitle>Facturas del día</CardTitle>
+      </CardHeader>
       <CardContent className=' p-0'>
         <Table>
           <TableHeader>
@@ -28,6 +32,7 @@ export async function TableInfoDay() {
               <TableHead>Estado</TableHead>
               <TableHead>Servicios</TableHead>
               <TableHead>Productos</TableHead>
+              <TableHead>Cambiar estado</TableHead>
               <TableHead className='text-right'>Total</TableHead>
             </TableRow>
           </TableHeader>
@@ -35,16 +40,21 @@ export async function TableInfoDay() {
             {invoiceDayData.map(({ total, id, status, tickets, products }) => (
               <TableRow key={id}>
                 <TableCell className='font-medium'>{id}</TableCell>
-                <TableCell>{status}</TableCell>
+                <TableCell>
+                  <Badge variant={variantBadge(status)}>{status}</Badge>
+                </TableCell>
                 <TableCell>{tickets.length}</TableCell>
                 <TableCell>{products.length}</TableCell>
+                <TableCell>
+                  <SelectStatus status={status} id={id} />
+                </TableCell>
                 <TableCell className='text-right'>{currencyFormat(total)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
           <TableFooter>
             <TableRow>
-              <TableCell colSpan={4}>Total</TableCell>
+              <TableCell colSpan={5}>Total</TableCell>
               <TableCell className='text-right'>{currencyFormat(totalPriceDaily)}</TableCell>
             </TableRow>
           </TableFooter>
