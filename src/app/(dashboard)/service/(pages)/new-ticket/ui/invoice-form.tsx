@@ -25,6 +25,7 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { currencyFormat } from '@/lib/utils'
+import { obtenerFechaActual } from '@/utils/formatters'
 
 type ProductAdded = Product & { paymentMethod: PaymentMethod }
 
@@ -94,7 +95,7 @@ export function InvoiceForm({
           {/* <hr className='mb-2' /> */}
           <CardContent>
             <div className='mb-6 flex justify-between'>
-              <div className=''>Fecha: 08/05/2024</div>
+              <div className=''>Fecha: {obtenerFechaActual()}</div>
             </div>
             {/* Detalle del usuario */}
             <div className='mb-8'>
