@@ -116,7 +116,7 @@ export function InvoiceForm({
               <TableBody>
                 {tickets.map(({ id, totalPrice, vehicle, service }) => (
                   <TableRow key={id}>
-                    <TableCell className='text-left '>{service.name}</TableCell>
+                    <TableCell className='text-left '>{service?.name}</TableCell>
                     <TableCell className='text-right '>{currencyFormat(totalPrice)}</TableCell>
                   </TableRow>
                 ))}

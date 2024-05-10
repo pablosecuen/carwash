@@ -10,7 +10,7 @@ export class TicketRepository extends BaseRepository<Ticket> {
   async create(data: Omit<Ticket, 'id' | 'createdAt' | 'totalPrice' | 'status'>) {
     await this.init()
     const totalPrice =
-      data.paymentMethod === PaymentMethod.CARD ? data.service.cardPrice : data.service.cashPrice
+      data.paymentMethod === PaymentMethod.CARD ? data.service?.cardPrice : data.service?.cashPrice
     const ticket = this.repository.create({
       ...data,
       totalPrice,
