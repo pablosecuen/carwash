@@ -55,11 +55,11 @@ export const DashboardCardProducts = async ({ className, description, title }: P
                       <CardTitle className='text-center text-base'>{product.name}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className='text-right'>
+                      <p className='text-start'>
                         <Banknote className='mr-2 inline-flex h-5 w-5' /> Efectivo:{' '}
                         {currencyFormat(product.cardPrice)}
                       </p>
-                      <p className='text-right'>
+                      <p className='text-start'>
                         <CreditCard className='mr-2 inline-flex h-5 w-5' />
                         Tarjeta: {currencyFormat(product.cashPrice)}
                       </p>

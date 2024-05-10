@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation'
 import { DashboardCardProducts } from '@/components/DashboardCardProducts'
 import { Suspense } from 'react'
 import { TableSkeleton } from '@/components/skeletons/table-skeleton'
+import { Title } from '@/components/layout'
 
 export default async function ManagerPage() {
   const isAdmin = await hasPermission()
@@ -51,6 +52,7 @@ export default async function ManagerPage() {
           {isAdmin && (
             <>
               {/* Sucursal 1 */}
+              <Title title='Sucursal 1' />
               <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-6'>
                 <DashboardCard
                   className='sm:col-span-2'
@@ -66,16 +68,15 @@ export default async function ManagerPage() {
                   href={`/manager/invoices?branch=ONE`}
                   linkLabel='Ir a servicios'
                 />
-                <DashboardCard
+                <DashboardCardProducts
                   className='sm:col-span-2 md:col-span-full lg:col-span-2'
                   title='Productos'
                   description='Esta sección te permite administrar los productos que se ofrecen en el sistema.'
-                  href='/manager/products'
-                  linkLabel='Ir a productos'
                 />
               </div>
               {/* Sucursal 2 */}
 
+              <Title title='Sucursal 2' />
               <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-6'>
                 <DashboardCard
                   className='sm:col-span-2'
@@ -91,15 +92,14 @@ export default async function ManagerPage() {
                   href={`/manager/services?branch=TWO`}
                   linkLabel='Ir a servicios'
                 />
-                <DashboardCard
+                <DashboardCardProducts
                   className='sm:col-span-2 md:col-span-full lg:col-span-2'
                   title='Productos'
                   description='Esta sección te permite administrar los productos que se ofrecen en el sistema.'
-                  href='/manager/products'
-                  linkLabel='Ir a productos'
                 />
               </div>
               {/* Sucursal 3 */}
+              <Title title='Sucursal 3' />
               <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-6'>
                 <DashboardCard
                   className='sm:col-span-2'
@@ -115,12 +115,10 @@ export default async function ManagerPage() {
                   href={`/manager/services?branch=THREE`}
                   linkLabel='Ir a servicios'
                 />
-                <DashboardCard
+                <DashboardCardProducts
                   className='sm:col-span-2 md:col-span-full lg:col-span-2'
                   title='Productos'
                   description='Esta sección te permite administrar los productos que se ofrecen en el sistema.'
-                  href='/manager/products'
-                  linkLabel='Ir a productos'
                 />
               </div>
             </>
