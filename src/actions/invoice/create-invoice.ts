@@ -5,6 +5,7 @@ import { customerRepository } from '@/db/repositories/customer'
 import { invoiceRepository } from '@/db/repositories/invoice'
 import { type PaymentMethod } from '@/utils/types'
 import { getUserBranch } from '@/utils/user-validate'
+import { revalidatePath } from 'next/cache'
 
 export async function createInvoiceAction({
   customerId,
@@ -24,6 +25,7 @@ export async function createInvoiceAction({
       branch,
       products
     })
+    revalidatePath('/service')
     return {
       ok: true,
       message: 'Factura creada correctamente'
