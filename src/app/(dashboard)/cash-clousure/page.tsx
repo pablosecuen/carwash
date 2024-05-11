@@ -31,6 +31,10 @@ export default async function Page() {
           Bonus al gerente
           <input name='managerBonus' type='number' />
         </label>
+        <label htmlFor='employeeBonus'>
+          Bonus a los empleados
+          <input name='employeeBonus' type='number' defaultValue={0} />
+        </label>
         <label htmlFor='employeePayment'>
           Pago a empleados
           <input name='employeePayment' type='number' defaultValue={paymentToEmployees} />
