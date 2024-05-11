@@ -10,7 +10,7 @@ export async function setInvoiceCancelled({ invoiceId }: { invoiceId: number | s
     // TODO: preguntar si el permiso es correcto
     const isPermission = await hasPermission('EDITOR')
     if (!isPermission) return { ok: false, message: 'No tienes permisos' }
-    await invoiceRepository.updateStatus({ id, status: 'canceled' })
+    await invoiceRepository.updateStatus({ id, status: 'cancelled' })
     revalidatePath('/dashboard/invoices')
     return {
       ok: true,

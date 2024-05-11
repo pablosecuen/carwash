@@ -78,7 +78,7 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
   }
 
   async updateStatus({ id, status }: { id: number; status: Invoice['status'] }) {
-    if (!['in-progress', 'pending', 'completed', 'canceled'].includes(status)) {
+    if (!['in-progress', 'pending', 'completed', 'cancelled'].includes(status)) {
       throw new Error(`${status} is not a valid status`)
     }
     await this.init()

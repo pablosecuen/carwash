@@ -32,6 +32,6 @@ export const variantBadge = (status: string) =>
     ? 'pending'
     : status === 'completed'
       ? 'completed'
-      : status === 'canceled'
-        ? 'canceled'
+      : status === 'cancelled'
+        ? 'cancelled'
         : 'default'

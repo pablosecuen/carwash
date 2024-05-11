@@ -4,14 +4,14 @@ import { Customer } from './customer'
 import { Ticket } from './ticket'
 import { Branch } from '@/utils/types'
 
-type InvoiceStatus = 'in-progress' | 'pending' | 'completed' | 'canceled'
+type InvoiceStatus = 'in-progress' | 'pending' | 'completed' | 'cancelled'
 
 @Entity('invoices')
 export class Invoice {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column('enum', { enum: ['in-progress', 'pending', 'completed', 'canceled'] })
+  @Column('enum', { enum: ['in-progress', 'pending', 'completed', 'cancelled'] })
   status!: InvoiceStatus
 
   @Column('int')

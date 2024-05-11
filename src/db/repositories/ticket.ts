@@ -71,7 +71,7 @@ export class TicketRepository extends BaseRepository<Ticket> {
     if (ticket == null) {
       throw new Error('Ticket not found')
     }
-    ticket.status = TicketStatus.CANCELED
+    ticket.status = TicketStatus.CANCELLED
     await this.repository.save(ticket)
     return ticket
   }

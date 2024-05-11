@@ -18,7 +18,7 @@ const badgeVariants = cva(
           'border-transparent bg-green-500 text-secondary-foreground hover:bg-green-500/80',
         pending:
           'border-transparent bg-orange-500 text-secondary-foreground hover:bg-orange-500/80',
-        canceled: 'border-transparent bg-red-500 text-secondary-foreground hover:bg-red-500/80'
+        cancelled: 'border-transparent bg-red-500 text-secondary-foreground hover:bg-red-500/80'
       }
     },
     defaultVariants: {
