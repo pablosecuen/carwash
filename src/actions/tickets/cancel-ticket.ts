@@ -3,7 +3,7 @@
 import { ticketRepository } from '@/db/repositories/ticket'
 import { TicketStatus } from '@/utils/types'
 
-export async function cancelTicket({ id }: { id: number | undefined }) {
+export async function cancelTicket({ id }: { id: number | string }) {
   try {
     await ticketRepository.updateStatus({ id: Number(id), status: TicketStatus.CANCELLED })
     return {
