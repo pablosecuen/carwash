@@ -8,3 +8,22 @@ export async function getTicketsByVehicleId(
   const tickets = await ticketRepository.findByVehicleId(vehicleId, options)
   return JSON.parse(JSON.stringify(tickets)) as Ticket[]
 }
+
+export async function getAllDailyTickets({ page = 0 }: { page?: number } = {}) {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const tomorrow = new Date(today)
+  tomorrow.setDate(tomorrow.getDate() + 1)
+
+  const tickets = await ticketRepository.findAll({
+    limit: 20,
+    offset: page * 20,
+    from: today,
+    to: tomorrow,
+    joins: {
+      vehicle: true,
+      invoice: true
+    }
+  })
+  return JSON.parse(JSON.stringify(tickets)) as typeof tickets
+}
