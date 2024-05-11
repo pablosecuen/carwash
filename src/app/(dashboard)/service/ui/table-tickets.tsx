@@ -13,6 +13,7 @@ import { variantBadge } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { getAllDailyTickets } from '@/actions/tickets'
 import { SelectStatus } from './select-status'
+import { translateStatus } from '@/utils/formatters'
 
 export async function TableTickets() {
   const dailyTickets = await getAllDailyTickets()
@@ -47,7 +48,7 @@ export async function TableTickets() {
                       {vehicle.brand} {vehicle.model} ({vehicle.patent})
                     </TableCell>
                     <TableCell>
-                      <Badge variant={variantBadge(status)}>{status}</Badge>
+                      <Badge variant={variantBadge(status)}>{translateStatus(status)}</Badge>
                     </TableCell>
                     <TableCell>
                       <SelectStatus status={status} id={id} />

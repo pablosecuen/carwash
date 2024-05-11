@@ -13,6 +13,7 @@ import {
 import { currencyFormat, variantBadge } from '@/lib/utils'
 
 import { Badge } from '@/components/ui/badge'
+import { translateStatus } from '@/utils/formatters'
 
 export const TableDailyInvoices = async () => {
   const invoicesDaily = await getDailyInvoices()
@@ -42,7 +43,7 @@ export const TableDailyInvoices = async () => {
                     <TableCell>{customer.name}</TableCell>
                     <TableCell>{branch}</TableCell>
                     <TableCell>
-                      <Badge variant={variantBadge(status)}>{status}</Badge>
+                      <Badge variant={variantBadge(status)}>{translateStatus(status)}</Badge>
                     </TableCell>
 
                     <TableCell className='text-right'>{currencyFormat(total)}</TableCell>
