@@ -1,5 +1,5 @@
 'use server'
-import { cashClosuresRepository } from '@/db/repositories/cash-clousures'
+import { cashClosuresRepository } from '@/db/repositories/cash-closures'
 import { type Branch } from '@/utils/types'
 import { cookies } from 'next/headers'
 

@@ -1,4 +1,4 @@
-import { createCashClosureAction } from '@/actions/cash-clousures/create'
+import { createCashClosureAction } from '@/actions/cash-closures/create'
 import { getDailyInvoices } from '@/actions/invoice/getters'
 
 export default async function Page() {
