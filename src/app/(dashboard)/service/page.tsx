@@ -1,7 +1,8 @@
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { DashboardCard } from '../../../components/DashboardCard'
 import { DashboardCardProducts } from '@/components/DashboardCardProducts'
-import { TableDailyInvoices } from './ui/TableDailyInvoices'
+import { TableTickets } from './ui/table-tickets'
+// import { TableDailyInvoices } from './ui/TableDailyInvoices'
 
 export default async function ServicePage() {
   return (
@@ -33,7 +34,8 @@ export default async function ServicePage() {
             />
           </div>
 
-          <TableDailyInvoices />
+          {/* <TableDailyInvoices /> */}
+          <TableTickets />
         </div>
 
         {/* Ver que otros datos darle al empleado como forma de informacion, estadisticas */}
