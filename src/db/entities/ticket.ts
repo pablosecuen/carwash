@@ -2,6 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, type Relation } from
 import { Vehicle } from './vehicle'
 import { Service } from './services'
 import { PaymentMethod, TicketStatus } from '@/utils/types'
+import { Invoice } from './invoice'
 
 @Entity('tickets')
 export class Ticket {
@@ -22,6 +23,9 @@ export class Ticket {
 
   @ManyToOne(() => Service, (service) => service.id, { nullable: true })
   service?: Relation<Service>
+
+  @ManyToOne(() => Invoice, (invoice) => invoice.id, { nullable: true })
+  invoice?: Relation<Invoice>
 
   @Column('timestamp')
   createdAt!: Date
