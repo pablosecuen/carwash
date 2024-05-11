@@ -34,6 +34,15 @@ export enum TicketStatus {
 
 export type TTicketStatus = TicketStatus.PENDING | TicketStatus.COMPLETED | TicketStatus.CANCELLED
 
+export type InvoiceStatus = 'in-progress' | 'pending' | 'completed' | 'cancelled'
+
+export enum InvoiceStatusEnum {
+  IN_PROGRESS = 'in-progress',
+  PENDING = 'pending',
+  COMPLETED = 'completed',
+  CANCELLED = 'cancelled'
+}
+
 export interface NavItem {
   title: string
   href?: string
