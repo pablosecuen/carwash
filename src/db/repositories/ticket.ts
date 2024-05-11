@@ -6,7 +6,6 @@ import { Between } from 'typeorm'
 export class TicketRepository extends BaseRepository<Ticket> {
   protected entity = Ticket
 
-  // FIXME: The ticket is duplicated in the database
   async create(data: Omit<Ticket, 'id' | 'createdAt' | 'totalPrice' | 'status'>) {
     await this.init()
     const totalPrice =
@@ -45,33 +44,14 @@ export class TicketRepository extends BaseRepository<Ticket> {
     }
   }
 
-  async delete(id: number) {
+  async updateStatus({ id, status }: { id: number; status: TicketStatus }) {
     await this.init()
-    const customer = await this.repository.findOne({ where: { id } })
-    if (customer == null) {
-      throw new Error('Customer not found')
-    }
-    await this.repository.remove(customer)
-  }
+    if (!Object.values(TicketStatus).includes(status)) throw new Error('Invalid status')
 
-  async complete(id: number) {
-    await this.init()
     const ticket = await this.repository.findOne({ where: { id } })
-    if (ticket == null) {
-      throw new Error('Ticket not found')
-    }
-    ticket.status = TicketStatus.COMPLETED
-    await this.repository.save(ticket)
-    return ticket
-  }
+    if (ticket == null) throw new Error('Ticket not found')
 
-  async cancel(id: number) {
-    await this.init()
-    const ticket = await this.repository.findOne({ where: { id } })
-    if (ticket == null) {
-      throw new Error('Ticket not found')
-    }
-    ticket.status = TicketStatus.CANCELED
+    ticket.status = status
     await this.repository.save(ticket)
     return ticket
   }

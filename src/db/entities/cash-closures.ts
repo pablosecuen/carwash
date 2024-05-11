@@ -22,6 +22,9 @@ export class CashClosures {
   @Column('int')
   managerBonus!: number
 
+  @Column('int', { default: 0 })
+  employeeBonus!: number
+
   @Column('int')
   employeePayment!: number
 

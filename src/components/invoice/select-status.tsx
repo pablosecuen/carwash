@@ -37,7 +37,7 @@ export const SelectStatus = ({ status, id }: Props) => {
         })
       }
     }
-    if (value === 'canceled') {
+    if (value === 'cancelled') {
       const { ok, message } = await setInvoiceCancelled({ invoiceId })
       if (!ok) {
         toast({
@@ -76,7 +76,7 @@ export const SelectStatus = ({ status, id }: Props) => {
         <SelectGroup>
           <SelectItem value='pending'>Pendiente</SelectItem>
           <SelectItem value='completed'>Pagado</SelectItem>
-          <SelectItem value='canceled'>Rechazado</SelectItem>
+          <SelectItem value='cancelled'>Rechazado</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

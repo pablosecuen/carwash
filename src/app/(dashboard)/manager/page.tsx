@@ -3,7 +3,6 @@ import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { TableInfoDay } from './ui/table-info-day'
 import { getBranch, getUserRole, hasPermission } from '@/utils/user-validate'
 import { Roles } from '@/utils/types'
-import { redirect } from 'next/navigation'
 import { DashboardCardProducts } from '@/components/DashboardCardProducts'
 import { Suspense } from 'react'
 import { TableSkeleton } from '@/components/skeletons/table-skeleton'
@@ -13,10 +12,6 @@ export default async function ManagerPage() {
   const isAdmin = await hasPermission()
   const role = await getUserRole()
   const branch = getBranch()
-
-  if (role === Roles.USER) {
-    redirect('/')
-  }
 
   const isManager = role === Roles.EDITOR
 

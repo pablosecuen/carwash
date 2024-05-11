@@ -2,16 +2,14 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColum
 import { Product } from './product'
 import { Customer } from './customer'
 import { Ticket } from './ticket'
-import { Branch } from '@/utils/types'
-
-type InvoiceStatus = 'in-progress' | 'pending' | 'completed' | 'canceled'
+import { Branch, type InvoiceStatus, InvoiceStatusEnum } from '@/utils/types'
 
 @Entity('invoices')
 export class Invoice {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column('enum', { enum: ['in-progress', 'pending', 'completed', 'canceled'] })
+  @Column('enum', { enum: Object.values(InvoiceStatusEnum), default: InvoiceStatusEnum.PENDING })
   status!: InvoiceStatus
 
   @Column('int')

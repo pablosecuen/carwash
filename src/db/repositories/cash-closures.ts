@@ -1,5 +1,5 @@
 import { type Branch } from '@/utils/types'
-import { CashClosures } from './../entities/cash-closures'
+import { CashClosures } from '../entities/cash-closures'
 import { BaseRepository } from './base-repository'
 
 interface FilterOpts {

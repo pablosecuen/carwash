@@ -29,10 +29,19 @@ export type TPaymentMethod = PaymentMethod.CASH | PaymentMethod.CARD
 export enum TicketStatus {
   PENDING = 'pending',
   COMPLETED = 'completed',
-  CANCELED = 'canceled'
+  CANCELLED = 'cancelled'
 }
 
-export type TTicketStatus = TicketStatus.PENDING | TicketStatus.COMPLETED | TicketStatus.CANCELED
+export type TTicketStatus = TicketStatus.PENDING | TicketStatus.COMPLETED | TicketStatus.CANCELLED
+
+export type InvoiceStatus = 'in-progress' | 'pending' | 'completed' | 'cancelled'
+
+export enum InvoiceStatusEnum {
+  IN_PROGRESS = 'in-progress',
+  PENDING = 'pending',
+  COMPLETED = 'completed',
+  CANCELLED = 'cancelled'
+}
 
 export interface NavItem {
   title: string

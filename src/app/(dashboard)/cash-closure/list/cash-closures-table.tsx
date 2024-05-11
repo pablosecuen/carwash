@@ -11,7 +11,7 @@ import {
 import { type CashClosures } from '@/db/entities/cash-closures'
 import { DateFormatter } from '@/utils/formatters'
 
-export function CashClousuresTable({ cashClousures }: { cashClousures: CashClosures[] }) {
+export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures[] }) {
   return (
     <Card>
       <CardContent className='p-0'>
@@ -29,7 +29,7 @@ export function CashClousuresTable({ cashClousures }: { cashClousures: CashClosu
             </TableRow>
           </TableHeader>
           <TableBody>
-            {cashClousures.map(
+            {cashClosures.map(
               ({
                 branch,
                 totalDaily,

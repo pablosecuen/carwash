@@ -1,4 +1,4 @@
-import { createCashClosureAction } from '@/actions/cash-clousures/create'
+import { createCashClosureAction } from '@/actions/cash-closures/create'
 import { getDailyInvoices } from '@/actions/invoice/getters'
 
 export default async function Page() {
@@ -30,6 +30,10 @@ export default async function Page() {
         <label htmlFor='managerBonus'>
           Bonus al gerente
           <input name='managerBonus' type='number' />
+        </label>
+        <label htmlFor='employeeBonus'>
+          Bonus a los empleados
+          <input name='employeeBonus' type='number' defaultValue={0} />
         </label>
         <label htmlFor='employeePayment'>
           Pago a empleados

@@ -1,5 +1,5 @@
 'use server'
-import { cashClosuresRepository } from '@/db/repositories/cash-clousures'
+import { cashClosuresRepository } from '@/db/repositories/cash-closures'
 import { type Branch } from '@/utils/types'
 import { cookies } from 'next/headers'
 
@@ -13,6 +13,7 @@ export async function createCashClosureAction(formData: FormData) {
       totalDaily: Number(formData.get('totalDaily')),
       dailyPercentage: Number(formData.get('dailyPercentage')),
       managerBonus: Number(formData.get('managerBonus')),
+      employeeBonus: Number(formData.get('employeeBonus')),
       employeePayment: Number(formData.get('employeePayment'))
     })
     return JSON.parse(JSON.stringify(cashClosed)) as typeof cashClosed
