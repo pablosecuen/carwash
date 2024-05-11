@@ -10,13 +10,13 @@ export async function completeTicket({ id }: { id: number | string }) {
     revalidatePath('/service')
     return {
       ok: true,
-      message: 'Ticket completed successfully'
+      message: 'El ticket se ha marcado como completado exitosamente'
     }
   } catch (error) {
     console.log(error)
     return {
       ok: false,
-      message: 'Failed to complete ticket'
+      message: 'No se pudo marcar el ticket como completado'
     }
   }
 }

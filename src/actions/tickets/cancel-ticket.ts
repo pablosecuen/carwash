@@ -10,13 +10,13 @@ export async function cancelTicket({ id }: { id: number | string }) {
     revalidatePath('/service')
     return {
       ok: true,
-      message: 'Ticket cancelled successfully'
+      message: 'El ticket se ha marcado como cancelado exitosamente'
     }
   } catch (error) {
     console.log(error)
     return {
       ok: false,
-      message: 'Failed to cancel ticket'
+      message: 'No se pudo marcar el ticket como cancelado'
     }
   }
 }
