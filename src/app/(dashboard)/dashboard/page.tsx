@@ -1,15 +1,7 @@
-import { redirect } from 'next/navigation'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { DashboardCard } from '@/components/DashboardCard'
-import { hasPermission } from '@/utils/user-validate'
 
 export default async function DashboardPage() {
-  const isAdmin = await hasPermission()
-
-  if (!isAdmin) {
-    redirect('/')
-  }
-
   return (
     <ContainerPage>
       <div className='grid flex-1 items-start gap-4  md:gap-8 lg:grid-cols-3 xl:grid-cols-3'>
