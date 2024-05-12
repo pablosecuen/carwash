@@ -68,7 +68,7 @@ export const TableInvoices = async ({ params }: Props) => {
                 ({ branch, id, total, createAt, status, customer, products, tickets }, index) => (
                   <TableRow className={index % 2 === 1 ? 'bg-muted' : ''} key={id}>
                     <TableCell>{id}</TableCell>
-                    <TableCell>Imanol</TableCell>
+                    <TableCell>{customer.name}</TableCell>
                     <TableCell>{branch}</TableCell>
                     <TableCell>
                       <Badge variant={variantBadge(status)}>{translateStatus(status)}</Badge>
