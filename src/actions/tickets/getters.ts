@@ -1,5 +1,6 @@
 import { type Ticket } from '@/db/entities/ticket'
 import { ticketRepository } from '@/db/repositories/ticket'
+import { getUserBranch, hasPermission } from '@/utils/user-validate'
 
 export async function getTicketsByVehicleId(
   vehicleId: string,
@@ -14,12 +15,14 @@ export async function getAllDailyTickets({ page = 0 }: { page?: number } = {}) {
   today.setHours(0, 0, 0, 0)
   const tomorrow = new Date(today)
   tomorrow.setDate(tomorrow.getDate() + 1)
-
+  const isAdmin = await hasPermission('ADMIN')
+  const branch = isAdmin ? undefined : await getUserBranch()
   const tickets = await ticketRepository.findAll({
     limit: 20,
     offset: page * 20,
     from: today,
     to: tomorrow,
+    branch,
     joins: {
       vehicle: true,
       invoice: true
