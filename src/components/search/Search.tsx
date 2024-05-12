@@ -11,7 +11,11 @@ export default function Search({ placeholder }: { placeholder: string }) {
   const router = useRouter()
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams)
-    params.set('page', '0')
+    if (pathname === '/service/customers') {
+      if (params.get('page') != null) {
+        params.delete('page')
+      }
+    }
     if (term !== '') {
       params.set('query', term)
     } else {

@@ -21,8 +21,6 @@ export default async function CustomersPage({
   const currentPage = Number(searchParams?.page) ?? 1
   const query = searchParams?.query ?? ''
 
-  // Verificar si el array de customers está vacío
-
   return (
     <ContainerPage>
       <header className='flex items-center justify-between fade-in'>
