@@ -104,7 +104,21 @@ export function InvoiceForm({
   }, [shoppingCart])
   // if (customerId == null) return null
   const onCreateInvoice = async () => {
-    if (customerId == null) return
+    if (customerId == null) {
+      toast({
+        title: 'No se ha seleccionado un cliente',
+        variant: 'destructive'
+      })
+      return
+    }
+
+    if (shoppingCart.tickets.length === 0 && shoppingCart.products.length === 0) {
+      toast({
+        title: 'No hay servicios o productos en el carrito',
+        variant: 'destructive'
+      })
+      return
+    }
 
     const { ok, message } = await createInvoiceAction({
       customerId,
