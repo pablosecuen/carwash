@@ -16,9 +16,9 @@ export async function createInvoiceAction({
   tickets: Ticket[]
   products: Array<Product & { paymentMethod: PaymentMethod }>
 }) {
-  const customer = await customerRepository.findById(Number(customerId))
-  const branch = await getUserBranch()
   try {
+    const customer = await customerRepository.findById(Number(customerId))
+    const branch = await getUserBranch()
     await invoiceRepository.create({
       customer,
       tickets,
