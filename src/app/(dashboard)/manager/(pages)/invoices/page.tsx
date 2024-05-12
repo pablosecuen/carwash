@@ -22,6 +22,7 @@ export default function InvoicesPage({
   searchParams?: {
     page: string
     branch: Branch
+    query?: string
   }
 }) {
   const branch = searchParams?.branch
