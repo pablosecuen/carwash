@@ -11,6 +11,7 @@ export async function setInvoiceCompleted({ invoiceId }: { invoiceId: number | s
     if (!isPermission) return { ok: false, message: 'No tienes permisos' }
     await invoiceRepository.updateStatus({ id, status: 'completed' })
     revalidatePath('/dashboard/invoices')
+    revalidatePath('/manager/invoices')
     return {
       ok: true,
       message: 'Factura completada'
