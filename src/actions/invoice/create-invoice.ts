@@ -3,6 +3,7 @@ import { type Product } from '@/db/entities/product'
 import { type Ticket } from '@/db/entities/ticket'
 import { customerRepository } from '@/db/repositories/customer'
 import { invoiceRepository } from '@/db/repositories/invoice'
+import { ticketRepository } from '@/db/repositories/ticket'
 import { type PaymentMethod } from '@/utils/types'
 import { getUserBranch } from '@/utils/user-validate'
 import { revalidatePath } from 'next/cache'
@@ -19,12 +20,21 @@ export async function createInvoiceAction({
   try {
     const customer = await customerRepository.findById(Number(customerId))
     const branch = await getUserBranch()
-    await invoiceRepository.create({
+    const invoice = await invoiceRepository.create({
       customer,
       tickets,
       branch,
       products
     })
+
+    await Promise.all(
+      tickets.map(async (ticket) => {
+        await ticketRepository.setInvoice({
+          ticketId: ticket.id,
+          invoice
+        })
+      })
+    )
     revalidatePath('/service')
     return {
       ok: true,
