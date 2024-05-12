@@ -24,7 +24,7 @@ export class Ticket {
   @ManyToOne(() => Service, (service) => service.id, { nullable: true })
   service?: Relation<Service>
 
-  @ManyToOne(() => Invoice, (invoice) => invoice.id, { nullable: true })
+  @ManyToOne(() => Invoice, (invoice) => invoice.tickets, { nullable: true })
   invoice?: Relation<Invoice>
 
   @Column('timestamp')

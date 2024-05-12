@@ -2,6 +2,7 @@ import { type Branch, PaymentMethod, TicketStatus } from '@/utils/types'
 import { Ticket } from '../entities/ticket'
 import { BaseRepository } from './base-repository'
 import { Between, type FindManyOptions } from 'typeorm'
+import { type Invoice } from '../entities'
 
 interface FilterOpts {
   from?: Date
@@ -94,6 +95,14 @@ export class TicketRepository extends BaseRepository<Ticket> {
       take: limit,
       skip: offset
     })
+  }
+
+  async setInvoice({ ticketId, invoice }: { ticketId: number; invoice: Invoice }) {
+    await this.init()
+    const ticket = await this.repository.findOne({ where: { id: ticketId } })
+    if (ticket == null) throw new Error('Ticket not found')
+    ticket.invoice = invoice
+    await this.repository.save(ticket)
   }
 
   async deleteById(id: number) {
