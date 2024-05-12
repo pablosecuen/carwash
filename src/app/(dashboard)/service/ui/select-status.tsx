@@ -51,8 +51,8 @@ export const SelectStatus = ({ status, id }: Props) => {
       <SelectContent>
         <SelectGroup>
           <SelectItem value='pending'>Pendiente</SelectItem>
-          <SelectItem value='completed'>Pagado</SelectItem>
-          <SelectItem value='cancelled'>Rechazado</SelectItem>
+          <SelectItem value='completed'>Completado</SelectItem>
+          <SelectItem value='cancelled'>Cancelado</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
