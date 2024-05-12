@@ -16,13 +16,14 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { dateFormat, currencyFormat } from '@/lib/utils'
+import { dateFormat, currencyFormat, variantBadge } from '@/lib/utils'
 
 import { Info } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { getPaginatedInvoicesByBranch } from '@/actions/invoice/getters'
 import { type Branch } from '@/utils/types'
 import { EmptyPage } from '@/components/layout/page/EmptyPage'
+import { translateStatus } from '@/utils/formatters'
 
 interface Props {
   params?: {
@@ -39,12 +40,12 @@ export const TableInvoices = async ({ params }: Props) => {
     branch
   })
   if (invoices.length === 0) {
-    return <EmptyPage link='/manager' button_text='Regresar' title='No hay servicios' />
+    return <EmptyPage link='/manager' button_text='Regresar' title='No hay facturas' />
   }
   return (
     <div className='fade-in'>
       <div className=' mb-2 flex items-center justify-end gap-2'>
-        <Search placeholder='' />
+        <Search placeholder='Buscar por nombre' />
       </div>
       <Card className='fade-in'>
         <CardContent className='p-0'>
@@ -67,10 +68,10 @@ export const TableInvoices = async ({ params }: Props) => {
                 ({ branch, id, total, createAt, status, customer, products, tickets }, index) => (
                   <TableRow className={index % 2 === 1 ? 'bg-muted' : ''} key={id}>
                     <TableCell>{id}</TableCell>
-                    <TableCell>Imanol</TableCell>
+                    <TableCell>{customer.name}</TableCell>
                     <TableCell>{branch}</TableCell>
                     <TableCell>
-                      <Badge variant={'completed'}>{status}</Badge>
+                      <Badge variant={variantBadge(status)}>{translateStatus(status)}</Badge>
                     </TableCell>
                     <TableCell>{dateFormat(new Date(createAt))}</TableCell>
                     <TableCell>{currencyFormat(total)}</TableCell>

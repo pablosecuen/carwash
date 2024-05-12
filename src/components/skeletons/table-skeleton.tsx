@@ -4,7 +4,7 @@ export const TableSkeleton = () => {
   return (
     <div
       role='status'
-      className='col-span-2 animate-pulse space-y-4 divide-y divide-gray-200 rounded-md border border-gray-200 p-4 shadow dark:divide-gray-700 dark:border-gray-700 md:p-6'
+      className='col-span-2 animate-pulse space-y-4 divide-y divide-gray-200 rounded-md border border-gray-200 p-4 opacity-50 shadow dark:divide-gray-700 dark:border-gray-700 md:p-6'
     >
       <div className='flex items-center justify-between'>
         <div>

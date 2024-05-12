@@ -24,7 +24,7 @@ export class Invoice {
   @ManyToOne(() => Customer, (customer) => customer.id)
   customer!: Customer
 
-  @ManyToMany(() => Ticket, (ticket) => ticket.id)
+  @ManyToMany(() => Ticket, (ticket) => ticket.invoice)
   @JoinTable()
   tickets!: Ticket[]
 

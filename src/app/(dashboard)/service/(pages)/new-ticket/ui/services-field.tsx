@@ -22,6 +22,7 @@ import { type Vehicle } from '@/db/entities'
 import { type Service } from '@/db/entities/services'
 import { type Ticket } from '@/db/entities/ticket'
 import { zodResolver } from '@hookform/resolvers/zod'
+
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -55,8 +56,7 @@ export function ServiceField({
           return
         }
         addTicket(ticket)
-        const { reset } = form
-        reset()
+
         toast({
           title: 'Ticket creado',
           description: 'El ticket se creo correctamente'
@@ -70,8 +70,8 @@ export function ServiceField({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      vehicle: 'null',
-      service: 'null',
+      vehicle: '',
+      service: '',
       paymentMethod: 'cash'
     }
   })

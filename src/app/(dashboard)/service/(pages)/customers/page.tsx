@@ -2,10 +2,10 @@ import { Suspense } from 'react'
 import Link from 'next/link'
 import { Title } from '@/components/layout'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
-import { EmptyPage } from '@/components/layout/page/EmptyPage'
+
 import Search from '@/components/search/Search'
 import { Button } from '@/components/ui/button'
-import { getAllCustomers } from '@/actions/customer/getters'
+
 import { PlusCircle } from 'lucide-react'
 import { TableCustomers } from './ui/TableCustomers'
 import { TableSkeleton } from '@/components/skeletons/table-skeleton'
@@ -18,25 +18,8 @@ export default async function CustomersPage({
     page?: string
   }
 }) {
-  const customers = await getAllCustomers(searchParams?.query)
-
   const currentPage = Number(searchParams?.page) ?? 1
   const query = searchParams?.query ?? ''
-
-  // Verificar si el array de customers está vacío
-  if (customers.length === 0) {
-    return (
-      <ContainerPage>
-        <Title title='Clientes' />
-        <EmptyPage
-          title='No tienes clientes'
-          subtitle='Puedes agregar un nuevo cliente.'
-          link='/service/customers/add-customer'
-          button_text='Crear cliente'
-        />
-      </ContainerPage>
-    )
-  }
 
   return (
     <ContainerPage>

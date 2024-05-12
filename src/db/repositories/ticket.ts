@@ -1,7 +1,22 @@
-import { PaymentMethod, TicketStatus } from '@/utils/types'
+import { type Branch, PaymentMethod, TicketStatus } from '@/utils/types'
 import { Ticket } from '../entities/ticket'
 import { BaseRepository } from './base-repository'
-import { Between } from 'typeorm'
+import { Between, type FindManyOptions } from 'typeorm'
+import { type Invoice } from '../entities'
+
+interface FilterOpts {
+  from?: Date
+  to?: Date
+  offset?: number
+  limit?: number
+  branch?: Branch
+  status?: TicketStatus
+  joins?: Partial<{
+    vehicle: boolean
+    service: boolean
+    invoice: boolean
+  }>
+}
 
 export class TicketRepository extends BaseRepository<Ticket> {
   protected entity = Ticket
@@ -53,6 +68,48 @@ export class TicketRepository extends BaseRepository<Ticket> {
 
     ticket.status = status
     await this.repository.save(ticket)
+    return ticket
+  }
+
+  async findAll(options: FilterOpts = {}) {
+    await this.init()
+    const { offset = 0, limit = 20, status, joins, branch, from, to } = options
+
+    const where: FindManyOptions<Ticket>['where'] = {
+      status
+    }
+    if (branch != null) {
+      where.invoice = { branch }
+    }
+
+    if (from != null || to != null) {
+      where.createdAt = Between(from ?? new Date(), to ?? new Date())
+    }
+
+    return await this.repository.find({
+      where,
+      order: {
+        createdAt: 'DESC'
+      },
+      relations: joins,
+      take: limit,
+      skip: offset
+    })
+  }
+
+  async setInvoice({ ticketId, invoice }: { ticketId: number; invoice: Invoice }) {
+    await this.init()
+    const ticket = await this.repository.findOne({ where: { id: ticketId } })
+    if (ticket == null) throw new Error('Ticket not found')
+    ticket.invoice = invoice
+    await this.repository.save(ticket)
+  }
+
+  async deleteById(id: number) {
+    await this.init()
+    const ticket = await this.repository.findOne({ where: { id } })
+    if (ticket == null) throw new Error('Ticket not found')
+    await this.repository.delete({ id })
     return ticket
   }
 }

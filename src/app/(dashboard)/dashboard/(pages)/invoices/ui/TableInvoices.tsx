@@ -27,6 +27,7 @@ import { DropdownFilterBranch } from './DropdownFilterBranch'
 import { type Branch } from '@/utils/types'
 
 import { SelectStatus } from '../../../../../../components/invoice/select-status'
+import { translateStatus } from '@/utils/formatters'
 interface Props {
   params?: {
     page?: string
@@ -74,7 +75,7 @@ export const TableInvoices = async ({ params }: Props) => {
                       <TableCell>{customer.name}</TableCell>
                       <TableCell>{branch}</TableCell>
                       <TableCell>
-                        <Badge variant={variantBadge(status)}>{status}</Badge>
+                        <Badge variant={variantBadge(status)}>{translateStatus(status)}</Badge>
                       </TableCell>
                       <TableCell>{dateFormat(new Date(createAt))}</TableCell>
                       <TableCell>{currencyFormat(total)}</TableCell>

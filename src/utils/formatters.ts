@@ -16,3 +16,16 @@ export const obtenerFechaActual = () => {
   const año = fecha.getFullYear()
   return `${dia}/${mes}/${año}`
 }
+
+export const translateStatus = (status: string): string => {
+  switch (status) {
+    case 'pending':
+      return 'Pendiente'
+    case 'in_progress':
+      return 'En progreso'
+    case 'completed':
+      return 'Completado'
+    default:
+      return status
+  }
+}
