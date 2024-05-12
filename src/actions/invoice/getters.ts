@@ -64,20 +64,26 @@ export const getPaginatedInvoices = async ({
 export const getPaginatedInvoicesByBranch = async ({
   page = 1,
   limit = 0,
-  branch = undefined
+  branch = undefined,
+  customerName
 }: {
   page: number | string
   limit?: number | string
   branch: Branch | undefined
+  customerName?: string
 }) => {
   try {
     const invoices = await invoiceRepository.findAll({
+      customerName,
       branch,
       limit: Number(limit),
       offset: Number(page) * Number(limit),
       joins: {
         customer: true,
-        tickets: true,
+        tickets: {
+          service: true,
+          vehicle: true
+        },
         products: true
       }
     })
