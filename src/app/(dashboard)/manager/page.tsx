@@ -123,14 +123,13 @@ export default async function ManagerPage() {
                   description='Esta sección te permite administrar los productos que se ofrecen en el sistema.'
                 />
               </div>
+              <div>
+                <Suspense fallback={<TableSkeleton />}>
+                  <TableInfoDay />
+                </Suspense>
+              </div>
             </>
           )}
-
-          <div>
-            <Suspense fallback={<TableSkeleton />}>
-              <TableInfoDay />
-            </Suspense>
-          </div>
         </div>
       </div>
     </ContainerPage>
