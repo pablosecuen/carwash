@@ -29,10 +29,7 @@ export async function TableTickets() {
             <TableHeader>
               <TableRow>
                 <TableHead>Ticket</TableHead>
-                {/* 
-                // FIXME: la sucursal se tendria que mostra pero no esta trayendo el la invoice 
                 <TableHead className='hidden md:table-cell'>Sucursal</TableHead>
-                */}
                 <TableHead>Vehiculo</TableHead>
                 <TableHead>Status</TableHead>
 
@@ -40,10 +37,11 @@ export async function TableTickets() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {dailyTickets.map(({ id, status, vehicle = {} }) => {
+              {dailyTickets.map(({ id, status, vehicle = {}, invoice = {} }) => {
                 return (
                   <TableRow key={id}>
                     <TableCell className='font-medium'>{id}</TableCell>
+                    <TableCell className='hidden md:table-cell'>{invoice?.branch}</TableCell>
                     <TableCell>
                       {vehicle.brand} {vehicle.model} ({vehicle.patent})
                     </TableCell>
