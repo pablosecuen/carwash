@@ -21,6 +21,7 @@ export async function createCustomerAction(formData: FormData) {
 
     // TODO: Revalidar los path que se encuentren los customers
     revalidatePath('/service/customers')
+    return JSON.parse(JSON.stringify(customer)) as typeof customer
   } catch (error) {
     console.error('Error creating customer:', error)
   }
