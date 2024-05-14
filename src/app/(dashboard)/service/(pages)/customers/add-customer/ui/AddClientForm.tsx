@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
+import { formatSlugFromCustomer } from '@/utils/slug'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -49,7 +50,8 @@ export const AddClientForm = ({ customerName = '' }: { customerName?: string }) 
 
     setLoading(true)
     await createCustomerAction(formData)
-      .then(() => {
+      .then((customer) => {
+        if (customer == null) throw new Error('No se pudo crear el cliente')
         toast({
           variant: 'default',
           title: 'Cliente creado',
@@ -57,7 +59,7 @@ export const AddClientForm = ({ customerName = '' }: { customerName?: string }) 
           duration: 1800
         })
         form.reset()
-        router.push('/service/customers')
+        router.push(`/service/customers/${formatSlugFromCustomer(customer)}`)
       })
       .catch(() => {
         toast({
