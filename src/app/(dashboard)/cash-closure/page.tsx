@@ -80,7 +80,12 @@ export default async function Page() {
             </Label>
             <Label htmlFor='employeePayment'>
               Pago a empleados
-              <Input name='employeePayment' type='number' defaultValue={paymentToEmployees} />
+              <Input
+                disabled
+                name='employeePayment'
+                type='number'
+                defaultValue={paymentToEmployees}
+              />
             </Label>
             <Button variant={'secondary'} type='submit'>
               Cerrar caja

@@ -26,6 +26,7 @@ import { EmptyPage } from '@/components/layout/page/EmptyPage'
 import { translateStatus } from '@/utils/formatters'
 import { SelectStatus } from '@/components/invoice/select-status'
 import { Separator } from '@/components/ui/separator'
+import { getUserRole } from '@/utils/user-validate'
 
 interface Props {
   params?: {
@@ -38,6 +39,7 @@ export const TableInvoices = async ({ params }: Props) => {
   const page = params?.page
   const branch = params?.branch
   const query = params?.query
+  const role = await getUserRole()
   const invoices = await getPaginatedInvoicesByBranch({
     page: page ?? 1,
     branch,
@@ -98,40 +100,57 @@ export const TableInvoices = async ({ params }: Props) => {
                             <Separator />
                             <DialogTitle className='font-bold'>Cliente</DialogTitle>
                             <p>
-                              Nombre: <strong>{customer.name}</strong>
+                              Nombre:{' '}
+                              <strong className='tracking-wide opacity-80'>{customer.name}</strong>
                             </p>
                             <p>
-                              Email: <strong>{customer.email ?? ''}</strong>
+                              Email:{' '}
+                              <strong className='tracking-wide opacity-80'>
+                                {customer.email ?? ''}
+                              </strong>
                             </p>
                             <p>
-                              Telefono: <strong>{customer.phone ?? ''}</strong>
+                              Telefono:{' '}
+                              <strong className='tracking-wide opacity-80'>
+                                {customer.phone ?? ''}
+                              </strong>
                             </p>
                             <Separator />
 
                             {/* Informacion de los productos y servicios */}
 
                             <DialogTitle className='font-bold'>Productos</DialogTitle>
-                            {products.map(({ id, name }) => (
-                              <p key={id}>{name}</p>
-                            ))}
+                            {products.length > 0 &&
+                              products.map(({ id, name }) => <p key={id}>{name}</p>)}
+                            {products.length === 0 && <p>No hay productos</p>}
                             <Separator />
                             <DialogTitle className='font-bold'>Servicios</DialogTitle>
-                            {tickets.map(({ id, service, totalPrice, vehicle }) => (
+                            {tickets.map(({ id, service, totalPrice, vehicle, status }) => (
                               <p key={id}>
-                                {vehicle?.patent} - {service?.name} - {currencyFormat(totalPrice)}
+                                {vehicle?.patent} - {service?.name} - {currencyFormat(totalPrice)} -{' '}
+                                <Badge variant={variantBadge(status)}>
+                                  {translateStatus(status)}
+                                </Badge>
                               </p>
                             ))}
                             <Separator />
                             {/* Informacion de la factura */}
                             <p>
-                              Sucursal: <strong>{branch}</strong>
+                              Sucursal:{' '}
+                              <strong className='tracking-wide opacity-80'>{branch}</strong>
                             </p>
 
                             <p>
-                              Fecha: <strong>{dateFormat(new Date(createAt))}</strong>
+                              Fecha:{' '}
+                              <strong className='tracking-wide opacity-80'>
+                                {dateFormat(new Date(createAt))}
+                              </strong>
                             </p>
                             <p>
-                              Monto total: <strong>{currencyFormat(total)}</strong>
+                              Monto total:{' '}
+                              <strong className='tracking-wide opacity-80'>
+                                {currencyFormat(total)}
+                              </strong>
                             </p>
                             <div>
                               <p className='mb-4'>
