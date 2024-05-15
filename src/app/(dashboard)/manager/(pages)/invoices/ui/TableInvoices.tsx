@@ -26,7 +26,6 @@ import { EmptyPage } from '@/components/layout/page/EmptyPage'
 import { translateStatus } from '@/utils/formatters'
 import { SelectStatus } from '@/components/invoice/select-status'
 import { Separator } from '@/components/ui/separator'
-import { getUserRole } from '@/utils/user-validate'
 
 interface Props {
   params?: {
@@ -39,7 +38,6 @@ export const TableInvoices = async ({ params }: Props) => {
   const page = params?.page
   const branch = params?.branch
   const query = params?.query
-  const role = await getUserRole()
   const invoices = await getPaginatedInvoicesByBranch({
     page: page ?? 1,
     branch,
