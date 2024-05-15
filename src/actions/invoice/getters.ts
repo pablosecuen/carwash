@@ -16,7 +16,7 @@ export const getDailyInvoices = async () => {
     const tomorrow = new Date(today)
     tomorrow.setDate(tomorrow.getDate() + 1)
     const branch = getBranch()
-    const invoices = await invoiceRepository.findAll({
+    const { invoices } = await invoiceRepository.findAll({
       branch,
       from: today,
       to: tomorrow,
@@ -42,7 +42,7 @@ export const getPaginatedInvoices = async ({
 }) => {
   try {
     const branch = (await hasPermission()) ? undefined : getBranch()
-    const invoices = await invoiceRepository.findAll({
+    const { invoices } = await invoiceRepository.findAll({
       branch,
       offset: Number(page) * Number(limit),
       joins: {
@@ -73,7 +73,7 @@ export const getPaginatedInvoicesByBranch = async ({
   customerName?: string
 }) => {
   try {
-    const invoices = await invoiceRepository.findAll({
+    const { invoices } = await invoiceRepository.findAll({
       customerName,
       branch,
       limit: Number(limit),
@@ -105,7 +105,7 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
   branch: Branch | undefined
 }) => {
   try {
-    const invoices = await invoiceRepository.findAll({
+    const { invoices } = await invoiceRepository.findAll({
       branch,
       limit: Number(limit),
       offset: Number(page) * Number(limit),

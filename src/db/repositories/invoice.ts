@@ -108,7 +108,7 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
       createAt = Between(from, to ?? new Date())
     }
     try {
-      return await this.repository.find({
+      const invoices = await this.repository.find({
         where: {
           createAt,
           customer: this.buildCustomerWhereClause({ customerId, customerName }),
@@ -124,6 +124,7 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
           ...joins
         }
       })
+      return { invoices }
     } catch (error) {
       console.log(error)
       throw new Error('Error finding invoices')
