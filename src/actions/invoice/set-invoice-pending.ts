@@ -11,6 +11,7 @@ export async function setInvoicePending({ invoiceId }: { invoiceId: number | str
     if (!isPermission) return { ok: false, message: 'No tienes permisos' }
     await invoiceRepository.updateStatus({ id, status: 'pending' })
     revalidatePath('/dashboard/invoices')
+    revalidatePath('/manager/invoices')
     return {
       ok: true,
       message: 'Factura pendiente'

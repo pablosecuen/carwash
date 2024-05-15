@@ -24,20 +24,24 @@ import { getPaginatedInvoicesByBranch } from '@/actions/invoice/getters'
 import { type Branch } from '@/utils/types'
 import { EmptyPage } from '@/components/layout/page/EmptyPage'
 import { translateStatus } from '@/utils/formatters'
+import { SelectStatus } from '@/components/invoice/select-status'
+import { Separator } from '@/components/ui/separator'
 
 interface Props {
   params?: {
     page: string
     branch: Branch
+    query?: string
   }
 }
 export const TableInvoices = async ({ params }: Props) => {
   const page = params?.page
   const branch = params?.branch
-
+  const query = params?.query
   const invoices = await getPaginatedInvoicesByBranch({
     page: page ?? 1,
-    branch
+    branch,
+    customerName: query
   })
   if (invoices.length === 0) {
     return <EmptyPage link='/manager' button_text='Regresar' title='No hay facturas' />
@@ -52,12 +56,12 @@ export const TableInvoices = async ({ params }: Props) => {
           <Table>
             <TableHeader className='bg-muted'>
               <TableRow>
-                <TableHead>ID</TableHead>
+                <TableHead className='hidden sm:table-cell'>ID</TableHead>
                 <TableHead>Cliente</TableHead>
                 <TableHead className='hidden md:table-cell'>Sucursal</TableHead>
                 <TableHead className='hidden md:table-cell'>Status</TableHead>
                 <TableHead className='hidden md:table-cell'>Fecha</TableHead>
-                <TableHead className='hidden md:table-cell'>Monto total</TableHead>
+                <TableHead className=''>Monto total</TableHead>
                 <TableHead>
                   <span className='sr-only'>Acciones</span>
                 </TableHead>
@@ -65,37 +69,102 @@ export const TableInvoices = async ({ params }: Props) => {
             </TableHeader>
             <TableBody>
               {invoices.map(
-                ({ branch, id, total, createAt, status, customer, products, tickets }, index) => (
-                  <TableRow className={index % 2 === 1 ? 'bg-muted' : ''} key={id}>
-                    <TableCell>{id}</TableCell>
-                    <TableCell>{customer.name}</TableCell>
-                    <TableCell>{branch}</TableCell>
-                    <TableCell>
-                      <Badge variant={variantBadge(status)}>{translateStatus(status)}</Badge>
-                    </TableCell>
-                    <TableCell>{dateFormat(new Date(createAt))}</TableCell>
-                    <TableCell>{currencyFormat(total)}</TableCell>
-                    <TableCell>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button variant={'outline'}>
-                            <Info className='mr-2 h-5 w-5' />
-                            Mas info
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Detalle de la factura</DialogTitle>
-                          </DialogHeader>
-                          Aca va toda la info de la factura {id}
-                          {JSON.stringify(customer, null, 2)}
-                          {JSON.stringify(products, null, 2)}
-                          {JSON.stringify(tickets, null, 2)}
-                        </DialogContent>
-                      </Dialog>
-                    </TableCell>
-                  </TableRow>
-                )
+                ({ branch, id, total, createAt, status, customer, products, tickets }, index) => {
+                  return (
+                    <TableRow className={index % 2 === 1 ? 'bg-muted' : ''} key={id}>
+                      <TableCell className='hidden sm:table-cell'>{id}</TableCell>
+                      <TableCell>{customer.name}</TableCell>
+                      <TableCell className='hidden md:table-cell'>{branch}</TableCell>
+                      <TableCell className='hidden md:table-cell'>
+                        <Badge variant={variantBadge(status)}>{translateStatus(status)}</Badge>
+                      </TableCell>
+                      <TableCell className='hidden md:table-cell'>
+                        {dateFormat(new Date(createAt))}
+                      </TableCell>
+                      <TableCell className=''>{currencyFormat(total)}</TableCell>
+                      <TableCell>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button variant={'outline'}>
+                              <Info className='mr-2 h-5 w-5' />
+                              Mas info
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle>Detalle de la factura</DialogTitle>
+                            </DialogHeader>
+                            {/* Informacion del cliente */}
+                            <Separator />
+                            <DialogTitle className='font-bold'>Cliente</DialogTitle>
+                            <p>
+                              Nombre:{' '}
+                              <strong className='tracking-wide opacity-80'>{customer.name}</strong>
+                            </p>
+                            <p>
+                              Email:{' '}
+                              <strong className='tracking-wide opacity-80'>
+                                {customer.email ?? ''}
+                              </strong>
+                            </p>
+                            <p>
+                              Telefono:{' '}
+                              <strong className='tracking-wide opacity-80'>
+                                {customer.phone ?? ''}
+                              </strong>
+                            </p>
+                            <Separator />
+
+                            {/* Informacion de los productos y servicios */}
+
+                            <DialogTitle className='font-bold'>Productos</DialogTitle>
+                            {products.length > 0 &&
+                              products.map(({ id, name }) => <p key={id}>{name}</p>)}
+                            {products.length === 0 && <p>No hay productos</p>}
+                            <Separator />
+                            <DialogTitle className='font-bold'>Servicios</DialogTitle>
+                            {tickets.map(({ id, service, totalPrice, vehicle, status }) => (
+                              <p key={id}>
+                                {vehicle?.patent} - {service?.name} - {currencyFormat(totalPrice)} -{' '}
+                                <Badge variant={variantBadge(status)}>
+                                  {translateStatus(status)}
+                                </Badge>
+                              </p>
+                            ))}
+                            <Separator />
+                            {/* Informacion de la factura */}
+                            <p>
+                              Sucursal:{' '}
+                              <strong className='tracking-wide opacity-80'>{branch}</strong>
+                            </p>
+
+                            <p>
+                              Fecha:{' '}
+                              <strong className='tracking-wide opacity-80'>
+                                {dateFormat(new Date(createAt))}
+                              </strong>
+                            </p>
+                            <p>
+                              Monto total:{' '}
+                              <strong className='tracking-wide opacity-80'>
+                                {currencyFormat(total)}
+                              </strong>
+                            </p>
+                            <div>
+                              <p className='mb-4'>
+                                Estado:{' '}
+                                <Badge variant={variantBadge(status)}>
+                                  {translateStatus(status)}
+                                </Badge>
+                              </p>
+                              <SelectStatus status={status} id={id} />
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                      </TableCell>
+                    </TableRow>
+                  )
+                }
               )}
             </TableBody>
           </Table>

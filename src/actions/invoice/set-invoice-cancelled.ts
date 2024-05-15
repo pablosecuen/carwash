@@ -12,6 +12,7 @@ export async function setInvoiceCancelled({ invoiceId }: { invoiceId: number | s
     if (!isPermission) return { ok: false, message: 'No tienes permisos' }
     await invoiceRepository.updateStatus({ id, status: 'cancelled' })
     revalidatePath('/dashboard/invoices')
+    revalidatePath('/manager/invoices')
     return {
       ok: true,
       message: 'Factura cancelada'
