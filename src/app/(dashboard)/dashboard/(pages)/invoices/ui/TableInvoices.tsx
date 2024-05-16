@@ -39,7 +39,7 @@ export const TableInvoices = async ({ params }: Props) => {
   const page = params?.page
   const branch = params?.branch
 
-  const invoices = await getPaginatedInvoicesByBranchDashboard({
+  const { invoices } = await getPaginatedInvoicesByBranchDashboard({
     page: page ?? 0,
     branch
   })

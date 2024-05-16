@@ -38,7 +38,7 @@ export const TableInvoices = async ({ params }: Props) => {
   const page = params?.page
   const branch = params?.branch
   const query = params?.query
-  const invoices = await getPaginatedInvoicesByBranch({
+  const { invoices } = await getPaginatedInvoicesByBranch({
     page: page ?? 1,
     branch,
     customerName: query

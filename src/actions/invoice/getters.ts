@@ -57,10 +57,14 @@ export const getPaginatedInvoices = async ({
         products: true
       }
     })
-    return JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    return {
+      invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    }
   } catch (error) {
     console.log(error)
-    return []
+    return {
+      invoices: []
+    }
   }
 }
 
@@ -91,10 +95,14 @@ export const getPaginatedInvoicesByBranch = async ({
       }
     })
 
-    return JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    return {
+      invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    }
   } catch (error) {
     console.log(error)
-    return []
+    return {
+      invoices: []
+    }
   }
 }
 
@@ -122,9 +130,13 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
       }
     })
 
-    return JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    return {
+      invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    }
   } catch (error) {
     console.log(error)
-    return []
+    return {
+      invoices: []
+    }
   }
 }
