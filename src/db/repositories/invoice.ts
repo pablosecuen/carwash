@@ -2,7 +2,7 @@ import { type Branch, PaymentMethod } from '@/utils/types'
 import { Invoice } from '../entities/invoice'
 import { type Product } from '../entities/product'
 import { BaseRepository } from './base-repository'
-import { Between, type FindOperator, ILike } from 'typeorm'
+import { Between, type FindOperator, ILike, type FindOptionsWhere } from 'typeorm'
 
 type CreateData = Omit<Invoice, 'id' | 'total' | 'createAt' | 'products' | 'status'> & {
   products: Array<Product & { paymentMethod: PaymentMethod }>
@@ -108,23 +108,40 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
       createAt = Between(from, to ?? new Date())
     }
     try {
-      const invoices = await this.repository.find({
-        where: {
-          createAt,
-          customer: this.buildCustomerWhereClause({ customerId, customerName }),
-          branch,
-          status
-        },
-        take: limit,
-        skip: offset,
-        order: {
-          createAt: 'DESC'
-        },
-        relations: {
-          ...joins
+      const whereClause: FindOptionsWhere<Invoice> = {
+        createAt,
+        customer: this.buildCustomerWhereClause({ customerId, customerName }),
+        branch,
+        status
+      }
+      const [invoices, count] = await Promise.all([
+        this.repository.find({
+          where: whereClause,
+          take: limit,
+          skip: offset,
+          order: {
+            createAt: 'DESC'
+          },
+          relations: {
+            ...joins
+          }
+        }),
+        this.repository.count({
+          where: whereClause,
+          relations: {
+            customer: whereClause.customer != null
+          }
+        })
+      ])
+
+      return {
+        invoices,
+        metadata: {
+          total: count,
+          totalPages: Math.ceil(count / limit),
+          currentPage: offset / limit
         }
-      })
-      return { invoices }
+      }
     } catch (error) {
       console.log(error)
       throw new Error('Error finding invoices')
