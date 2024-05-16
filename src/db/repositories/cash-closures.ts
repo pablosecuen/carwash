@@ -23,7 +23,7 @@ export class CashClosuresRepository extends BaseRepository<CashClosures> {
   async findAll(opts: FilterOpts = {}) {
     const { branch, limit = 20, offset = 0 } = opts
     await this.init()
-    return await this.repository.find({
+    const cashClosures = await this.repository.find({
       where: {
         branch
       },
@@ -33,6 +33,7 @@ export class CashClosuresRepository extends BaseRepository<CashClosures> {
       take: limit,
       skip: offset
     })
+    return { cashClosures }
   }
 }
 
