@@ -42,7 +42,7 @@ export class CashClosuresRepository extends BaseRepository<CashClosures> {
     ])
     return {
       cashClosures,
-      metadata: { total: count, totalPages: Math.ceil(count / limit), currentPage: offset / limit }
+      metadata: this.formatMetadataForPagination({ count, limit, offset })
     }
   }
 }

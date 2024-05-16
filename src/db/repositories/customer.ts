@@ -36,11 +36,7 @@ export class CustomerRepository extends BaseRepository<Customer> {
     ])
     return {
       customers,
-      metadata: {
-        total: count,
-        totalPages: Math.ceil(count / limit),
-        currentPage: offset / limit
-      }
+      metadata: this.formatMetadataForPagination({ count, limit, offset })
     }
   }
 

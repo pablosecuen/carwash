@@ -18,4 +18,20 @@ export abstract class BaseRepository<Entity extends ObjectLiteral> {
       throw error
     }
   }
+
+  protected formatMetadataForPagination({
+    count: total,
+    limit,
+    offset
+  }: {
+    count: number
+    limit: number
+    offset: number
+  }) {
+    return {
+      total,
+      totalPages: Math.ceil(total / limit),
+      currentPage: offset / limit
+    }
+  }
 }

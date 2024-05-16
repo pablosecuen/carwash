@@ -136,11 +136,7 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
 
       return {
         invoices,
-        metadata: {
-          total: count,
-          totalPages: Math.ceil(count / limit),
-          currentPage: offset / limit
-        }
+        metadata: this.formatMetadataForPagination({ count, limit, offset })
       }
     } catch (error) {
       console.log(error)
