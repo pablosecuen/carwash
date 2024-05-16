@@ -122,14 +122,17 @@ export const getPaginatedInvoicesByBranch = async ({
 export const getPaginatedInvoicesByBranchDashboard = async ({
   page = 1,
   limit = 0,
-  branch = undefined
+  branch = undefined,
+  query
 }: {
   page: number | string
   limit?: number | string
   branch: Branch | undefined
+  query?: string
 }) => {
   try {
     const { invoices, metadata } = await invoiceRepository.findAll({
+      customerName: query,
       branch,
       limit: Number(limit),
       offset: Number(page) * Number(limit),

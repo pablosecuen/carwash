@@ -44,6 +44,7 @@ export const TableInvoices = async ({ params }: Props) => {
   const query = params?.query
   const from = params?.from
   const to = params?.to
+  // TODO: ver tema de filtrado por query
   const { invoices } = await getPaginatedInvoicesByBranch({
     page: page ?? 1,
     branch,
@@ -78,8 +79,9 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
           <TableHead className='hidden sm:table-cell'>ID</TableHead>
           <TableHead>Cliente</TableHead>
           <TableHead className='hidden md:table-cell'>Sucursal</TableHead>
-          <TableHead className='hidden md:table-cell'>Status</TableHead>
+          <TableHead className='hidden md:table-cell'>Status Tickets</TableHead>
           <TableHead className='hidden md:table-cell'>Fecha</TableHead>
+          <TableHead className='hidden md:table-cell'>Status</TableHead>
           <TableHead className=''>Monto total</TableHead>
           <TableHead>
             <span className='sr-only'>Acciones</span>
@@ -89,11 +91,20 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
       <TableBody>
         {invoices.map(
           ({ branch, id, total, createAt, status, customer, products, tickets }, index) => {
+            const ticketStatus = tickets.some((ticket) => ticket.status === 'pending')
             return (
               <TableRow className={index % 2 === 1 ? 'bg-muted' : ''} key={id}>
                 <TableCell className='hidden sm:table-cell'>{id}</TableCell>
                 <TableCell>{customer.name}</TableCell>
                 <TableCell className='hidden md:table-cell'>{branch}</TableCell>
+                <TableCell className='hidden md:table-cell'>
+                  {ticketStatus ? (
+                    <Badge variant='pending'>Pendiente</Badge>
+                  ) : (
+                    <Badge variant='completed'>Completado</Badge>
+                  )}
+                </TableCell>
+
                 <TableCell className='hidden md:table-cell'>
                   <Badge variant={variantBadge(status)}>{translateStatus(status)}</Badge>
                 </TableCell>
