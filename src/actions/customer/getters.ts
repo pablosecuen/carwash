@@ -9,10 +9,14 @@ export async function getAllCustomers(name?: string) {
       name,
       branch: isAdmin ? undefined : getBranch()
     })
-    return JSON.parse(JSON.stringify(customers)) as typeof customers
+    return {
+      customers: JSON.parse(JSON.stringify(customers)) as typeof customers
+    }
   } catch (error) {
     console.error(error)
-    return []
+    return {
+      customers: []
+    }
   }
 }
 
