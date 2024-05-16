@@ -74,13 +74,21 @@ export const getPaginatedInvoicesByBranch = async ({
   page = 1,
   limit = 0,
   branch = undefined,
-  customerName
+  customerName,
+  from,
+  to
 }: {
   page: number | string
   limit?: number | string
   branch: Branch | undefined
   customerName?: string
+  from?: string
+  to?: string
 }) => {
+  const today = new Date(from ?? new Date())
+  today.setHours(0, 0, 0, 0)
+  const tomorrow = new Date(today)
+  tomorrow.setDate(tomorrow.getDate() + 1)
   try {
     const { invoices, metadata } = await invoiceRepository.findAll({
       customerName,
@@ -94,7 +102,9 @@ export const getPaginatedInvoicesByBranch = async ({
           vehicle: true
         },
         products: true
-      }
+      },
+      from: today,
+      to: tomorrow
     })
 
     return {
