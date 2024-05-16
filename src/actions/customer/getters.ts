@@ -5,15 +5,11 @@ import { getBranch, hasPermission } from '@/utils/user-validate'
 export async function getAllCustomers(name?: string) {
   try {
     const isAdmin = await hasPermission('ADMIN')
-    return JSON.parse(
-      JSON.stringify(
-        await customerRepository.findAll({
-          // filter by branch if user is not admin
-          name,
-          branch: isAdmin ? undefined : getBranch()
-        })
-      )
-    ) as Customer[]
+    const { customers } = await customerRepository.findAll({
+      name,
+      branch: isAdmin ? undefined : getBranch()
+    })
+    return JSON.parse(JSON.stringify(customers)) as typeof customers
   } catch (error) {
     console.error(error)
     return []

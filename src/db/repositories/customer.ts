@@ -22,11 +22,12 @@ export class CustomerRepository extends BaseRepository<Customer> {
   async findAll(filter?: FilterOpts) {
     const { branch, limit = 20, offset = 0 } = filter ?? {}
     await this.init()
-    return await this.repository.find({
+    const customers = await this.repository.find({
       where: { branch, name: ILike(`%${filter?.name ?? ''}%`) },
       take: limit,
       skip: offset
     })
+    return { customers }
   }
 
   async findById(id: number) {
