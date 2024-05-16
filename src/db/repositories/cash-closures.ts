@@ -23,17 +23,27 @@ export class CashClosuresRepository extends BaseRepository<CashClosures> {
   async findAll(opts: FilterOpts = {}) {
     const { branch, limit = 20, offset = 0 } = opts
     await this.init()
-    const cashClosures = await this.repository.find({
-      where: {
-        branch
-      },
-      order: {
-        createdAt: 'DESC'
-      },
-      take: limit,
-      skip: offset
-    })
-    return { cashClosures }
+    // TODO: add status filter
+    const whereClause = {
+      branch
+    }
+    const [cashClosures, count] = await Promise.all([
+      this.repository.find({
+        where: whereClause,
+        order: {
+          createdAt: 'DESC'
+        },
+        take: limit,
+        skip: offset
+      }),
+      this.repository.count({
+        where: whereClause
+      })
+    ])
+    return {
+      cashClosures,
+      metadata: { total: count, totalPages: Math.ceil(count / limit), currentPage: offset / limit }
+    }
   }
 }
 
