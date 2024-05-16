@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge'
 import { translateStatus } from '@/utils/formatters'
 
 export const TableDailyInvoices = async () => {
-  const invoicesDaily = await getDailyInvoices()
+  const { invoices: invoicesDaily } = await getDailyInvoices()
 
   const totalDaily = invoicesDaily.reduce((acc, invoice) => acc + invoice.total, 0)
   return (

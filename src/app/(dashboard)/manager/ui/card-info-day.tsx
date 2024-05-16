@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const CardInfoDay = async ({ className }: Props) => {
-  const InvoiceDayData = await getDailyInvoices()
+  const { invoices: InvoiceDayData } = await getDailyInvoices()
 
   const totalDay = InvoiceDayData.reduce((acc, element) => {
     return acc + element.total

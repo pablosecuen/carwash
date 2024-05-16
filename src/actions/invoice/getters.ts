@@ -26,10 +26,13 @@ export const getDailyInvoices = async () => {
         products: true
       }
     })
-    return JSON.parse(JSON.stringify(invoices)) as typeof invoices
+
+    return {
+      invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    }
   } catch (error) {
     console.log(error)
-    return []
+    return { invoices: [] }
   }
 }
 
