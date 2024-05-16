@@ -17,7 +17,7 @@ export const dynamic = 'force-dynamic'
 
 export async function TableInfoDay() {
   const { invoices: invoiceDayData } = await getDailyInvoices()
-  console.log(invoiceDayData[0].tickets[0])
+
   const totalPriceDaily = invoiceDayData.reduce((acc, invoice) => acc + invoice.total, 0)
   return (
     <Card className=' relative min-h-[60vh] '>
