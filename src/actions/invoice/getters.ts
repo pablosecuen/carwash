@@ -71,8 +71,8 @@ export const getPaginatedInvoices = async ({
 }
 
 export const getPaginatedInvoicesByBranch = async ({
-  page = 1,
-  limit = 0,
+  page = 0,
+  limit = 20,
   branch = undefined,
   customerName,
   from,
@@ -120,8 +120,8 @@ export const getPaginatedInvoicesByBranch = async ({
 }
 
 export const getPaginatedInvoicesByBranchDashboard = async ({
-  page = 1,
-  limit = 0,
+  page = 0,
+  limit = 20,
   branch = undefined,
   query
 }: {
