@@ -46,13 +46,19 @@ export const TableInvoices = async ({ params }: Props) => {
   const from = params?.from
   const to = params?.to
   // TODO: ver tema de filtrado por query
-  const { invoices } = await getPaginatedInvoicesByBranch({
+  const { invoices, metadata } = await getPaginatedInvoicesByBranch({
     page: page ?? 1,
     branch,
     customerName: query,
     from,
     to
   })
+  console.log({ invoices })
+  const total = metadata?.total ?? 0
+  const totalPages = metadata?.totalPages ?? 0
+  const currentPage = metadata?.currentPage ?? 0
+  const prevPage = metadata?.prevPage ?? 0
+  const nextPage = metadata?.nextPage ?? 0
 
   return (
     <div className='fade-in'>
@@ -64,11 +70,11 @@ export const TableInvoices = async ({ params }: Props) => {
         <CardContent className='p-0'>
           <TableInvoicesComponent invoices={invoices} />
           <PaginationTable
-            total={10}
-            currentPage={+(page ?? 0)}
-            totalPage={2}
-            prevPage={1}
-            nextPage={3}
+            total={total}
+            totalPages={totalPages}
+            currentPage={currentPage}
+            prevPage={prevPage}
+            nextPage={nextPage}
           />
         </CardContent>
       </Card>

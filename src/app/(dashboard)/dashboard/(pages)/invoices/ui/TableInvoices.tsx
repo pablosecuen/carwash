@@ -27,32 +27,47 @@ import { type Branch } from '@/utils/types'
 import { SelectStatus } from '../../../../../../components/invoice/select-status'
 import { translateStatus } from '@/utils/formatters'
 import { Label } from '@/components/ui/label'
+import { PaginationTable } from '@/app/(dashboard)/service/ui/pagination'
+
+import { DatePickerWithRangeInvoice } from './date-picker-range-invoice'
 interface Props {
   params?: {
     page?: string
     branch?: Branch
     query?: string
+    from?: string
+    to?: string
   }
 }
 export const TableInvoices = async ({ params }: Props) => {
   const page = params?.page
   const branch = params?.branch
   const query = params?.query
+  const from = params?.from
+  const to = params?.to
 
-  const { invoices } = await getPaginatedInvoicesByBranchDashboard({
+  const { invoices, metadata } = await getPaginatedInvoicesByBranchDashboard({
     page: page ?? 0,
     branch,
-    query
+    query,
+    from,
+    to
   })
 
-  console.log(invoices)
+  const total = metadata?.total ?? 0
+  const totalPages = metadata?.totalPages ?? 0
+  const currentPage = metadata?.currentPage ?? 0
+  const prevPage = metadata?.prevPage ?? 0
+  const nextPage = metadata?.nextPage ?? 0
+
   return (
-    <div className='fade-in'>
+    <div className=''>
       <div className=' mb-2 flex items-center justify-end gap-2'>
+        <DatePickerWithRangeInvoice />
         <Search placeholder='' />
         <DropdownFilterBranch />
       </div>
-      <Card className='fade-in'>
+      <Card className=''>
         <CardContent className='p-0'>
           <Table>
             <TableHeader className='bg-muted'>
@@ -187,6 +202,13 @@ export const TableInvoices = async ({ params }: Props) => {
           </Table>
         </CardContent>
       </Card>
+      <PaginationTable
+        total={total}
+        totalPages={totalPages}
+        currentPage={currentPage}
+        prevPage={prevPage}
+        nextPage={nextPage}
+      />
     </div>
   )
 }
