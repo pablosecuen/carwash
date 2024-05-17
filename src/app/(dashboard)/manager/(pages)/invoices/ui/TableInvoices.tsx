@@ -46,7 +46,7 @@ export const TableInvoices = async ({ params }: Props) => {
   const from = params?.from
   const to = params?.to
   // TODO: ver tema de filtrado por query
-  const { invoices, metadata } = await getPaginatedInvoicesByBranch({
+  const { invoices } = await getPaginatedInvoicesByBranch({
     page: page ?? 1,
     branch,
     customerName: query,
