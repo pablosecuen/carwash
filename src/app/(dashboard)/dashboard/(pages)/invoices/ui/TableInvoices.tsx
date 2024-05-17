@@ -1,5 +1,4 @@
 import { getPaginatedInvoicesByBranchDashboard } from '@/actions/invoice/getters'
-
 import Search from '@/components/search/Search'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -22,11 +21,9 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { currencyFormat, dateFormat, variantBadge } from '@/lib/utils'
-
 import { Info } from 'lucide-react'
 import { DropdownFilterBranch } from './DropdownFilterBranch'
 import { type Branch } from '@/utils/types'
-
 import { SelectStatus } from '../../../../../../components/invoice/select-status'
 import { translateStatus } from '@/utils/formatters'
 import { Label } from '@/components/ui/label'
@@ -40,11 +37,14 @@ interface Props {
 export const TableInvoices = async ({ params }: Props) => {
   const page = params?.page
   const branch = params?.branch
+  const query = params?.query
 
   const { invoices } = await getPaginatedInvoicesByBranchDashboard({
     page: page ?? 0,
-    branch
+    branch,
+    query
   })
+
   console.log(invoices)
   return (
     <div className='fade-in'>

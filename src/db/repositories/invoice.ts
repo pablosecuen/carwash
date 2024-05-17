@@ -111,7 +111,10 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
       const whereClause: FindOptionsWhere<Invoice> = {
         createAt,
         // customer: this.buildCustomerWhereClause({ customerId, customerName }),
-        customer: customerId != null ? { id: customerId } : undefined,
+        customer: {
+          id: customerId ?? undefined,
+          name: customerName != null ? ILike(`%${customerName}%`) : undefined
+        },
         branch,
         status
       }
