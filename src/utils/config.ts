@@ -1,7 +1,4 @@
 export const {
-  USER_PASS: userPass,
-  // TODO: remove this env var
-  EDITOR_PASS: editorPass,
   USER_PASS_1: userPass1,
   USER_PASS_2: userPass2,
   USER_PASS_3: userPass3,
