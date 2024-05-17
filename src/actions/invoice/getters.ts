@@ -26,6 +26,7 @@ export const getDailyInvoices = async () => {
         products: true
       }
     })
+    console.log({ metadata })
 
     return {
       metadata,
@@ -58,6 +59,7 @@ export const getPaginatedInvoices = async ({
         products: true
       }
     })
+    console.log({ metadata })
     return {
       metadata,
       invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
@@ -106,7 +108,8 @@ export const getPaginatedInvoicesByBranch = async ({
       from: today,
       to: tomorrow
     })
-
+    // console.log({ metadata })
+    console.log({ invoices })
     return {
       metadata,
       invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
@@ -121,15 +124,24 @@ export const getPaginatedInvoicesByBranch = async ({
 
 export const getPaginatedInvoicesByBranchDashboard = async ({
   page = 0,
-  limit = 20,
+  limit = 8,
   branch = undefined,
-  query
+  query,
+  from,
+  to
 }: {
   page: number | string
   limit?: number | string
   branch: Branch | undefined
   query?: string
+  from?: string
+  to?: string
 }) => {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const tomorrow = new Date(today)
+  tomorrow.setHours(23, 59, 59, 999)
+
   try {
     const { invoices, metadata } = await invoiceRepository.findAll({
       customerName: query,
@@ -143,8 +155,25 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
           vehicle: true
         },
         products: true
-      }
+      },
+      from:
+        from != null
+          ? (() => {
+              const date = new Date(from)
+              date.setHours(0, 0, 0, 0)
+              return date
+            })()
+          : today,
+      to:
+        to != null
+          ? (() => {
+              const date = new Date(to)
+              date.setHours(23, 59, 59, 999)
+              return date
+            })()
+          : tomorrow
     })
+    console.log({ invoices })
 
     return {
       metadata,
