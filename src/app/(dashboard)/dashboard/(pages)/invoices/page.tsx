@@ -7,6 +7,7 @@ export default function InvoicesPage({
 }: {
   searchParams?: {
     page: string
+    query?: string
   }
 }) {
   return (

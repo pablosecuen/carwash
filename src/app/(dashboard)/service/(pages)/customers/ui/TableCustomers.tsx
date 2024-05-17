@@ -15,7 +15,7 @@ import Link from 'next/link'
 import { Edit } from 'lucide-react'
 
 export const TableCustomers = async ({ name }: { name?: string }) => {
-  const customers = await getAllCustomers(name)
+  const { customers } = await getAllCustomers(name)
 
   return (
     <Card>

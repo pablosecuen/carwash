@@ -10,8 +10,9 @@ import { sleep } from '@/lib/utils'
 import { getAllCustomers } from '@/actions/customer/getters'
 
 export const SelectCustomer = async () => {
+  // FIXME: remove sleep
   await sleep(2000)
-  const customers = await getAllCustomers()
+  const { customers } = await getAllCustomers()
   if (customers.length === 0)
     return (
       <Select>

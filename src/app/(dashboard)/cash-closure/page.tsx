@@ -19,7 +19,7 @@ import { currencyFormat, dateFormat, variantBadge } from '@/lib/utils'
 import { translateStatus } from '@/utils/formatters'
 
 export default async function Page() {
-  const invoices = await getDailyInvoices()
+  const { invoices } = await getDailyInvoices()
   const total = invoices.reduce((acc, invoice) => acc + invoice.total, 0)
   const paymentToEmployees = Math.round(total * 0.3)
   return (

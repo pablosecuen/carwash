@@ -16,7 +16,7 @@ export const getDailyInvoices = async () => {
     const tomorrow = new Date(today)
     tomorrow.setDate(tomorrow.getDate() + 1)
     const branch = getBranch()
-    const invoices = await invoiceRepository.findAll({
+    const { invoices, metadata } = await invoiceRepository.findAll({
       branch,
       from: today,
       to: tomorrow,
@@ -26,10 +26,14 @@ export const getDailyInvoices = async () => {
         products: true
       }
     })
-    return JSON.parse(JSON.stringify(invoices)) as typeof invoices
+
+    return {
+      metadata,
+      invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    }
   } catch (error) {
     console.log(error)
-    return []
+    return { invoices: [] }
   }
 }
 
@@ -42,7 +46,7 @@ export const getPaginatedInvoices = async ({
 }) => {
   try {
     const branch = (await hasPermission()) ? undefined : getBranch()
-    const invoices = await invoiceRepository.findAll({
+    const { invoices, metadata } = await invoiceRepository.findAll({
       branch,
       offset: Number(page) * Number(limit),
       joins: {
@@ -54,26 +58,39 @@ export const getPaginatedInvoices = async ({
         products: true
       }
     })
-    return JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    return {
+      metadata,
+      invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    }
   } catch (error) {
     console.log(error)
-    return []
+    return {
+      invoices: []
+    }
   }
 }
 
 export const getPaginatedInvoicesByBranch = async ({
-  page = 1,
-  limit = 0,
+  page = 0,
+  limit = 20,
   branch = undefined,
-  customerName
+  customerName,
+  from,
+  to
 }: {
   page: number | string
   limit?: number | string
   branch: Branch | undefined
   customerName?: string
+  from?: string
+  to?: string
 }) => {
+  const today = new Date(from ?? new Date())
+  today.setHours(0, 0, 0, 0)
+  const tomorrow = new Date(today)
+  tomorrow.setDate(tomorrow.getDate() + 1)
   try {
-    const invoices = await invoiceRepository.findAll({
+    const { invoices, metadata } = await invoiceRepository.findAll({
       customerName,
       branch,
       limit: Number(limit),
@@ -85,27 +102,37 @@ export const getPaginatedInvoicesByBranch = async ({
           vehicle: true
         },
         products: true
-      }
+      },
+      from: today,
+      to: tomorrow
     })
 
-    return JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    return {
+      metadata,
+      invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    }
   } catch (error) {
     console.log(error)
-    return []
+    return {
+      invoices: []
+    }
   }
 }
 
 export const getPaginatedInvoicesByBranchDashboard = async ({
-  page = 1,
-  limit = 0,
-  branch = undefined
+  page = 0,
+  limit = 20,
+  branch = undefined,
+  query
 }: {
   page: number | string
   limit?: number | string
   branch: Branch | undefined
+  query?: string
 }) => {
   try {
-    const invoices = await invoiceRepository.findAll({
+    const { invoices, metadata } = await invoiceRepository.findAll({
+      customerName: query,
       branch,
       limit: Number(limit),
       offset: Number(page) * Number(limit),
@@ -119,9 +146,14 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
       }
     })
 
-    return JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    return {
+      metadata,
+      invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    }
   } catch (error) {
     console.log(error)
-    return []
+    return {
+      invoices: []
+    }
   }
 }
