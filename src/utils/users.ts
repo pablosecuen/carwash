@@ -1,20 +1,25 @@
 import {
   adminPass,
-  editorPass,
   editorPass1,
   editorPass2,
   editorPass3,
-  userPass,
   userPass1,
   userPass2,
   userPass3
 } from './config'
 import { Branch, Roles } from './types'
 
-if (userPass == null || editorPass == null || adminPass == null) {
+if (
+  userPass1 == null ||
+  userPass2 == null ||
+  userPass3 == null ||
+  editorPass1 == null ||
+  editorPass2 == null ||
+  editorPass3 == null ||
+  adminPass == null
+) {
   throw new Error('Missing user, editor or admin password. Check .env file.')
 }
-// TODO: remove default passwords
 
 export const USERS: Record<
   Roles,
@@ -26,17 +31,17 @@ export const USERS: Record<
   [Roles.USER]: {
     role: Roles.USER,
     pass: {
-      [Branch.ONE]: userPass1 ?? userPass,
-      [Branch.TWO]: userPass2 ?? userPass,
-      [Branch.THREE]: userPass3 ?? userPass
+      [Branch.ONE]: userPass1,
+      [Branch.TWO]: userPass2,
+      [Branch.THREE]: userPass3
     }
   },
   [Roles.EDITOR]: {
     role: Roles.EDITOR,
     pass: {
-      [Branch.ONE]: editorPass1 ?? editorPass,
-      [Branch.TWO]: editorPass2 ?? editorPass,
-      [Branch.THREE]: editorPass3 ?? editorPass
+      [Branch.ONE]: editorPass1,
+      [Branch.TWO]: editorPass2,
+      [Branch.THREE]: editorPass3
     }
   },
   [Roles.ADMIN]: {
