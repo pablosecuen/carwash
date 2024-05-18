@@ -7,6 +7,8 @@ import { DashboardCardProducts } from '@/components/DashboardCardProducts'
 import { Suspense } from 'react'
 import { TableSkeleton } from '@/components/skeletons/table-skeleton'
 import { Title } from '@/components/layout'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export default async function ManagerPage() {
   const isAdmin = await hasPermission()
@@ -47,6 +49,11 @@ export default async function ManagerPage() {
                 <Suspense fallback={<TableSkeleton />}>
                   <TableInfoDay />
                 </Suspense>
+                <div className='flex items-center justify-end'>
+                  <Button asChild variant={'secondary'} size={'lg'} className='mt-5'>
+                    <Link href={'/cash-closure'}>Cierre de caja</Link>
+                  </Button>
+                </div>
               </div>
             </>
           )}
