@@ -72,7 +72,7 @@ export default async function Page() {
             </Label>
             <Label htmlFor='managerBonus'>
               Bonus al gerente
-              <Input name='managerBonus' type='number' />
+              <Input name='managerBonus' type='number' defaultValue={2000} />
             </Label>
             <Label htmlFor='employeeBonus'>
               Bonus a los empleados
