@@ -20,11 +20,11 @@ export async function TableInfoDay() {
 
   const totalPriceDaily = invoiceDayData.reduce((acc, invoice) => acc + invoice.total, 0)
   return (
-    <Card className=' relative min-h-[60vh] '>
+    <Card className=' scrollbar-none relative max-h-[60vh] overflow-scroll '>
       <CardHeader>
         <CardTitle>Facturas del día</CardTitle>
       </CardHeader>
-      <CardContent className=' p-0'>
+      <CardContent className='relative p-0 pb-16'>
         <Table>
           <TableHeader>
             <TableRow>
@@ -38,7 +38,7 @@ export async function TableInfoDay() {
               <TableHead className='text-right'>Total</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody className='scrollbar-none overflow-scroll'>
+          <TableBody className=''>
             {invoiceDayData.map(({ total, id, status, tickets, products, customer }) => (
               <TableRow key={id}>
                 <TableCell className='hidden font-medium md:table-cell'>{id}</TableCell>
@@ -61,10 +61,10 @@ export async function TableInfoDay() {
           </TableBody>
         </Table>
         <TableFooter className='absolute bottom-0 left-0 right-0'>
-          <TableRow>
+          <div className='flex items-center justify-end'>
             <TableCell colSpan={7}>Total</TableCell>
             <TableCell className='text-right'>{currencyFormat(totalPriceDaily)}</TableCell>
-          </TableRow>
+          </div>
         </TableFooter>
       </CardContent>
     </Card>
