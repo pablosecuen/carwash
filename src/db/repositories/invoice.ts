@@ -2,7 +2,7 @@ import { type Branch, PaymentMethod } from '@/utils/types'
 import { Invoice } from '../entities/invoice'
 import { type Product } from '../entities/product'
 import { BaseRepository } from './base-repository'
-import { Between, type FindOperator, ILike, type FindOptionsWhere } from 'typeorm'
+import { Between, type FindOperator, ILike, type FindOptionsWhere, In, IsNull } from 'typeorm'
 
 type CreateData = Omit<Invoice, 'id' | 'total' | 'createAt' | 'products' | 'status'> & {
   products: Array<Product & { paymentMethod: PaymentMethod }>
@@ -13,7 +13,10 @@ interface FindOptions {
   to?: Date
   customerId?: number
   branch?: Branch | undefined
-  status?: Invoice['status']
+  status?: Invoice['status'] | Array<Invoice['status']>
+  cashClosure?: null | {
+    id?: number
+  }
   joins?: {
     products?: true
     tickets?:
@@ -98,9 +101,10 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
     branch,
     status,
     joins,
-    limit = 20,
+    cashClosure,
+    limit,
     customerName,
-    offset = 0
+    offset
   }: FindOptions = {}) {
     await this.init()
     let createAt
@@ -116,7 +120,8 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
           name: customerName != null ? ILike(`%${customerName}%`) : undefined
         },
         branch,
-        status
+        cashClosure: cashClosure === null ? IsNull() : cashClosure,
+        status: Array.isArray(status) ? In(status) : status
       }
       const [invoices, count] = await Promise.all([
         this.repository.find({
@@ -140,7 +145,11 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
 
       return {
         invoices,
-        metadata: this.formatMetadataForPagination({ count, limit, offset })
+        metadata: this.formatMetadataForPagination({
+          count,
+          limit: limit ?? 0,
+          offset: offset ?? 0
+        })
       }
     } catch (error) {
       console.log(error)
@@ -153,6 +162,18 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
     if (customerId != null) customer.id = customerId
     if (customerName != null) customer.name = ILike(`%${customerName}%`)
     return Object.keys(customer).length === 0 ? customer : undefined
+  }
+
+  async setCashClosure({
+    invoices,
+    cashClosure
+  }: {
+    invoices: Invoice[]
+    cashClosure: Invoice['cashClosure']
+  }) {
+    await this.init()
+    const invoiceIds = invoices.map((invoice) => invoice.id)
+    await this.repository.update(invoiceIds, { cashClosure })
   }
 
   async findById(id: number, opts: { joins?: FindOptions['joins'] }) {
