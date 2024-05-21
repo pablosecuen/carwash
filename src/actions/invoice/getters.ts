@@ -2,6 +2,14 @@ import { invoiceRepository } from '@/db/repositories/invoice'
 import { type Branch } from '@/utils/types'
 import { getBranch, hasPermission } from '@/utils/user-validate'
 
+const DEFAULT_METADATA = {
+  total: 0,
+  currentPage: 0,
+  totalPages: 0,
+  prevPage: null,
+  nextPage: null
+}
+
 export async function getInvoicesByCustomerId(
   customerId: string,
   options: { from?: Date; to?: Date } = {}
@@ -26,7 +34,6 @@ export const getDailyInvoices = async () => {
         products: true
       }
     })
-    console.log({ metadata })
 
     return {
       metadata,
@@ -183,6 +190,30 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
     console.log(error)
     return {
       invoices: []
+    }
+  }
+}
+
+export const getInvoicesToCashClosure = async () => {
+  try {
+    const branch = getBranch()
+    const { invoices, metadata } = await invoiceRepository.findAll({
+      branch,
+      status: ['completed', 'cancelled'],
+      cashClosure: null,
+      joins: {
+        customer: true
+      }
+    })
+    return {
+      metadata,
+      invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      invoices: [],
+      metadata: DEFAULT_METADATA
     }
   }
 }
