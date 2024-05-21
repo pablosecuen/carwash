@@ -1,5 +1,5 @@
 import { createCashClosureAction } from '@/actions/cash-closures/create'
-import { getDailyInvoices } from '@/actions/invoice/getters'
+import { getInvoicesToCashClosure } from '@/actions/invoice/getters'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -16,11 +16,23 @@ import {
 } from '@/components/ui/table'
 import { currencyFormat, dateFormat, variantBadge } from '@/lib/utils'
 import { translateStatus } from '@/utils/formatters'
+import { InvoiceStatusEnum } from '@/utils/types'
 
 export default async function Page() {
-  const { invoices } = await getDailyInvoices()
-  const total = invoices.reduce((acc, invoice) => acc + invoice.total, 0)
+  const { invoices } = await getInvoicesToCashClosure()
+  const { total, cancelleds } = invoices.reduce(
+    (acc, invoice) => {
+      if (invoice.status === InvoiceStatusEnum.COMPLETED) {
+        acc.total += invoice.total
+      } else {
+        acc.cancelleds += invoice.total
+      }
+      return acc
+    },
+    { total: 0, cancelleds: 0 }
+  )
   const paymentToEmployees = Math.round(total * 0.3)
+  const create = await createCashClosureAction({ invoices })
   return (
     <ContainerPage>
       <CardHeader>
@@ -51,17 +63,23 @@ export default async function Page() {
                   <TableCell>{currencyFormat(total)}</TableCell>
                 </TableRow>
               ))}
+              <TableRow className='justify-end bg-muted'>
+                <TableCell className=' flex-1' colSpan={4}>
+                  Total
+                </TableCell>
+                <TableCell>{currencyFormat(total)}</TableCell>
+              </TableRow>
             </TableBody>
           </Table>
-          <div className='flex items-center justify-end bg-muted'>
-            <TableCell colSpan={4}>Total</TableCell>
-            <TableCell>{currencyFormat(total)}</TableCell>
-          </div>
         </div>
-        <form action={createCashClosureAction} className='grid w-full flex-1 space-y-7'>
+        <form action={create} className='grid w-full flex-1 space-y-7'>
           <Label htmlFor='totalDaily'>
             Monto en total caja
             <Input name='totalDaily' type='number' value={total} />
+          </Label>
+          <Label htmlFor='totalCanceled'>
+            Monto en total caja
+            <Input name='totalCanceled' type='number' value={cancelleds} />
           </Label>
           <Label htmlFor='dailyPercentage'>
             Porcentaje del día
@@ -78,10 +96,10 @@ export default async function Page() {
           <Label htmlFor='employeePayment'>
             Pago a empleados
             <Input
-              disabled
+              className='opacity-60'
               name='employeePayment'
               type='number'
-              defaultValue={paymentToEmployees}
+              value={paymentToEmployees}
             />
           </Label>
           <Button variant={'secondary'} type='submit'>
@@ -89,11 +107,11 @@ export default async function Page() {
           </Button>
 
           <CardTitle>
-            {invoices.length === 0 ? 'No hay facturas para cerrar caja' : ''}
-            {total === 0 ? 'No hay monto total para cerrar caja' : ''}
-            {total > 0 && invoices.length > 0
-              ? `El monto total en caja es ${currencyFormat(total)}`
-              : 'No hay facturas ni monto total para cerrar caja'}
+            {invoices.length === 0
+              ? 'No hay facturas para cerrar caja'
+              : total === 0
+                ? 'No hay monto total para cerrar caja'
+                : `El monto total en caja es ${currencyFormat(total)}`}
           </CardTitle>
         </form>
       </div>
