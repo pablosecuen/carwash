@@ -1,5 +1,5 @@
 import { Branch } from '@/utils/types'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, type Relation } from 'typeorm'
 import { Invoice } from './invoice'
 
 @Entity('cash_closures')
@@ -32,7 +32,7 @@ export class CashClosures {
   @Column('int')
   employeePayment!: number
 
-  @ManyToOne(() => Invoice, (invoice) => invoice.cashClosure)
+  @OneToMany(() => Invoice, (invoice) => invoice.cashClosure)
   invoices!: Relation<Invoice[]>
 
   @Column('date', { default: new Date() })

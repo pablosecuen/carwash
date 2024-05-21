@@ -44,5 +44,5 @@ export class Invoice {
   @ManyToOne(() => CashClosures, (cashClosures) => cashClosures.id, {
     nullable: true
   })
-  cashClosure?: Relation<CashClosures>
+  cashClosure?: Relation<CashClosures> | null
 }
