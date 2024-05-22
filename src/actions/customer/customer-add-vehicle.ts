@@ -16,7 +16,6 @@ export async function customerAddVehicle(customerId: number, formData: FormData)
     customerId
   }
   try {
-    // TODO: handler possible errors
     const vehicle = await vehicleRepository.create(data)
     if (vehicle == null) {
       throw new Error('Error creating vehicle')

@@ -100,6 +100,11 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
     formData.append('patent', data.patent)
 
     setLoading(true)
+    // TODO: remove console.log
+    console.log({
+      customerId,
+      formData: Object.fromEntries(formData)
+    })
     await customerAddVehicle(customerId, formData)
       .then(() => {
         toast({
