@@ -112,7 +112,7 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
         }
         toast({
           title: 'Auto creado',
-          description: 'El auto ha sido creado correctamente.'
+          description: message
         })
         form.reset()
         router.refresh()
