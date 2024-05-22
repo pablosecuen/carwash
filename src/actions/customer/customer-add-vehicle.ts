@@ -31,7 +31,7 @@ export async function customerAddVehicle(customerId: number, formData: FormData)
     return {
       ok: false,
       message: 'Error al añadir el vehículo al cliente.',
-      error: JSON.parse(JSON.stringify(error))
+      error: JSON.stringify(error)
     }
   }
 }
