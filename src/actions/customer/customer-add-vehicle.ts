@@ -22,7 +22,16 @@ export async function customerAddVehicle(customerId: number, formData: FormData)
     }
     const customer = await customerRepository.addVehicle(customerId, vehicle)
     revalidatePath(`/service/customers/${formatSlugFromCustomer(customer)}`)
+    return {
+      ok: true,
+      message: 'Se ha añadido el vehículo al cliente correctamente.'
+    }
   } catch (error) {
     console.error('Error adding vehicle to customer:', error)
+    return {
+      ok: false,
+      message: 'Error al añadir el vehículo al cliente.',
+      error
+    }
   }
 }
