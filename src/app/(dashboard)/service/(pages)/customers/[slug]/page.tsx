@@ -21,7 +21,7 @@ export default async function CustomerDetailPage({
         <EditFormCustomer customer={customer} slug={slug} className='' />
         <AddFormCustomerVehicle customerId={customer.id} className='' />
       </div>
-      <Suspense fallback={<div className='h-96 bg-red-500 md:col-span-2'>Loading</div>}>
+      <Suspense fallback={<div className='h-96 md:col-span-2'>Loading</div>}>
         <TableVehiclesCustomer customerId={customer.id} className='md:col-span-2' />
       </Suspense>
     </ContainerPage>
