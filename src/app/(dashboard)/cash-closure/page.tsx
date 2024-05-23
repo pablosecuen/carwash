@@ -1,11 +1,9 @@
-import { createCashClosureAction } from '@/actions/cash-closures/create'
 import { getInvoicesToCashClosure } from '@/actions/invoice/getters'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+
 import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+
 import {
   Table,
   TableBody,
@@ -17,6 +15,7 @@ import {
 import { currencyFormat, dateFormat, variantBadge } from '@/lib/utils'
 import { translateStatus } from '@/utils/formatters'
 import { InvoiceStatusEnum } from '@/utils/types'
+import { FormClashClosure } from './ui/FormClashClosure'
 
 export default async function Page() {
   const { invoices } = await getInvoicesToCashClosure()
@@ -31,8 +30,7 @@ export default async function Page() {
     },
     { total: 0, cancelleds: 0 }
   )
-  const paymentToEmployees = Math.round(total * 0.3)
-  const create = await createCashClosureAction({ invoices })
+
   return (
     <ContainerPage>
       <CardHeader>
@@ -72,48 +70,7 @@ export default async function Page() {
             </TableBody>
           </Table>
         </div>
-        <form action={create} className='grid w-full flex-1 space-y-7'>
-          <Label htmlFor='totalDaily'>
-            Monto en total caja
-            <Input name='totalDaily' type='number' value={total} />
-          </Label>
-          <Label htmlFor='totalCanceled'>
-            Monto en total caja
-            <Input name='totalCanceled' type='number' value={cancelleds} />
-          </Label>
-          <Label htmlFor='dailyPercentage'>
-            Porcentaje del día
-            <Input name='dailyPercentage' type='number' defaultValue={30} />
-          </Label>
-          <Label htmlFor='managerBonus'>
-            Bonus al gerente
-            <Input name='managerBonus' type='number' defaultValue={2000} />
-          </Label>
-          <Label htmlFor='employeeBonus'>
-            Bonus a los empleados
-            <Input name='employeeBonus' type='number' defaultValue={0} />
-          </Label>
-          <Label htmlFor='employeePayment'>
-            Pago a empleados
-            <Input
-              className='opacity-60'
-              name='employeePayment'
-              type='number'
-              value={paymentToEmployees}
-            />
-          </Label>
-          <Button variant={'secondary'} type='submit'>
-            Cerrar caja
-          </Button>
-
-          <CardTitle>
-            {invoices.length === 0
-              ? 'No hay facturas para cerrar caja'
-              : total === 0
-                ? 'No hay monto total para cerrar caja'
-                : `El monto total en caja es ${currencyFormat(total)}`}
-          </CardTitle>
-        </form>
+        <FormClashClosure invoices={invoices} total={total} cancelleds={cancelleds} />
       </div>
     </ContainerPage>
   )
