@@ -16,6 +16,7 @@ const nextConfig = {
         message: /Module not found|dependency is an expression/
       }
     ]
+    config.optimization.minimize = false
     return config
   }
 }
