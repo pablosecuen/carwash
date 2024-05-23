@@ -42,6 +42,7 @@ export function ServiceField({
   allServices: Service[]
   addTicket: (ticket: Ticket) => void
 }) {
+  const [isLoading, setIsLoading] = useState(false)
   const [services, setServices] = useState<Service[]>([])
   const { toast } = useToast()
   const handlerSumbit = (event: z.infer<typeof formSchema>) => {
@@ -49,6 +50,7 @@ export function ServiceField({
     formData.append('vehicle', `${event.vehicle}`)
     formData.append('service', `${event.service}`)
     formData.append('paymentMethod', event.paymentMethod)
+    setIsLoading(true)
     createTicketAction(formData)
       .then(async (ticket) => {
         if (ticket == null) {
@@ -64,6 +66,9 @@ export function ServiceField({
       })
       .catch((error) => {
         console.error(error)
+      })
+      .finally(() => {
+        setIsLoading(false)
       })
   }
 
@@ -167,7 +172,9 @@ export function ServiceField({
             )}
           />
 
-          <Button type='submit'>añadir ticket</Button>
+          <Button type='submit' disabled={isLoading}>
+            {isLoading ? 'Creando ticket...' : 'Crear ticket'}
+          </Button>
         </form>
       </Form>
     </Card>
