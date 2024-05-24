@@ -191,7 +191,7 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
               <FormItem>
                 <FormLabel>Marca del vehiculo *</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder='' />
+                  <Input {...field} placeholder='Ford, Toyota, Honda, etc...' />
                 </FormControl>
                 <FormMessage className='text-sm' />
               </FormItem>
@@ -208,7 +208,11 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
               <FormItem>
                 <FormLabel>Modelo *</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder='Teléfono del cliente' autoComplete='off' />
+                  <Input
+                    {...field}
+                    placeholder='Fiesta, Hulix, CBR600, etc...'
+                    autoComplete='off'
+                  />
                 </FormControl>
                 <FormMessage className='text-sm' />
               </FormItem>
@@ -216,7 +220,7 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
           }}
         />
 
-        {/* address */}
+        {/* Year */}
         <FormField
           name='year'
           control={form.control}
@@ -228,7 +232,7 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
                   <Input
                     {...field}
                     type='number'
-                    placeholder='Dirección del cliente'
+                    placeholder='Año de fabricación del vehiculo, ej: 2021'
                     autoComplete='off'
                   />
                 </FormControl>
@@ -247,7 +251,7 @@ export const AddFormCustomerVehicle = ({ customerId, className }: Props) => {
               <FormItem>
                 <FormLabel>Patente *</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder='Patente del cliente' autoComplete='off' />
+                  <Input {...field} placeholder='Patente del vehiculo' autoComplete='off' />
                 </FormControl>
                 <FormMessage className='text-sm' />
               </FormItem>
