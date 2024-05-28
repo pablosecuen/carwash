@@ -19,3 +19,18 @@ export const getAllCashClosures = async (ops: { page?: number | string; branch?:
     return { cashClosures: [] }
   }
 }
+
+export const getCashClosureDetails = async (id: number | string) => {
+  try {
+    const { cashClosure } = await cashClosuresRepository.findById({
+      id: Number(id),
+      joins: {
+        invoices: true
+      }
+    })
+    return { cashClosure: JSON.parse(JSON.stringify(cashClosure)) as typeof cashClosure }
+  } catch (error) {
+    console.error(error)
+    return { cashClosure: null }
+  }
+}
