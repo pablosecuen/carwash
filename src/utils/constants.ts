@@ -3,7 +3,7 @@ import { Branch, Roles, VehicleType } from './types'
 
 export const SHOW_ROLES: Record<Roles, string> = {
   [Roles.USER]: 'Usuario',
-  [Roles.EDITOR]: 'Editor',
+  [Roles.EDITOR]: 'Manager',
   [Roles.ADMIN]: 'Administrador'
 }
 
