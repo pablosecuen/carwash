@@ -97,6 +97,25 @@ export class TicketRepository extends BaseRepository<Ticket> {
     })
   }
 
+  async changePaymentMethod({
+    ticket,
+    newPaymentMethod,
+    newTotalPrice
+  }: {
+    ticket: Ticket
+    newPaymentMethod: PaymentMethod
+    newTotalPrice: number
+  }) {
+    await this.init()
+    await this.repository.update(
+      { id: ticket.id },
+      {
+        paymentMethod: newPaymentMethod,
+        totalPrice: newTotalPrice
+      }
+    )
+  }
+
   async setInvoice({ ticketId, invoice }: { ticketId: number; invoice: Invoice }) {
     await this.init()
     const ticket = await this.repository.findOne({ where: { id: ticketId } })
@@ -111,6 +130,13 @@ export class TicketRepository extends BaseRepository<Ticket> {
     if (ticket == null) throw new Error('Ticket not found')
     await this.repository.delete({ id })
     return ticket
+  }
+
+  async findById({ id }: { id: number; joins?: FilterOpts['joins'] }) {
+    await this.init()
+    const ticket = await this.repository.findOne({ where: { id } })
+    if (ticket == null) throw new Error('Ticket not found')
+    return { ticket }
   }
 }
 export const ticketRepository = new TicketRepository()
