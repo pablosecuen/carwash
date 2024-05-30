@@ -29,6 +29,7 @@ import { Separator } from '@/components/ui/separator'
 import { DatePickerInvoice } from './date-picker-invoices'
 import { type Invoice } from '@/db/entities'
 import { PaginationTable } from '@/app/(dashboard)/service/ui/pagination'
+import { ChangePaymentBtn } from './change-payment-btn'
 
 interface Props {
   params?: {
@@ -47,13 +48,13 @@ export const TableInvoices = async ({ params }: Props) => {
   const to = params?.to
   // TODO: ver tema de filtrado por query
   const { invoices, metadata } = await getPaginatedInvoicesByBranch({
-    page: page ?? 1,
+    page: page ?? 0,
     branch,
     customerName: query,
     from,
     to
   })
-  console.log({ invoices })
+
   const total = metadata?.total ?? 0
   const totalPages = metadata?.totalPages ?? 0
   const currentPage = metadata?.currentPage ?? 0
@@ -168,12 +169,31 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                         {products.length === 0 && <p>No hay productos</p>}
                         <Separator />
                         <DialogTitle className='font-bold'>Servicios</DialogTitle>
-                        {tickets.map(({ id, service, totalPrice, vehicle, status }) => (
-                          <p key={id}>
-                            {vehicle?.patent} - {service?.name} - {currencyFormat(totalPrice)} -{' '}
-                            <Badge variant={variantBadge(status)}>{translateStatus(status)}</Badge>
-                          </p>
-                        ))}
+                        {tickets.map(
+                          ({
+                            id: ticketId,
+                            service,
+                            totalPrice,
+                            vehicle,
+                            status,
+                            paymentMethod
+                          }) => (
+                            <div key={ticketId}>
+                              <Separator className=' mb-2 bg-slate-700' />
+                              <p>
+                                <Badge variant={variantBadge(status)} className='mr-2'>
+                                  {translateStatus(status)}
+                                </Badge>
+                                {vehicle?.patent} - {service?.name}-{' '}
+                                {paymentMethod === 'cash' ? 'Efectivo' : 'Tarjeta'} -{' '}
+                                {currencyFormat(totalPrice)}
+                              </p>
+                              <ChangePaymentBtn
+                                {...{ ticketId, invoiceId: id, paymentMethod, service }}
+                              />
+                            </div>
+                          )
+                        )}
                         <Separator />
                         {/* Informacion de la factura */}
                         <p>

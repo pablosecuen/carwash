@@ -6,8 +6,10 @@ interface FilterOpts {
   branch?: Branch
   limit?: number
   offset?: number
+  joins?: {
+    invoices?: boolean
+  }
 }
-
 export class CashClosuresRepository extends BaseRepository<CashClosures> {
   protected entity = CashClosures
   async create(data: Omit<CashClosures, 'id'>) {
@@ -43,6 +45,20 @@ export class CashClosuresRepository extends BaseRepository<CashClosures> {
     return {
       cashClosures,
       metadata: this.formatMetadataForPagination({ count, limit, offset })
+    }
+  }
+
+  async findById({ id, joins }: { id: number } & FilterOpts) {
+    await this.init()
+    const cashClosure = await this.repository.findOne({
+      where: { id },
+      relations: joins
+    })
+    if (cashClosure == null) {
+      throw new Error('Cash closure not found')
+    }
+    return {
+      cashClosure
     }
   }
 }

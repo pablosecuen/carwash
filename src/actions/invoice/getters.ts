@@ -115,8 +115,6 @@ export const getPaginatedInvoicesByBranch = async ({
       from: today,
       to: tomorrow
     })
-    // console.log({ metadata })
-    console.log({ invoices })
     return {
       metadata,
       invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices
@@ -180,7 +178,6 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
             })()
           : tomorrow
     })
-    console.log({ invoices })
 
     return {
       metadata,

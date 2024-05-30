@@ -18,6 +18,7 @@ interface FindOptions {
     id?: number
   }
   joins?: {
+    cashClosure?: true
     products?: true
     tickets?:
       | true
@@ -176,21 +177,27 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
     await this.repository.update(invoiceIds, { cashClosure })
   }
 
+  async updateTotal({ id, total }: { id: number; total: number }) {
+    await this.init()
+    await this.repository.update(id, { total })
+  }
+
   async findById(id: number, opts: { joins?: FindOptions['joins'] }) {
-    try {
-      await this.init()
-      return await this.repository.findOne({
-        where: {
-          id
-        },
-        relations: {
-          ...opts.joins
-        }
-      })
-    } catch (error) {
-      console.log(error)
-      throw new Error('Error finding invoice')
+    await this.init()
+    const invoice = await this.repository.findOne({
+      where: {
+        id
+      },
+      relations: {
+        ...opts.joins
+      }
+    })
+
+    if (invoice == null) {
+      throw new Error('Invoice not found')
     }
+
+    return { invoice }
   }
 }
 
