@@ -1,3 +1,4 @@
+import { type PaymentMethod } from '@/utils/types'
 import { type Invoice } from '../entities/invoice'
 import { Item } from '../entities/item'
 import { BaseRepository } from './base-repository'
@@ -42,6 +43,36 @@ export class ItemRepository extends BaseRepository<Item> {
     item.invoice = invoice
 
     await this.repository.save(item)
+  }
+
+  async changePaymentMethod({
+    item,
+    newPaymentMethod,
+    newTotalPrice
+  }: {
+    item: Item
+    newPaymentMethod: PaymentMethod
+    newTotalPrice: number
+  }) {
+    await this.init()
+    await this.repository.update(
+      { id: item.id },
+      {
+        paymentMethod: newPaymentMethod,
+        totalPrice: newTotalPrice
+      }
+    )
+  }
+
+  async findById({ id }: { id: number }) {
+    await this.init()
+    const item = await this.repository.findOne({
+      where: {
+        id
+      }
+    })
+    if (item == null) throw new Error('Item not found')
+    return { item }
   }
 }
 
