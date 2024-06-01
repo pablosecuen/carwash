@@ -32,9 +32,16 @@ export class ItemRepository extends BaseRepository<Item> {
 
   async setInvoice({ itemId, invoice }: { itemId: number; invoice: Invoice }) {
     await this.init()
-    await this.repository.update(itemId, {
-      invoice
+    const item = await this.repository.findOne({
+      where: {
+        id: itemId
+      }
     })
+    if (item == null) throw new Error('Item not found')
+
+    item.invoice = invoice
+
+    await this.repository.save(item)
   }
 }
 
