@@ -39,7 +39,7 @@ export async function TableInfoDay() {
             </TableRow>
           </TableHeader>
           <TableBody className=''>
-            {invoiceDayData.map(({ total, id, status, tickets, products, customer }) => (
+            {invoiceDayData.map(({ total, id, status, tickets, items, customer }) => (
               <TableRow key={id}>
                 <TableCell className='hidden font-medium md:table-cell'>{id}</TableCell>
                 <TableCell>{customer.name}</TableCell>
@@ -48,7 +48,7 @@ export async function TableInfoDay() {
                 </TableCell>
 
                 <TableCell className='hidden md:table-cell'>{tickets.length}</TableCell>
-                <TableCell className='hidden md:table-cell'>{products.length}</TableCell>
+                <TableCell className='hidden md:table-cell'>{items.length}</TableCell>
                 <TableCell>
                   <SelectStatus status={status} id={id} />
                 </TableCell>
