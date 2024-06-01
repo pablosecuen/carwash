@@ -31,6 +31,7 @@ import { type Invoice } from '@/db/entities'
 import { PaginationTable } from '@/app/(dashboard)/service/ui/pagination'
 import { ChangePaymentBtn } from './change-payment-btn'
 import { PAYMENT_METHODS } from '@/utils/constants'
+import { ChangePaymentMethodBtnItem } from './change-pay-btn-item'
 
 interface Props {
   params?: {
@@ -168,13 +169,16 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                         */}
                         <DialogTitle className='font-bold'>Productos</DialogTitle>
                         {items.length > 0 &&
-                          items.map(({ id, product, paymentMethod, totalPrice }) => (
-                            <div key={id}>
+                          items.map(({ id: itemId, product, paymentMethod, totalPrice }) => (
+                            <div key={itemId}>
                               <Separator className=' mb-2 bg-slate-700' />
                               <p>
                                 {product?.name} - {PAYMENT_METHODS[paymentMethod]} -{' '}
                                 {currencyFormat(totalPrice)}
                               </p>
+                              <ChangePaymentMethodBtnItem
+                                {...{ invoiceId: id, itemId, product, paymentMethod }}
+                              />
                             </div>
                           ))}
                         {items.length === 0 && <p>No hay productos</p>}
