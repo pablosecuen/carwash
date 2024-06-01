@@ -3,6 +3,7 @@ import { type Service, type Ticket } from '@/db/entities'
 import { invoiceRepository } from '@/db/repositories/invoice'
 import { ticketRepository } from '@/db/repositories/ticket'
 import { PaymentMethod } from '@/utils/types'
+import { revalidatePath } from 'next/cache'
 
 export async function changePaymentMethod({
   invoiceId,
@@ -64,6 +65,7 @@ export async function changePaymentMethod({
       })
     ])
 
+    revalidatePath('manager/invoices')
     return {
       ok: true,
       message: 'Método de pago cambiado correctamente'
