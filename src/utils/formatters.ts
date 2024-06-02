@@ -29,3 +29,11 @@ export const translateStatus = (status: string): string => {
       return status
   }
 }
+
+export const getFromAndToOfADay = (date: Date = new Date()) => {
+  const from = new Date(date)
+  from.setHours(0, 0, 0, 0)
+  const to = new Date(from)
+  to.setDate(to.getDate() + 1)
+  return { from, to }
+}
