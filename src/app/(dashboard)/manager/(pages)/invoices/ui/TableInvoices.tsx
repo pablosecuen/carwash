@@ -32,6 +32,7 @@ import { PaginationTable } from '@/app/(dashboard)/service/ui/pagination'
 import { ChangePaymentBtn } from './change-payment-btn'
 import { PAYMENT_METHODS } from '@/utils/constants'
 import { ChangePaymentMethodBtnItem } from './change-pay-btn-item'
+import { ChangePaymentBtnsInvoice } from './change-pay-btns-invoice'
 
 interface Props {
   params?: {
@@ -138,7 +139,7 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                           Mas info
                         </Button>
                       </DialogTrigger>
-                      <DialogContent>
+                      <DialogContent className='max-h-[90vh] overflow-y-scroll'>
                         <DialogHeader>
                           <DialogTitle>Detalle de la factura</DialogTitle>
                         </DialogHeader>
@@ -227,6 +228,7 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                             {currencyFormat(total)}
                           </strong>
                         </p>
+                        <ChangePaymentBtnsInvoice invoiceId={id} />
                         <div>
                           <p className='mb-4'>
                             Estado:{' '}
