@@ -4,10 +4,11 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   type Relation
 } from 'typeorm'
-import { Product } from './product'
+import { Item } from './item'
 import { Customer } from './customer'
 import { Ticket } from './ticket'
 import { Branch, type InvoiceStatus, InvoiceStatusEnum } from '@/utils/types'
@@ -37,9 +38,9 @@ export class Invoice {
   @JoinTable()
   tickets!: Ticket[]
 
-  @ManyToMany(() => Product, (product) => product.id)
+  @OneToMany(() => Item, (item) => item.invoice)
   @JoinTable()
-  products!: Product[]
+  items!: Relation<Item[]>
 
   @ManyToOne(() => CashClosures, (cashClosures) => cashClosures.id, {
     nullable: true

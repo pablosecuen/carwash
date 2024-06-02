@@ -125,17 +125,17 @@ export function InvoiceForm({
       tickets: shoppingCart.tickets,
       products: shoppingCart.products
     })
-    if (!ok) {
+    if (ok) {
       toast({
-        title: message,
-        variant: 'destructive'
+        title: message
       })
+      router.push('/service')
+      return
     }
     toast({
-      title: message
+      title: message,
+      variant: 'destructive'
     })
-
-    router.push('/service')
   }
 
   const totalTickets: number = shoppingCart.tickets.reduce(

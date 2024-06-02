@@ -1,25 +1,25 @@
 'use server'
-import { type Service, type Ticket } from '@/db/entities'
+import { type Product } from '@/db/entities'
 import { invoiceRepository } from '@/db/repositories/invoice'
-import { ticketRepository } from '@/db/repositories/ticket'
+import { itemRepository } from '@/db/repositories/item'
 import { PaymentMethod } from '@/utils/types'
 import { revalidatePath } from 'next/cache'
 
 export async function changePaymentMethod({
   invoiceId,
-  ticketId,
-  service,
+  itemId,
+  product,
   revalidate = true,
   actualPaymentMethod
 }: {
   invoiceId: string | number
-  ticketId: string | number
-  service?: Service
-  actualPaymentMethod: Ticket['paymentMethod']
+  itemId: string | number
+  product?: Product
+  actualPaymentMethod: PaymentMethod
   revalidate?: boolean
 }) {
   try {
-    if (service == null)
+    if (product == null)
       return {
         ok: false,
         message: 'Debe seleccionar un servicio'
@@ -38,13 +38,13 @@ export async function changePaymentMethod({
       }
     }
 
-    const { ticket } = await ticketRepository.findById({
-      id: Number(ticketId)
+    const { item } = await itemRepository.findById({
+      id: Number(itemId)
     })
 
-    const diff = service.cardPrice - service.cashPrice
+    const diff = product.cardPrice - product.cashPrice
 
-    let newTotalPrice = ticket.totalPrice
+    let newTotalPrice = item.totalPrice
     let newTotalInvoice = invoice.total
     if (actualPaymentMethod === PaymentMethod.CASH) {
       newTotalInvoice += diff
@@ -55,8 +55,8 @@ export async function changePaymentMethod({
     }
 
     await Promise.all([
-      ticketRepository.changePaymentMethod({
-        ticket,
+      itemRepository.changePaymentMethod({
+        item,
         newTotalPrice,
         newPaymentMethod:
           actualPaymentMethod === PaymentMethod.CASH ? PaymentMethod.CARD : PaymentMethod.CASH

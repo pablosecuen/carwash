@@ -3,8 +3,9 @@ import { type Product } from '@/db/entities/product'
 import { type Ticket } from '@/db/entities/ticket'
 import { customerRepository } from '@/db/repositories/customer'
 import { invoiceRepository } from '@/db/repositories/invoice'
+import { itemRepository } from '@/db/repositories/item'
 import { ticketRepository } from '@/db/repositories/ticket'
-import { type PaymentMethod } from '@/utils/types'
+import { PaymentMethod } from '@/utils/types'
 import { getUserBranch } from '@/utils/user-validate'
 import { revalidatePath } from 'next/cache'
 
@@ -20,21 +21,40 @@ export async function createInvoiceAction({
   try {
     const customer = await customerRepository.findById(Number(customerId))
     const branch = await getUserBranch()
+
+    const items = await Promise.all(
+      products.map(async ({ paymentMethod, ...product }) => {
+        const item = await itemRepository.create({
+          product,
+          paymentMethod,
+          totalPrice: paymentMethod === PaymentMethod.CASH ? product.cashPrice : product.cardPrice
+        })
+        return item
+      })
+    )
     const invoice = await invoiceRepository.create({
       customer,
       tickets,
       branch,
-      products
+      items
     })
 
-    await Promise.all(
-      tickets.map(async (ticket) => {
+    // Set invoice to tickets and items
+    await Promise.all([
+      ...tickets.map(async (ticket) => {
         await ticketRepository.setInvoice({
           ticketId: ticket.id,
           invoice
         })
+      }),
+      ...items.map(async (item) => {
+        await itemRepository.setInvoice({
+          itemId: item.id,
+          invoice
+        })
       })
-    )
+    ])
+
     revalidatePath('/service')
     return {
       ok: true,

@@ -1,11 +1,11 @@
-import { type Branch, PaymentMethod } from '@/utils/types'
+import { type Branch } from '@/utils/types'
 import { Invoice } from '../entities/invoice'
-import { type Product } from '../entities/product'
 import { BaseRepository } from './base-repository'
 import { Between, type FindOperator, ILike, type FindOptionsWhere, In, IsNull } from 'typeorm'
+import { type Item } from '../entities/item'
 
-type CreateData = Omit<Invoice, 'id' | 'total' | 'createAt' | 'products' | 'status'> & {
-  products: Array<Product & { paymentMethod: PaymentMethod }>
+type CreateData = Omit<Invoice, 'id' | 'total' | 'createAt' | 'items' | 'status'> & {
+  items: Item[]
 }
 
 interface FindOptions {
@@ -19,7 +19,11 @@ interface FindOptions {
   }
   joins?: {
     cashClosure?: true
-    products?: true
+    items?:
+      | true
+      | {
+          product?: true
+        }
     tickets?:
       | true
       | {
@@ -38,8 +42,8 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
   async create(data: CreateData) {
     await this.init()
     let total = 0
-    data.products.forEach((product) => {
-      total += product.paymentMethod === PaymentMethod.CARD ? product.cardPrice : product.cashPrice
+    data.items.forEach((product) => {
+      total += product.totalPrice
     })
 
     data.tickets.forEach((ticket) => {

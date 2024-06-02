@@ -30,6 +30,9 @@ import { DatePickerInvoice } from './date-picker-invoices'
 import { type Invoice } from '@/db/entities'
 import { PaginationTable } from '@/app/(dashboard)/service/ui/pagination'
 import { ChangePaymentBtn } from './change-payment-btn'
+import { PAYMENT_METHODS } from '@/utils/constants'
+import { ChangePaymentMethodBtnItem } from './change-pay-btn-item'
+import { ChangePaymentBtnsInvoice } from './change-pay-btns-invoice'
 
 interface Props {
   params?: {
@@ -106,7 +109,7 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
         </TableHeader>
         <TableBody>
           {invoices.map(
-            ({ branch, id, total, createAt, status, customer, products, tickets }, index) => {
+            ({ branch, id, total, createAt, status, customer, items, tickets }, index) => {
               const ticketStatus = tickets.some((ticket) => ticket.status === 'pending')
               return (
                 <TableRow className={index % 2 === 1 ? 'bg-muted' : ''} key={id}>
@@ -136,7 +139,7 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                           Mas info
                         </Button>
                       </DialogTrigger>
-                      <DialogContent>
+                      <DialogContent className='max-h-[90vh] overflow-y-scroll'>
                         <DialogHeader>
                           <DialogTitle>Detalle de la factura</DialogTitle>
                         </DialogHeader>
@@ -162,11 +165,24 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                         <Separator />
 
                         {/* Informacion de los productos y servicios */}
-
+                        {/* 
+                          // TODO: cambiar estilos de los productos y servicios a una tabla
+                        */}
                         <DialogTitle className='font-bold'>Productos</DialogTitle>
-                        {products.length > 0 &&
-                          products.map(({ id, name }) => <p key={id}>{name}</p>)}
-                        {products.length === 0 && <p>No hay productos</p>}
+                        {items.length > 0 &&
+                          items.map(({ id: itemId, product, paymentMethod, totalPrice }) => (
+                            <div key={itemId}>
+                              <Separator className=' mb-2 bg-slate-700' />
+                              <p>
+                                {product?.name} - {PAYMENT_METHODS[paymentMethod]} -{' '}
+                                {currencyFormat(totalPrice)}
+                              </p>
+                              <ChangePaymentMethodBtnItem
+                                {...{ invoiceId: id, itemId, product, paymentMethod }}
+                              />
+                            </div>
+                          ))}
+                        {items.length === 0 && <p>No hay productos</p>}
                         <Separator />
                         <DialogTitle className='font-bold'>Servicios</DialogTitle>
                         {tickets.map(
@@ -212,6 +228,7 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                             {currencyFormat(total)}
                           </strong>
                         </p>
+                        <ChangePaymentBtnsInvoice invoiceId={id} />
                         <div>
                           <p className='mb-4'>
                             Estado:{' '}

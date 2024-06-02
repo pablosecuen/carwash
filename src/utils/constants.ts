@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Branch, Roles, VehicleType } from './types'
+import { Branch, PaymentMethod, Roles, VehicleType } from './types'
 
 export const SHOW_ROLES: Record<Roles, string> = {
   [Roles.USER]: 'Usuario',
@@ -18,4 +18,9 @@ export const BRANCHES = {
   [Branch.ONE]: 'Sucursal 1',
   [Branch.TWO]: 'Sucursal 2',
   [Branch.THREE]: 'Sucursal 3'
+}
+
+export const PAYMENT_METHODS = {
+  [PaymentMethod.CASH]: 'Efectivo',
+  [PaymentMethod.CARD]: 'Tarjeta'
 }

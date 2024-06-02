@@ -31,7 +31,7 @@ export const getDailyInvoices = async () => {
       joins: {
         customer: true,
         tickets: true,
-        products: true
+        items: true
       }
     })
 
@@ -63,7 +63,7 @@ export const getPaginatedInvoices = async ({
           service: true,
           vehicle: true
         },
-        products: true
+        items: true
       }
     })
     console.log({ metadata })
@@ -110,7 +110,9 @@ export const getPaginatedInvoicesByBranch = async ({
           service: true,
           vehicle: true
         },
-        products: true
+        items: {
+          product: true
+        }
       },
       from: today,
       to: tomorrow
@@ -159,7 +161,9 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
           service: true,
           vehicle: true
         },
-        products: true
+        items: {
+          product: true
+        }
       },
       from:
         from != null

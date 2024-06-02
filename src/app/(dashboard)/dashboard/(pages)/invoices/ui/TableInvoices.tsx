@@ -30,6 +30,7 @@ import { Label } from '@/components/ui/label'
 import { PaginationTable } from '@/app/(dashboard)/service/ui/pagination'
 
 import { DatePickerWithRangeInvoice } from './date-picker-range-invoice'
+import { PAYMENT_METHODS } from '@/utils/constants'
 interface Props {
   params?: {
     page?: string
@@ -86,7 +87,7 @@ export const TableInvoices = async ({ params }: Props) => {
             </TableHeader>
             <TableBody>
               {invoices.map(
-                ({ branch, id, total, createAt, status, customer, products, tickets }, index) => {
+                ({ branch, id, total, createAt, status, customer, items, tickets }, index) => {
                   const ticketStatus = tickets.some((ticket) => ticket.status === 'pending')
 
                   return (
@@ -157,21 +158,29 @@ export const TableInvoices = async ({ params }: Props) => {
 
                             <h4>Productos: </h4>
 
-                            {products.length === 0 && <p>No hay productos</p>}
-                            {products.length > 0 && (
+                            {items.length === 0 && <p>No hay productos</p>}
+                            {items.length > 0 && (
                               <Table>
                                 <TableHeader>
                                   <TableRow className='bg-muted'>
                                     <TableHead>Producto</TableHead>
+                                    <TableHead>Metodo</TableHead>
+                                    <TableHead>Total</TableHead>
                                   </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                  {products.map((item, index) => (
+                                  {items.map((item, index) => (
                                     <TableRow
                                       key={item.id}
                                       className={index % 2 === 1 ? 'bg-muted' : ''}
                                     >
-                                      <TableCell className='opacity-80'>{item.name}</TableCell>
+                                      <TableCell className='opacity-80'>
+                                        {item.product.name}
+                                      </TableCell>
+                                      <TableCell className='opacity-80'>
+                                        {PAYMENT_METHODS[item.paymentMethod]}
+                                      </TableCell>
+                                      <TableCell>{currencyFormat(item.totalPrice)}</TableCell>
                                     </TableRow>
                                   ))}
                                 </TableBody>

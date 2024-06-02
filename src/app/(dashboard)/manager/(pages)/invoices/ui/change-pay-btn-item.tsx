@@ -1,19 +1,22 @@
 'use client'
 
-import { changePaymentMethod } from '@/actions/tickets/change-payment-method'
+import { changePaymentMethod } from '@/actions/item/change-payment-method'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
-import type { Service } from '@/db/entities/services'
+import { type Product } from '@/db/entities'
 import { type PaymentMethod } from '@/utils/types'
 
-interface Props {
-  invoiceId: number
-  ticketId: number
-  service?: Service
+export function ChangePaymentMethodBtnItem({
+  invoiceId,
+  itemId,
+  product,
+  paymentMethod
+}: {
+  invoiceId: string | number
+  itemId: string | number
+  product?: Product
   paymentMethod: PaymentMethod
-}
-
-export function ChangePaymentBtn({ invoiceId, paymentMethod, ticketId, service }: Props) {
+}) {
   const { toast } = useToast()
   return (
     <Button
@@ -21,10 +24,11 @@ export function ChangePaymentBtn({ invoiceId, paymentMethod, ticketId, service }
       onClick={async () => {
         const data = await changePaymentMethod({
           invoiceId,
-          ticketId,
-          service,
+          itemId,
+          product,
           actualPaymentMethod: paymentMethod
         })
+
         if (data.ok) {
           toast({
             title: 'Método de pago cambiado correctamente, recarga la pagina para ver los cambios'

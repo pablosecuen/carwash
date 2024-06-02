@@ -7,6 +7,7 @@ import { Service } from './entities/services'
 import { Ticket } from './entities/ticket'
 import { Invoice } from './entities/invoice'
 import { CashClosures } from './entities/cash-closures'
+import { Item } from './entities/item'
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -18,5 +19,5 @@ export const AppDataSource = new DataSource({
   ssl: { rejectUnauthorized: false },
   synchronize: true,
   logging: false,
-  entities: [Customer, Vehicle, Product, Service, Ticket, Invoice, CashClosures]
+  entities: [Customer, Vehicle, Product, Service, Ticket, Invoice, CashClosures, Item]
 })
