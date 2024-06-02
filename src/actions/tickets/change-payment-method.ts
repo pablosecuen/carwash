@@ -9,12 +9,14 @@ export async function changePaymentMethod({
   invoiceId,
   ticketId,
   service,
+  revalidate = true,
   actualPaymentMethod
 }: {
   invoiceId: string | number
   ticketId: string | number
   service?: Service
   actualPaymentMethod: Ticket['paymentMethod']
+  revalidate?: boolean
 }) {
   try {
     if (service == null)
@@ -65,7 +67,7 @@ export async function changePaymentMethod({
       })
     ])
 
-    revalidatePath('manager/invoices')
+    if (revalidate) revalidatePath('manager/invoices')
     return {
       ok: true,
       message: 'Método de pago cambiado correctamente'
