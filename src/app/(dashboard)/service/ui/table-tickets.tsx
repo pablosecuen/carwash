@@ -11,13 +11,37 @@ import {
 import { variantBadge } from '@/lib/utils'
 
 import { Badge } from '@/components/ui/badge'
-import { getAllDailyTickets } from '@/actions/tickets'
+import { getAllDailyTickets, getPendingTickets } from '@/actions/tickets'
 import { SelectStatus } from './select-status'
 import { translateStatus } from '@/utils/formatters'
+import { SortButton } from '@/components/ui/sort-button'
 
-export async function TableTickets() {
-  const dailyTickets = await getAllDailyTickets()
+export async function TableTickets({
+  searchParams
+}: {
+  searchParams?: {
+    sortBy: string
+    sortDirection?: 'ASC' | 'DESC'
+    tab?: 'daily' | 'pending'
+  }
+}) {
+  let tickets
 
+  if (searchParams?.tab === 'pending') {
+    tickets = await getPendingTickets({
+      sort: {
+        sortBy: searchParams?.sortBy,
+        orderDir: searchParams?.sortDirection
+      }
+    })
+  } else {
+    tickets = await getAllDailyTickets({
+      sort: {
+        sortBy: searchParams?.sortBy,
+        orderDir: searchParams?.sortDirection
+      }
+    })
+  }
   return (
     <>
       <Card>
@@ -28,16 +52,22 @@ export async function TableTickets() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Ticket</TableHead>
-                <TableHead className='hidden md:table-cell'>Sucursal</TableHead>
-                <TableHead>Vehiculo</TableHead>
-                <TableHead>Status</TableHead>
+                <TableHead>
+                  Ticket <SortButton sortBy='id' />
+                </TableHead>
+                <TableHead className='hidden md:table-cell'>
+                  Sucursal <SortButton sortBy='branch' />
+                </TableHead>
+                <TableHead>Vehiculo </TableHead>
+                <TableHead>
+                  Status <SortButton sortBy='status' />
+                </TableHead>
 
                 <TableHead>Cambiar estado</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {dailyTickets.map(({ id, status, vehicle = {}, invoice = {} }) => {
+              {tickets.map(({ id, status, vehicle = {}, invoice = {} }) => {
                 return (
                   <TableRow key={id}>
                     <TableCell className='font-medium'>{id}</TableCell>

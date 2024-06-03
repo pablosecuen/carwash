@@ -1,10 +1,17 @@
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
-import { DashboardCard } from '../../../components/DashboardCard'
+import { DashboardCard } from '@/components/DashboardCard'
 import { DashboardCardProducts } from '@/components/DashboardCardProducts'
+import { TicketTabs } from './ui/ticket-tabs'
 import { TableTickets } from './ui/table-tickets'
-// import { TableDailyInvoices } from './ui/TableDailyInvoices'
 
-export default async function ServicePage() {
+export default async function ServicePage({
+  searchParams
+}: {
+  searchParams?: {
+    sortBy: string
+    sortDirection?: 'ASC' | 'DESC'
+  }
+}) {
   return (
     <ContainerPage>
       <div className='grid flex-1 items-start gap-4 md:gap-8 lg:grid-cols-3 xl:grid-cols-3'>
@@ -34,8 +41,8 @@ export default async function ServicePage() {
             />
           </div>
 
-          {/* <TableDailyInvoices /> */}
-          <TableTickets />
+          <TicketTabs />
+          <TableTickets searchParams={searchParams} />
         </div>
 
         {/* Ver que otros datos darle al empleado como forma de informacion, estadisticas */}
