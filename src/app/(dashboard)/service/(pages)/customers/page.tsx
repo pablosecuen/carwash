@@ -16,6 +16,8 @@ export default async function CustomersPage({
   searchParams?: {
     query?: string
     page?: string
+    sortBy?: string
+    sortDirection?: 'ASC' | 'DESC'
   }
 }) {
   const currentPage = Number(searchParams?.page) ?? 1
@@ -35,7 +37,13 @@ export default async function CustomersPage({
       <Search placeholder='Busca un cliente por nombre' />
 
       <Suspense key={query + currentPage} fallback={<TableSkeleton />}>
-        <TableCustomers name={query} />
+        <TableCustomers
+          name={query}
+          sort={{
+            sortBy: searchParams?.sortBy,
+            orderDir: searchParams?.sortDirection
+          }}
+        />
       </Suspense>
     </ContainerPage>
   )
