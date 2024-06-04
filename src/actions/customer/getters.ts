@@ -2,11 +2,21 @@ import { type Customer } from '@/db/entities'
 import { customerRepository } from '@/db/repositories/customer'
 import { getBranch, hasPermission } from '@/utils/user-validate'
 
-export async function getAllCustomers(name?: string) {
+export async function getAllCustomers({
+  name,
+  sort
+}: {
+  name?: string
+  sort?: {
+    sortBy?: string
+    orderDir?: 'ASC' | 'DESC'
+  }
+} = {}) {
   try {
     const isAdmin = await hasPermission('ADMIN')
     const { customers, metadata } = await customerRepository.findAll({
       name,
+      sort,
       branch: isAdmin ? undefined : getBranch()
     })
     return {
