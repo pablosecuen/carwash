@@ -55,9 +55,7 @@ export async function TableTickets({
                 <TableHead>
                   Ticket <SortButton sortBy='id' />
                 </TableHead>
-                <TableHead className='hidden md:table-cell'>
-                  Sucursal <SortButton sortBy='branch' />
-                </TableHead>
+                <TableHead className='hidden md:table-cell'>Sucursal</TableHead>
                 <TableHead>Vehiculo </TableHead>
                 <TableHead>
                   Status <SortButton sortBy='status' />
