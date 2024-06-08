@@ -2,13 +2,23 @@ import { cashClosuresRepository } from '@/db/repositories/cash-closures'
 import { type Branch } from '@/utils/types'
 import { getBranch, hasPermission } from '@/utils/user-validate'
 
-export const getAllCashClosures = async (ops: { page?: number | string; branch?: Branch } = {}) => {
+export const getAllCashClosures = async (
+  ops: {
+    page?: number | string
+    branch?: Branch
+    sort?: {
+      sortBy?: string
+      sortDir?: 'ASC' | 'DESC'
+    }
+  } = {}
+) => {
   try {
     const isAdmin = await hasPermission('ADMIN')
     const page = ops?.page != null ? Number(ops.page) : 0
     const { cashClosures, metadata } = await cashClosuresRepository.findAll({
       branch: isAdmin ? ops?.branch : getBranch(),
-      offset: page * 20
+      offset: page * 20,
+      sort: ops.sort
     })
     return {
       metadata,
