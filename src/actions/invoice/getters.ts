@@ -84,6 +84,7 @@ export const getPaginatedInvoicesByBranch = async ({
   limit = 20,
   branch = undefined,
   customerName,
+  sort,
   from,
   to
 }: {
@@ -93,6 +94,10 @@ export const getPaginatedInvoicesByBranch = async ({
   customerName?: string
   from?: string
   to?: string
+  sort?: {
+    sortBy?: string
+    sortDir?: 'ASC' | 'DESC'
+  }
 }) => {
   const today = new Date(from ?? new Date())
   today.setHours(0, 0, 0, 0)
@@ -102,6 +107,7 @@ export const getPaginatedInvoicesByBranch = async ({
     const { invoices, metadata } = await invoiceRepository.findAll({
       customerName,
       branch,
+      sort,
       limit: Number(limit),
       offset: Number(page) * Number(limit),
       joins: {

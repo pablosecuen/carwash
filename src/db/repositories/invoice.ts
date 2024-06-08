@@ -35,6 +35,10 @@ interface FindOptions {
   customerName?: string
   limit?: number
   offset?: number
+  sort?: {
+    sortBy?: string
+    sortDir?: 'ASC' | 'DESC'
+  }
 }
 
 export class InvoiceRepository extends BaseRepository<Invoice> {
@@ -109,6 +113,7 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
     cashClosure,
     limit,
     customerName,
+    sort,
     offset
   }: FindOptions = {}) {
     await this.init()
@@ -133,9 +138,7 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
           where: whereClause,
           take: limit,
           skip: offset,
-          order: {
-            createAt: 'DESC'
-          },
+          order: this.formatSort(sort),
           relations: {
             ...joins
           }
@@ -159,6 +162,20 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
     } catch (error) {
       console.log(error)
       throw new Error('Error finding invoices')
+    }
+  }
+
+  private formatSort(sort: { sortBy?: string; sortDir?: 'ASC' | 'DESC' } = {}) {
+    if (sort?.sortBy?.includes('.') === true) {
+      const [relation, column] = sort.sortBy.split('.')
+      return {
+        [relation]: {
+          [column]: sort.sortDir ?? 'DESC'
+        }
+      }
+    }
+    return {
+      [sort.sortBy ?? 'createAt']: sort.sortDir ?? 'DESC'
     }
   }
 
