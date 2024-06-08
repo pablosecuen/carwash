@@ -8,6 +8,8 @@ export default function InvoicesPage({
   searchParams?: {
     page: string
     query?: string
+    sortBy?: string
+    sortDirection?: 'ASC' | 'DESC'
   }
 }) {
   return (
