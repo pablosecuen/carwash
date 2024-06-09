@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/table'
 import { currencyFormat, variantBadge } from '@/lib/utils'
 import { DateFormatter, translateStatus } from '@/utils/formatters'
+import { ExportInvoicesToExcel } from './export-invoices-to-excel'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { cashClosure } = await getCashClosureDetails(params.id)
@@ -27,11 +28,18 @@ export default async function Page({ params }: { params: { id: string } }) {
         <p>Bonus a los manager: {currencyFormat(cashClosure.managerBonus)}</p>
       </div>
       <div>
-        <h2>Facturas</h2>
+        <h2>
+          Facturas{' '}
+          <ExportInvoicesToExcel
+            invoices={cashClosure.invoices}
+            fileName={`facturas-${cashClosure.id}-${cashClosure.createdAt.toString()}.xlsx`}
+          />
+        </h2>
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
+              <TableHead>Ciente</TableHead>
               <TableHead>Fecha</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Total</TableHead>
@@ -41,6 +49,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             {cashClosure.invoices.map(({ id, customer, total, createAt, status }) => (
               <TableRow key={id}>
                 <TableCell>{id}</TableCell>
+                <TableCell>{customer.name}</TableCell>
                 <TableCell>{DateFormatter(new Date(createAt))}</TableCell>
                 <TableCell>
                   <Badge variant={variantBadge(status)}>{translateStatus(status)}</Badge>
