@@ -9,6 +9,9 @@ interface FilterOpts {
   branch?: Branch
   limit?: number
   offset?: number
+  joins?: {
+    vehicles?: boolean
+  }
   sort?: {
     sortBy?: string
     orderDir?: 'ASC' | 'DESC'
@@ -34,6 +37,9 @@ export class CustomerRepository extends BaseRepository<Customer> {
       this.repository.find({
         where: whereClause,
         take: limit,
+        relations: {
+          vehicles: filter?.joins?.vehicles ?? false
+        },
         skip: offset,
         order: this.formatSort(sort)
       }),

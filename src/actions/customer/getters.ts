@@ -1,12 +1,15 @@
+'use server'
 import { type Customer } from '@/db/entities'
 import { customerRepository } from '@/db/repositories/customer'
 import { getBranch, hasPermission } from '@/utils/user-validate'
 
 export async function getAllCustomers({
   name,
+  vehicles,
   sort
 }: {
   name?: string
+  vehicles?: boolean
   sort?: {
     sortBy?: string
     orderDir?: 'ASC' | 'DESC'
@@ -17,6 +20,9 @@ export async function getAllCustomers({
     const { customers, metadata } = await customerRepository.findAll({
       name,
       sort,
+      joins: {
+        vehicles
+      },
       branch: isAdmin ? undefined : getBranch()
     })
     return {
