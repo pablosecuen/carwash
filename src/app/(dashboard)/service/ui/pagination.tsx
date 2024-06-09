@@ -117,11 +117,11 @@ export const PaginationTable = ({
       </Pagination>
       <div className='flex-1 text-end text-sm text-muted-foreground'>
         <p>
-          pagina {pageNumber} de {totalPages}
+          Pagina {pageNumber} de {totalPages + 1}
         </p>
 
         <p>
-          Mostrando {total / totalPages} de {total}
+          Mostrando {total / (totalPages + 1)} de {total}
         </p>
       </div>
     </div>

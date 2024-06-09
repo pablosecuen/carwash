@@ -31,6 +31,7 @@ import { PaginationTable } from '@/app/(dashboard)/service/ui/pagination'
 
 import { DatePickerWithRangeInvoice } from './date-picker-range-invoice'
 import { PAYMENT_METHODS } from '@/utils/constants'
+import { SortButton } from '@/components/ui/sort-button'
 interface Props {
   params?: {
     page?: string
@@ -38,6 +39,8 @@ interface Props {
     query?: string
     from?: string
     to?: string
+    sortBy?: string
+    sortDirection?: 'ASC' | 'DESC'
   }
 }
 export const TableInvoices = async ({ params }: Props) => {
@@ -46,12 +49,17 @@ export const TableInvoices = async ({ params }: Props) => {
   const query = params?.query
   const from = params?.from
   const to = params?.to
+  const sort = {
+    sortBy: params?.sortBy,
+    sortDir: params?.sortDirection
+  }
 
   const { invoices, metadata } = await getPaginatedInvoicesByBranchDashboard({
     page: page ?? 0,
     branch,
     query,
     from,
+    sort,
     to
   })
 
@@ -74,12 +82,20 @@ export const TableInvoices = async ({ params }: Props) => {
             <TableHeader className='bg-muted'>
               <TableRow>
                 <TableHead>ID</TableHead>
-                <TableHead>Cliente</TableHead>
-                <TableHead className='hidden md:table-cell'>Sucursal</TableHead>
+                <TableHead>
+                  Cliente <SortButton sortBy='customer.name' />
+                </TableHead>
+                <TableHead className='hidden md:table-cell'>
+                  Sucursal <SortButton sortBy='branch' />
+                </TableHead>
                 <TableHead className='hidden md:table-cell'>Status Ticket</TableHead>
-                <TableHead className='hidden md:table-cell'>Fecha</TableHead>
+                <TableHead className='hidden md:table-cell'>
+                  Fecha <SortButton sortBy='createAt' />
+                </TableHead>
                 <TableHead className='hidden md:table-cell'>Status</TableHead>
-                <TableHead className='hidden md:table-cell'>Monto total</TableHead>
+                <TableHead className='hidden md:table-cell'>
+                  Monto total <SortButton sortBy='total' />
+                </TableHead>
                 <TableHead>
                   <span className='sr-only'>Acciones</span>
                 </TableHead>

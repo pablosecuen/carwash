@@ -23,6 +23,8 @@ export default function InvoicesPage({
     page: string
     branch: Branch
     query?: string
+    sortBy?: string
+    sortDirection?: 'ASC' | 'DESC'
   }
 }) {
   const branch = searchParams?.branch

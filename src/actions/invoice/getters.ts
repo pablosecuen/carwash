@@ -84,6 +84,7 @@ export const getPaginatedInvoicesByBranch = async ({
   limit = 20,
   branch = undefined,
   customerName,
+  sort,
   from,
   to
 }: {
@@ -93,6 +94,10 @@ export const getPaginatedInvoicesByBranch = async ({
   customerName?: string
   from?: string
   to?: string
+  sort?: {
+    sortBy?: string
+    sortDir?: 'ASC' | 'DESC'
+  }
 }) => {
   const today = new Date(from ?? new Date())
   today.setHours(0, 0, 0, 0)
@@ -102,6 +107,7 @@ export const getPaginatedInvoicesByBranch = async ({
     const { invoices, metadata } = await invoiceRepository.findAll({
       customerName,
       branch,
+      sort,
       limit: Number(limit),
       offset: Number(page) * Number(limit),
       joins: {
@@ -135,6 +141,7 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
   branch = undefined,
   query,
   from,
+  sort,
   to
 }: {
   page: number | string
@@ -143,12 +150,17 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
   query?: string
   from?: string
   to?: string
+  sort?: {
+    sortBy?: string
+    sortDir?: 'ASC' | 'DESC'
+  }
 }) => {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
   const tomorrow = new Date(today)
   tomorrow.setHours(23, 59, 59, 999)
 
+  console.log({ sort })
   try {
     const { invoices, metadata } = await invoiceRepository.findAll({
       customerName: query,
@@ -165,6 +177,7 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
           product: true
         }
       },
+      sort,
       from:
         from != null
           ? (() => {
@@ -183,6 +196,7 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
           : tomorrow
     })
 
+    console.log({ totals: invoices.map((i) => i.total) })
     return {
       metadata,
       invoices: JSON.parse(JSON.stringify(invoices)) as typeof invoices

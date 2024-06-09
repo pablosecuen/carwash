@@ -9,6 +9,10 @@ interface FilterOpts {
   joins?: {
     invoices?: boolean
   }
+  sort?: {
+    sortBy?: string
+    sortDir?: 'ASC' | 'DESC'
+  }
 }
 export class CashClosuresRepository extends BaseRepository<CashClosures> {
   protected entity = CashClosures
@@ -32,9 +36,7 @@ export class CashClosuresRepository extends BaseRepository<CashClosures> {
     const [cashClosures, count] = await Promise.all([
       this.repository.find({
         where: whereClause,
-        order: {
-          createdAt: 'DESC'
-        },
+        order: this.formatSort(opts.sort),
         take: limit,
         skip: offset
       }),
@@ -48,11 +50,29 @@ export class CashClosuresRepository extends BaseRepository<CashClosures> {
     }
   }
 
+  private formatSort(sort?: FilterOpts['sort']) {
+    if (sort?.sortBy?.includes('.') === true) {
+      const [relation, field] = sort.sortBy.split('.')
+      return {
+        [relation]: {
+          [field]: sort.sortDir
+        }
+      }
+    }
+    return {
+      [sort?.sortBy ?? 'createdAt']: sort?.sortDir ?? 'ASC'
+    }
+  }
+
   async findById({ id, joins }: { id: number } & FilterOpts) {
     await this.init()
     const cashClosure = await this.repository.findOne({
       where: { id },
-      relations: joins
+      relations: {
+        invoices: joins?.invoices === true && {
+          customer: true
+        }
+      }
     })
     if (cashClosure == null) {
       throw new Error('Cash closure not found')

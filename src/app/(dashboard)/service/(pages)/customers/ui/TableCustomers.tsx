@@ -13,9 +13,19 @@ import { formatSlugFromCustomer } from '@/utils/slug'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Edit } from 'lucide-react'
+import { SortButton } from '@/components/ui/sort-button'
 
-export const TableCustomers = async ({ name }: { name?: string }) => {
-  const { customers } = await getAllCustomers(name)
+export const TableCustomers = async ({
+  name,
+  sort
+}: {
+  name?: string
+  sort?: {
+    sortBy?: string
+    orderDir?: 'ASC' | 'DESC'
+  }
+}) => {
+  const { customers } = await getAllCustomers({ name, sort })
 
   return (
     <Card>
@@ -24,8 +34,12 @@ export const TableCustomers = async ({ name }: { name?: string }) => {
           <TableCaption className='pb-4'>Una lista de sus clientes recientes.</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead className='font-bold'>Clientes</TableHead>
-              <TableHead className='font-bold'>Email</TableHead>
+              <TableHead className='font-bold'>
+                Clientes <SortButton sortBy='name' />
+              </TableHead>
+              <TableHead className='font-bold'>
+                Email <SortButton sortBy='email' />
+              </TableHead>
               <TableHead className='font-bold'>Teléfono</TableHead>
               <TableHead className='font-bold'>
                 <span className='sr-only'>Edit</span>

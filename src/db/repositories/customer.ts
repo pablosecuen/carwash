@@ -9,6 +9,13 @@ interface FilterOpts {
   branch?: Branch
   limit?: number
   offset?: number
+  joins?: {
+    vehicles?: boolean
+  }
+  sort?: {
+    sortBy?: string
+    orderDir?: 'ASC' | 'DESC'
+  }
 }
 export class CustomerRepository extends BaseRepository<Customer> {
   protected entity = Customer
@@ -20,7 +27,7 @@ export class CustomerRepository extends BaseRepository<Customer> {
   }
 
   async findAll(filter?: FilterOpts) {
-    const { branch, limit = 20, offset = 0 } = filter ?? {}
+    const { branch, limit = 20, offset = 0, sort } = filter ?? {}
     await this.init()
     const whereClause = {
       branch,
@@ -30,13 +37,25 @@ export class CustomerRepository extends BaseRepository<Customer> {
       this.repository.find({
         where: whereClause,
         take: limit,
-        skip: offset
+        relations: {
+          vehicles: filter?.joins?.vehicles ?? false
+        },
+        skip: offset,
+        order: this.formatSort(sort)
       }),
       this.repository.count({ where: whereClause })
     ])
     return {
       customers,
       metadata: this.formatMetadataForPagination({ count, limit, offset })
+    }
+  }
+
+  private formatSort(sort: { sortBy?: string; orderDir?: 'ASC' | 'DESC' } = {}) {
+    if (sort?.sortBy == null) return undefined
+
+    return {
+      [sort.sortBy]: sort.orderDir ?? 'DESC'
     }
   }
 

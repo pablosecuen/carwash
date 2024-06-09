@@ -33,6 +33,7 @@ import { ChangePaymentBtn } from './change-payment-btn'
 import { PAYMENT_METHODS } from '@/utils/constants'
 import { ChangePaymentMethodBtnItem } from './change-pay-btn-item'
 import { ChangePaymentBtnsInvoice } from './change-pay-btns-invoice'
+import { SortButton } from '@/components/ui/sort-button'
 
 interface Props {
   params?: {
@@ -41,6 +42,8 @@ interface Props {
     query?: string
     from?: string
     to?: string
+    sortBy?: string
+    sortDirection?: 'ASC' | 'DESC'
   }
 }
 export const TableInvoices = async ({ params }: Props) => {
@@ -49,11 +52,16 @@ export const TableInvoices = async ({ params }: Props) => {
   const query = params?.query
   const from = params?.from
   const to = params?.to
+  const sort = {
+    sortBy: params?.sortBy,
+    sortDir: params?.sortDirection
+  }
   // TODO: ver tema de filtrado por query
   const { invoices, metadata } = await getPaginatedInvoicesByBranch({
     page: page ?? 0,
     branch,
     customerName: query,
+    sort,
     from,
     to
   })
@@ -96,12 +104,22 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
         <TableHeader className='bg-muted'>
           <TableRow>
             <TableHead className='hidden sm:table-cell'>ID</TableHead>
-            <TableHead>Cliente</TableHead>
-            <TableHead className='hidden md:table-cell'>Sucursal</TableHead>
+            <TableHead>
+              Cliente
+              <SortButton sortBy='customer.name' />
+            </TableHead>
+            <TableHead className='hidden md:table-cell'>
+              Sucursal <SortButton sortBy='branch' />
+            </TableHead>
             <TableHead className='hidden md:table-cell'>Status Tickets</TableHead>
-            <TableHead className='hidden md:table-cell'>Fecha</TableHead>
+            <TableHead className='hidden md:table-cell'>
+              Fecha <SortButton sortBy='createAt' />{' '}
+            </TableHead>
             <TableHead className='hidden md:table-cell'>Status</TableHead>
-            <TableHead className=''>Monto total</TableHead>
+            <TableHead className=''>
+              Monto total
+              <SortButton sortBy='total' />
+            </TableHead>
             <TableHead>
               <span className='sr-only'>Acciones</span>
             </TableHead>

@@ -16,6 +16,10 @@ interface FilterOpts {
     service: boolean
     invoice: boolean
   }>
+  sort?: {
+    sortBy?: string
+    orderDir?: 'ASC' | 'DESC'
+  }
 }
 
 export class TicketRepository extends BaseRepository<Ticket> {
@@ -73,7 +77,7 @@ export class TicketRepository extends BaseRepository<Ticket> {
 
   async findAll(options: FilterOpts = {}) {
     await this.init()
-    const { offset = 0, limit = 20, status, joins, branch, from, to } = options
+    const { offset = 0, limit = 20, sort = {}, status, joins, branch, from, to } = options
 
     const where: FindManyOptions<Ticket>['where'] = {
       status
@@ -88,13 +92,17 @@ export class TicketRepository extends BaseRepository<Ticket> {
 
     return await this.repository.find({
       where,
-      order: {
-        createdAt: 'DESC'
-      },
+      order: this.formatSort(sort),
       relations: joins,
       take: limit,
       skip: offset
     })
+  }
+
+  private formatSort(sort: { sortBy?: string; orderDir?: 'ASC' | 'DESC' }) {
+    return {
+      [sort.sortBy ?? 'createdAt']: sort.orderDir ?? 'DESC'
+    }
   }
 
   async changePaymentMethod({
