@@ -55,6 +55,7 @@ export async function TableTickets({
                 <TableHead>
                   Ticket <SortButton sortBy='id' />
                 </TableHead>
+                <TableHead>Servicio</TableHead>
                 <TableHead className='hidden md:table-cell'>Sucursal</TableHead>
                 <TableHead>Vehiculo </TableHead>
                 <TableHead>
@@ -65,10 +66,11 @@ export async function TableTickets({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {tickets.map(({ id, status, vehicle = {}, invoice = {} }) => {
+              {tickets.map(({ id, status, vehicle = {}, invoice = {}, service = {} }) => {
                 return (
                   <TableRow key={id}>
                     <TableCell className='font-medium'>{id}</TableCell>
+                    <TableCell>{service.name}</TableCell>
                     <TableCell className='hidden md:table-cell'>{invoice?.branch}</TableCell>
                     <TableCell>
                       {vehicle.brand} {vehicle.model} ({vehicle.patent})

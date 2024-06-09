@@ -34,6 +34,7 @@ export async function getAllDailyTickets({
     sort,
     joins: {
       vehicle: true,
+      service: true,
       invoice: true
     }
   })
@@ -60,7 +61,8 @@ export async function getPendingTickets({
     offset: page * 20,
     joins: {
       vehicle: true,
-      invoice: true
+      invoice: true,
+      service: true
     }
   })
   return JSON.parse(JSON.stringify(tickets)) as typeof tickets
