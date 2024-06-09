@@ -68,7 +68,11 @@ export class CashClosuresRepository extends BaseRepository<CashClosures> {
     await this.init()
     const cashClosure = await this.repository.findOne({
       where: { id },
-      relations: joins
+      relations: {
+        invoices: joins?.invoices === true && {
+          customer: true
+        }
+      }
     })
     if (cashClosure == null) {
       throw new Error('Cash closure not found')
