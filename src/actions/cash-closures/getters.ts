@@ -26,11 +26,20 @@ export const getAllCashClosures = async (
     }
   } catch (error) {
     console.error(error)
-    return { cashClosures: [] }
+    return {
+      cashClosures: [],
+      metadata: {
+        total: 0,
+        totalPages: 0,
+        currentPage: 0,
+        prevPage: null,
+        nextPage: null
+      }
+    }
   }
 }
 
-export const getCashClosureDetails = async (id: number | string) => {
+export const getCashClosureDetails = async (id: string) => {
   try {
     const { cashClosure } = await cashClosuresRepository.findById({
       id: Number(id),
