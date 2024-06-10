@@ -9,6 +9,9 @@ const nextConfig = {
       }
     ]
   },
+  experimental: {
+    serverComponentsExternalPackages: ['typeorm']
+  },
   webpack(config) {
     config.ignoreWarnings = [
       {
