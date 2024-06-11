@@ -1,6 +1,8 @@
 import { getAllCashClosures } from '@/actions/cash-closures/getters'
 import { CashClosuresTable } from './cash-closures-table'
 import { ExportToExcelBtn } from './export-to-excel-btn'
+import { ContainerPage } from '@/components/layout/page/ContainerPage'
+import { Title } from '@/components/layout'
 
 export default async function Page({
   searchParams
@@ -17,13 +19,15 @@ export default async function Page({
     }
   })
   return (
-    <section className='grid '>
-      <div className='m-4 flex items-center gap-4'>
-        <h1>Lista de cierres de caja</h1>
-        <ExportToExcelBtn {...{ cashClosures }} />
-      </div>
+    <ContainerPage>
+      <section className='grid '>
+        <div className='m-4 flex items-center gap-4'>
+          <Title title='Lista de cierres de caja' />
+          <ExportToExcelBtn {...{ cashClosures }} />
+        </div>
 
-      <CashClosuresTable {...{ cashClosures }} />
-    </section>
+        <CashClosuresTable {...{ cashClosures }} />
+      </section>
+    </ContainerPage>
   )
 }
