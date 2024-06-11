@@ -34,7 +34,7 @@ export const PaginationTable = ({
     return `${pathname}?${params.toString()}`
   }
   return (
-    <div className='py-5'>
+    <div className='p-5'>
       <Pagination>
         <PaginationContent>
           {/* Prev */}

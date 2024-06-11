@@ -112,11 +112,11 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
             <TableHead className='hidden md:table-cell'>
               Sucursal <SortButton sortBy='branch' />
             </TableHead>
-            <TableHead className='hidden md:table-cell'>Status Tickets</TableHead>
+            <TableHead className='hidden md:table-cell'>Estado Tickets</TableHead>
             <TableHead className='hidden md:table-cell'>
               Fecha <SortButton sortBy='createAt' />{' '}
             </TableHead>
-            <TableHead className='hidden md:table-cell'>Status</TableHead>
+            <TableHead className='hidden md:table-cell'>Estado</TableHead>
             <TableHead className=''>
               Monto total
               <SortButton sortBy='total' />
@@ -155,14 +155,14 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                       <DialogTrigger asChild>
                         <Button variant={'outline'}>
                           <Info className='mr-2 h-5 w-5' />
-                          Mas info
+                          Más info
                         </Button>
                       </DialogTrigger>
                       <DialogContent className='max-h-[90vh] overflow-y-scroll'>
                         <DialogHeader>
                           <DialogTitle>Detalle de la factura</DialogTitle>
                         </DialogHeader>
-                        {/* Informacion del cliente */}
+                        {/* Información del cliente */}
                         <Separator />
                         <DialogTitle className='font-bold'>Cliente</DialogTitle>
                         <p>
@@ -176,7 +176,7 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                           </strong>
                         </p>
                         <p>
-                          Telefono:{' '}
+                          Teléfono:{' '}
                           <strong className='tracking-wide opacity-80'>
                             {customer.phone ?? ''}
                           </strong>
@@ -184,7 +184,7 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                         <ExportToPdf invoiceId={id} />
                         <Separator />
 
-                        {/* Informacion de los productos y servicios */}
+                        {/* Información de los productos y servicios */}
                         {/* 
                           // TODO: cambiar estilos de los productos y servicios a una tabla
                         */}
@@ -205,6 +205,7 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                         {items.length === 0 && <p>No hay productos</p>}
                         <Separator />
                         <DialogTitle className='font-bold'>Servicios</DialogTitle>
+
                         {tickets.map(
                           ({
                             id: ticketId,
@@ -214,36 +215,51 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                             status,
                             paymentMethod
                           }) => (
-                            <div key={ticketId}>
-                              <Separator className=' mb-2 bg-slate-700' />
+                            <div key={ticketId} className='space-y-3'>
                               <p>
-                                <Badge variant={variantBadge(status)} className='mr-2'>
-                                  {translateStatus(status)}
-                                </Badge>
-                                {vehicle?.patent} - {service?.name}-{' '}
-                                {paymentMethod === 'cash' ? 'Efectivo' : 'Tarjeta'} -{' '}
-                                {currencyFormat(totalPrice)}
+                                <strong>Servicio: </strong>
+                                <span>{service?.name}</span>
                               </p>
+                              <p>
+                                <strong>Patente: </strong>
+                                <span>{vehicle?.patent}</span>
+                              </p>
+                              <p>
+                                <strong>Método de pago: </strong>
+
+                                <span>{paymentMethod === 'cash' ? 'Efectivo' : 'Tarjeta'}</span>
+                              </p>
+
+                              <div className='flex flex-col justify-between'>
+                                <p>
+                                  <strong>Monto: </strong> {currencyFormat(totalPrice)}{' '}
+                                  <Badge variant={variantBadge(status)} className='mx-2'>
+                                    {translateStatus(status)}
+                                  </Badge>
+                                </p>
+                              </div>
                               <ChangePaymentBtn
                                 {...{ ticketId, invoiceId: id, paymentMethod, service }}
                               />
+                              <Separator className=' my-2 bg-slate-700' />
                             </div>
                           )
                         )}
-                        <Separator />
-                        {/* Informacion de la factura */}
+                        {tickets.length === 0 && <Separator />}
+                        {/* Información de la factura */}
                         <p>
-                          Sucursal: <strong className='tracking-wide opacity-80'>{branch}</strong>
+                          <strong>Sucursal:</strong>{' '}
+                          <strong className='tracking-wide opacity-80'>{branch}</strong>
                         </p>
 
                         <p>
-                          Fecha:{' '}
+                          <strong>Fecha: </strong>
                           <strong className='tracking-wide opacity-80'>
                             {dateFormat(new Date(createAt))}
                           </strong>
                         </p>
                         <p>
-                          Monto total:{' '}
+                          <strong>Monto total: </strong>
                           <strong className='tracking-wide opacity-80'>
                             {currencyFormat(total)}
                           </strong>
@@ -251,7 +267,7 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                         <ChangePaymentBtnsInvoice invoiceId={id} />
                         <div>
                           <p className='mb-4'>
-                            Estado:{' '}
+                            <strong>Estado: </strong>
                             <Badge variant={variantBadge(status)}>{translateStatus(status)}</Badge>
                           </p>
                           <SelectStatus status={status} id={id} />
