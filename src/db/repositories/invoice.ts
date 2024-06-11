@@ -203,7 +203,7 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
     await this.repository.update(id, { total })
   }
 
-  async findById(id: number, opts: { joins?: FindOptions['joins'] }) {
+  async findById(id: number, opts: { joins?: FindOptions['joins'] } = {}) {
     await this.init()
     const invoice = await this.repository.findOne({
       where: {
