@@ -13,6 +13,14 @@ const nextConfig = {
     serverComponentsExternalPackages: ['typeorm']
   },
   webpack(config) {
+    config.module.rules.push({
+      test: /pdfkit-table\/index\.js$/,
+      loader: 'string-replace-loader',
+      options: {
+        search: 'require("pdfkit")',
+        replace: 'require("pdfkit").default'
+      }
+    })
     config.ignoreWarnings = [
       {
         module: /typeorm/,
