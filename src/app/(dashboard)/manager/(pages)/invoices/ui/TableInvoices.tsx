@@ -34,6 +34,7 @@ import { PAYMENT_METHODS } from '@/utils/constants'
 import { ChangePaymentMethodBtnItem } from './change-pay-btn-item'
 import { ChangePaymentBtnsInvoice } from './change-pay-btns-invoice'
 import { SortButton } from '@/components/ui/sort-button'
+import { ExportToPdf } from './export-to-pdf'
 
 interface Props {
   params?: {
@@ -180,6 +181,7 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                             {customer.phone ?? ''}
                           </strong>
                         </p>
+                        <ExportToPdf invoiceId={id} />
                         <Separator />
 
                         {/* Informacion de los productos y servicios */}
