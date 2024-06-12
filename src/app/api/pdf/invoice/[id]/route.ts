@@ -9,6 +9,14 @@ import { PAYMENT_METHODS } from '@/utils/constants'
 
 const font = path.join('public/fonts/Roboto-Regular.ttf')
 
+const existOrCreate = async (pathFile: string) => {
+  try {
+    await fs.promises.access(pathFile, fs.constants.F_OK)
+  } catch (error) {
+    await fs.promises.writeFile(pathFile, '')
+  }
+}
+
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   const { invoice } = await invoiceRepository.findById(Number(params.id), {
     joins: {
@@ -24,6 +32,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   })
 
   const pathFile = `tmp/invoice.pdf`
+  await existOrCreate(pathFile)
   const stream = fs.createWriteStream(pathFile)
   const doc = new PDFDocument({
     margin: 10,
