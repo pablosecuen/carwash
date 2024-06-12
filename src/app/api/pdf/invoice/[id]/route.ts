@@ -7,11 +7,6 @@ import { currencyFormat } from '@/lib/utils'
 import { DateFormatter } from '@/utils/formatters'
 import { PAYMENT_METHODS } from '@/utils/constants'
 
-// const A6_SIZES = {
-//   x: 300,
-//   y: 420
-// }
-
 const font = path.join('public/fonts/Roboto-Regular.ttf')
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
@@ -51,7 +46,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     .fontSize(8)
 
   doc
-    .text(`Cliente: ${invoice.customer.name}`, {
+    .text(`Cliente: ${invoice.customer.name}`, 10, doc.y + 5, {
       align: 'left'
     })
     .fontSize(8)
@@ -92,6 +87,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
       ]
     },
     {
+      y: doc.y + 5,
       prepareHeader: () => doc.font(font).fontSize(10),
       prepareRow: () => doc.font(font).fontSize(8)
     }
