@@ -18,6 +18,7 @@ export function ChangePaymentBtn({ invoiceId, paymentMethod, ticketId, service }
   return (
     <Button
       variant={'secondary'}
+      className='w-full'
       onClick={async () => {
         const data = await changePaymentMethod({
           invoiceId,

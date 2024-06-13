@@ -10,5 +10,9 @@ export const {
   DB_PORT: dbPort,
   DB_USER: dbUser,
   DB_PASS: dbPass,
-  DB_NAME: dbName
+  DB_NAME: dbName,
+  GOOGLE_EMAIL_USER: googleEmailUser,
+  GOOGLE_ID_CLIENT: googleIdClient,
+  GOOGLE_CLIENT_SECRET: googleClientSecret,
+  GOOGLE_REFRESH_TOKEN: googleRefreshToken
 } = process.env

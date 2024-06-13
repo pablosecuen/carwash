@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { type Invoice } from '@/db/entities'
 import { exportToExcel } from '@/utils/export-to-excel'
+import { FileDownIcon } from 'lucide-react'
 
 export function ExportInvoicesToExcel({
   invoices,
@@ -13,6 +14,7 @@ export function ExportInvoicesToExcel({
   return (
     <Button
       size='sm'
+      variant={'outline'}
       onClick={() => {
         const exportData = invoices.map(({ id, branch, customer, createAt, status, total }) => ({
           ID: id,
@@ -29,7 +31,8 @@ export function ExportInvoicesToExcel({
         })
       }}
     >
-      Export facturas a excel
+      <FileDownIcon className='mr-2 h-5 w-5' />
+      Exportar a excel
     </Button>
   )
 }

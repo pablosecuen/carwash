@@ -38,7 +38,7 @@ export default async function Page() {
         <CardDescription>Contenido de la página de cierre de caja</CardDescription>
       </CardHeader>
       <div className='flex items-start justify-center gap-5'>
-        <div className='  max-h-[60vh] overflow-scroll overflow-x-hidden'>
+        <div className='  scrollbar-none max-h-[60vh] overflow-scroll overflow-x-hidden'>
           <Table>
             <TableHeader>
               <TableRow>

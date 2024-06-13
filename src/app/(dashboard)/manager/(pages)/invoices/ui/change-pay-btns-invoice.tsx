@@ -7,10 +7,11 @@ import { PaymentMethod } from '@/utils/types'
 export function ChangePaymentBtnsInvoice({ invoiceId }: { invoiceId: number }) {
   const { toast } = useToast()
   return (
-    <div className='flex gap-2'>
+    <div className='flex justify-between gap-2'>
       <Button
         variant={'secondary'}
         size={'sm'}
+        className='w-full'
         onClick={async () => {
           const data = await changePaymentMethodInvoice({
             invoiceId,
@@ -34,6 +35,7 @@ export function ChangePaymentBtnsInvoice({ invoiceId }: { invoiceId: number }) {
       <Button
         variant={'secondary'}
         size={'sm'}
+        className='w-full'
         onClick={async () => {
           const data = await changePaymentMethodInvoice({
             invoiceId,
@@ -52,7 +54,7 @@ export function ChangePaymentBtnsInvoice({ invoiceId }: { invoiceId: number }) {
           })
         }}
       >
-        Cambiar pagos a credito
+        Cambiar pagos a crédito
       </Button>
     </div>
   )

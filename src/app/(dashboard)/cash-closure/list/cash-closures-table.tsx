@@ -1,3 +1,4 @@
+import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { SortButton } from '@/components/ui/sort-button'
 import {
@@ -10,7 +11,10 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { type CashClosures } from '@/db/entities/cash-closures'
+import { currencyFormat } from '@/lib/utils'
 import { DateFormatter } from '@/utils/formatters'
+import { InfoIcon } from 'lucide-react'
+import Link from 'next/link'
 
 export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures[] }) {
   return (
@@ -33,6 +37,9 @@ export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures
               <TableHead>
                 Fecha <SortButton sortBy='createdAt' />
               </TableHead>
+              <TableHead>
+                <span className='sr-only'>Acciones</span>
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -48,12 +55,25 @@ export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures
               }) => (
                 <TableRow key={id}>
                   <TableCell>{branch}</TableCell>
-                  <TableCell>{totalDaily}</TableCell>
-                  <TableCell>{dailyPercentage}</TableCell>
-                  <TableCell>{managerBonus}</TableCell>
-                  <TableCell>{employeePayment}</TableCell>
-                  <TableCell>{totalDaily - managerBonus - employeePayment}</TableCell>
+                  <TableCell>{currencyFormat(totalDaily)}</TableCell>
+                  <TableCell>{dailyPercentage}%</TableCell>
+                  <TableCell>{currencyFormat(managerBonus)}</TableCell>
+                  <TableCell>{currencyFormat(employeePayment)}</TableCell>
+                  <TableCell>
+                    {currencyFormat(totalDaily - managerBonus - employeePayment)}
+                  </TableCell>
                   <TableCell>{DateFormatter(new Date(createdAt))}</TableCell>
+                  <TableCell>
+                    <div className='flex items-center justify-center'>
+                      <Link
+                        href={`/cash-closure/${id}`}
+                        className={buttonVariants({ variant: 'outline' })}
+                      >
+                        <InfoIcon className='mr-2 h-5 w-5' />
+                        Detalle
+                      </Link>
+                    </div>
+                  </TableCell>
                 </TableRow>
               )
             )}
