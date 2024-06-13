@@ -13,7 +13,8 @@ const existOrCreate = async (pathFile: string) => {
   try {
     await fs.promises.access(pathFile, fs.constants.F_OK)
   } catch (error) {
-    await fs.promises.writeFile(pathFile, '')
+    await fs.promises.mkdir(path.dirname(pathFile), { recursive: true })
+    await fs.promises.appendFile(pathFile, '')
   }
 }
 
