@@ -232,3 +232,18 @@ export const getInvoicesToCashClosure = async () => {
     }
   }
 }
+
+export const getInvoiceDetails = async ({ id }: { id: number }) => {
+  return await invoiceRepository.findById(id, {
+    joins: {
+      items: {
+        product: true
+      },
+      tickets: {
+        service: true,
+        vehicle: true
+      },
+      customer: true
+    }
+  })
+}
