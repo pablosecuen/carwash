@@ -1,8 +1,9 @@
+import { getInvoiceDetails } from '@/actions/invoice/getters'
 import { createInvoicePdf } from '@/utils/pdf'
 
 export async function GET(_req: Request, { params }: { params: { id: string } }) {
-  const invoicePdf = await createInvoicePdf({ invoiceId: Number(params.id) })
-
+  const { invoice } = await getInvoiceDetails({ id: Number(params.id) })
+  const invoicePdf = await createInvoicePdf({ invoice })
   return new Response(invoicePdf, {
     status: 200,
     headers: {

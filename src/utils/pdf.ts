@@ -1,4 +1,3 @@
-import { invoiceRepository } from '@/db/repositories/invoice'
 import path from 'path'
 // TODO: change pdfkit-table for pdfkit vanilla
 import PDFDocument from 'pdfkit-table'
@@ -6,6 +5,7 @@ import fs from 'fs'
 import { currencyFormat } from '@/lib/utils'
 import { DateFormatter } from '@/utils/formatters'
 import { PAYMENT_METHODS } from '@/utils/constants'
+import { type Invoice } from '@/db/entities'
 
 const FONT_PATH = path.join('public/fonts/Roboto-Regular.ttf')
 
@@ -19,20 +19,7 @@ const existOrCreate = async (pathFile: string) => {
 
 const PATH_INVOICE_FILE = 'tmp/invoice.pdf'
 
-export async function createInvoicePdf({ invoiceId }: { invoiceId: number }) {
-  const { invoice } = await invoiceRepository.findById(invoiceId, {
-    joins: {
-      items: {
-        product: true
-      },
-      tickets: {
-        service: true,
-        vehicle: true
-      },
-      customer: true
-    }
-  })
-
+export async function createInvoicePdf({ invoice }: { invoice: Invoice }) {
   await existOrCreate(PATH_INVOICE_FILE)
 
   const stream = fs.createWriteStream(PATH_INVOICE_FILE)
