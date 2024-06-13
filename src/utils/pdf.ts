@@ -20,6 +20,8 @@ const existOrCreate = async (pathFile: string) => {
 
 const PATH_INVOICE_FILE = '/tmp/invoice.pdf'
 
+const PATH_TO_PUBLIC = path.join(process.cwd(), 'public')
+
 export async function createInvoicePdf({ invoice }: { invoice: Invoice }) {
   await existOrCreate(PATH_INVOICE_FILE)
 
@@ -27,11 +29,11 @@ export async function createInvoicePdf({ invoice }: { invoice: Invoice }) {
   const doc = new PDFDocument({
     margin: 10,
     size: 'A6',
-    font: path.join('public/fonts/Roboto-Regular.ttf')
+    font: path.join(PATH_TO_PUBLIC, 'fonts/Roboto-Regular.ttf')
   })
   doc.pipe(stream)
 
-  doc.image('public/carwash-logo.png', 81, 10, {
+  doc.image(path.join(PATH_TO_PUBLIC, 'carwash-logo.png'), 81, 10, {
     width: 140,
     align: 'center'
   })
