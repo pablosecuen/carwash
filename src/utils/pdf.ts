@@ -34,6 +34,7 @@ export async function createInvoicePdf({ invoiceId }: { invoiceId: number }) {
   })
 
   await existOrCreate(PATH_INVOICE_FILE)
+
   const stream = fs.createWriteStream(PATH_INVOICE_FILE)
   const doc = new PDFDocument({
     margin: 10,
@@ -112,6 +113,10 @@ export async function createInvoicePdf({ invoiceId }: { invoiceId: number }) {
 
   doc.save()
   doc.end()
+
+  await new Promise((resolve) => {
+    stream.on('finish', resolve)
+  })
 
   const pdfInvoice = fs.readFileSync(PATH_INVOICE_FILE)
   return pdfInvoice
