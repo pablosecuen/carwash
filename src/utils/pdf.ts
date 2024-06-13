@@ -18,7 +18,7 @@ const existOrCreate = async (pathFile: string) => {
   }
 }
 
-const PATH_INVOICE_FILE = 'tmp/invoice.pdf'
+const PATH_INVOICE_FILE = '/tmp/invoice.pdf'
 
 export async function createInvoicePdf({ invoice }: { invoice: Invoice }) {
   await existOrCreate(PATH_INVOICE_FILE)
