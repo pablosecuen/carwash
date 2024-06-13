@@ -35,6 +35,7 @@ import { ChangePaymentMethodBtnItem } from './change-pay-btn-item'
 import { ChangePaymentBtnsInvoice } from './change-pay-btns-invoice'
 import { SortButton } from '@/components/ui/sort-button'
 import { ExportToPdf } from './export-to-pdf'
+import { SendEmailBtn } from './send-email-btn'
 
 interface Props {
   params?: {
@@ -182,6 +183,7 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                           </strong>
                         </p>
                         <ExportToPdf invoiceId={id} />
+                        <SendEmailBtn invoiceId={id} />
                         <Separator />
 
                         {/* Información de los productos y servicios */}
