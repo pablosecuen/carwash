@@ -1,36 +1,17 @@
-'use server'
-
-import { sendMail } from '@/lib/mailer'
-import { getInvoiceDetails } from './getters'
-import { createInvoicePdf } from '@/utils/pdf'
-
 export async function sendEmailWithPdf({ id }: { id: string | number }) {
   try {
-    const { invoice } = await getInvoiceDetails({ id: Number(id) })
-    if (invoice?.customer.email == null) {
-      return {
-        ok: false,
-        message: 'El cliente no tiene un email registrado.'
-      }
-    }
-
-    const customer = invoice.customer
-    // TODO: imporve email template and title
-    await sendMail({
-      emailTitle: 'Factura de compra en Mc CarSPA',
-      emailAddress: customer.email,
-      html: `<h1>¡Hola ${customer.name}! </h1><p>Este es tu comprobante de compra.</p>`,
-      attachments: [
-        {
-          filename: 'invoice.pdf',
-          content: await createInvoicePdf({ invoice })
+    const res = await fetch(`/api/mail/invoice/${id}`)
+    if (!res.ok) {
+      if (res.status === 400) {
+        return {
+          ok: false,
+          message: 'El cliente no tiene un email registrado.'
         }
-      ]
-    })
-    return {
-      ok: true,
-      message: 'Email enviado'
+      }
+      throw new Error('Error al enviar el email')
     }
+    const data = (await res.json()) as { ok: boolean; message: string }
+    return data
   } catch (error) {
     console.log(error)
     return {
