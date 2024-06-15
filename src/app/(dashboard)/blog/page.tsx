@@ -9,8 +9,8 @@ export default function BlogPage() {
     <ContainerPage>
       <h1 className='text-start text-3xl font-bold'>Blog del sistema</h1>
 
-      <div className='flex flex-col md:flex-row'>
-        <div className='flex flex-wrap py-20 md:mr-4 md:flex-col md:items-start'>
+      <div className='flex flex-col lg:flex-row'>
+        <div className='flex flex-wrap py-20 lg:mr-4 lg:flex-col lg:items-start'>
           {blogArticles.map(({ id, title }) => (
             <Link
               key={id}
