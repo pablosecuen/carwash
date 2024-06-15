@@ -17,7 +17,7 @@ export async function Sidebar() {
           </div>
         </div>
         <div className='w-full space-y-4 px-3'>
-          <Link href={'/'} className={''}>
+          <Link href={'/blog'} className={''}>
             <span
               className={
                 'group flex flex-col items-start rounded-md px-3 py-2 text-sm font-medium transition-all duration-75 hover:bg-accent hover:text-accent-foreground'

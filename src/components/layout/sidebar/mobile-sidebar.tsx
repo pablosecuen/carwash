@@ -34,7 +34,7 @@ export function MobileSidebar({ role }: SidebarProps) {
           </div>
           <div className='w-full space-y-4 px-3'>
             <Link
-              href={'/'}
+              href={'/blog'}
               onClick={() => {
                 if (setOpen != null) setOpen(false)
               }}
