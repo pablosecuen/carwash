@@ -7,9 +7,9 @@ interface ArticleProps {
 
 export const Article = ({ title, urlVideo, description, id }: ArticleProps) => {
   return (
-    <article id={id} className='mx-auto flex  w-full flex-col gap-5 py-20'>
+    <article id={id} className='mx-auto flex  w-full flex-col gap-5 pt-20'>
       <h2 className='text-xl font-semibold'>{title}</h2>
-      <p>{description}</p>
+      <p className='opacity-80'>{description}</p>
       <iframe
         width='100%'
         height='100%'
