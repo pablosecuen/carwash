@@ -52,6 +52,7 @@
 @layer base {
   * {
     @apply border-border;
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
@@ -62,6 +63,7 @@ html,
 body,
 :root {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 @keyframes fadeIn {
@@ -96,6 +98,6 @@ body,
   animation-name: fadeIn;
 }
 
-.shadow-cards{
-  @apply shadow-xl dark:shadow-slate-50/10
+.shadow-cards {
+  @apply shadow-xl dark:shadow-slate-50/10;
 }
