@@ -17,7 +17,7 @@ export const EmptyPage = ({ title, subtitle, link, button_text, Icon }: Props) =
       <div className='flex flex-col items-center gap-1 text-center'>
         <h3 className='text-2xl font-bold tracking-tight'>{title}</h3>
         <p className='text-sm text-muted-foreground'>{subtitle}</p>
-        <Button className='mt-4 font-semibold' asChild>
+        <Button variant={'secondary'} size={'lg'} className='mt-4 font-semibold' asChild>
           <Link href={link} className='gap-1'>
             <Icon className='h-3.5 w-3.5' />
             <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>{button_text}</span>
