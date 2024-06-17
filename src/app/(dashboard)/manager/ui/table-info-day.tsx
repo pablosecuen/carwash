@@ -4,7 +4,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow
@@ -24,7 +23,7 @@ export async function TableInfoDay() {
       <CardHeader>
         <CardTitle>Facturas del día</CardTitle>
       </CardHeader>
-      <CardContent className='relative p-0 pb-16'>
+      <CardContent className='relative p-0'>
         <Table>
           <TableHeader>
             <TableRow>
@@ -58,14 +57,18 @@ export async function TableInfoDay() {
                 <TableCell className='text-right'>{currencyFormat(total)}</TableCell>
               </TableRow>
             ))}
+            {invoiceDayData.length === 0 && (
+              <TableRow className='hover:bg-transparent'>
+                <TableCell colSpan={8} className='hover:bg-trasparent py-10 text-center'>
+                  No hay facturas registradas
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
-        <TableFooter className='absolute bottom-0 left-0 right-0'>
-          <div className='flex items-center justify-end'>
-            <TableCell colSpan={7}>Total</TableCell>
-            <TableCell className='text-right'>{currencyFormat(totalPriceDaily)}</TableCell>
-          </div>
-        </TableFooter>
+        <div className='flex w-full items-center justify-end bg-muted px-4 py-5'>
+          <span>Total {currencyFormat(totalPriceDaily)}</span>
+        </div>
       </CardContent>
     </Card>
   )
