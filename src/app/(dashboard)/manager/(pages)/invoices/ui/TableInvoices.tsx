@@ -80,7 +80,7 @@ export const TableInvoices = async ({ params }: Props) => {
         <DatePickerInvoice />
         <Search placeholder='Buscar por nombre' />
       </div>
-      <Card className='fade-in'>
+      <Card className='border-none fade-in'>
         <CardContent className='p-0'>
           <TableInvoicesComponent invoices={invoices} />
           <PaginationTable
