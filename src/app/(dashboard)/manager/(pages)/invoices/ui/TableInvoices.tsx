@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/table'
 import { dateFormat, currencyFormat, variantBadge } from '@/lib/utils'
 
-import { Info } from 'lucide-react'
+import { ArrowLeft, Info } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { getPaginatedInvoicesByBranch } from '@/actions/invoice/getters'
 import { type Branch } from '@/utils/types'
@@ -80,7 +80,7 @@ export const TableInvoices = async ({ params }: Props) => {
         <DatePickerInvoice />
         <Search placeholder='Buscar por nombre' />
       </div>
-      <Card className='fade-in'>
+      <Card className='border-none fade-in'>
         <CardContent className='p-0'>
           <TableInvoicesComponent invoices={invoices} />
           <PaginationTable
@@ -98,7 +98,9 @@ export const TableInvoices = async ({ params }: Props) => {
 
 function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
   if (invoices.length === 0) {
-    return <EmptyPage link='/manager' button_text='Regresar' title='No hay facturas' />
+    return (
+      <EmptyPage Icon={ArrowLeft} link='/manager' button_text='Regresar' title='No hay facturas' />
+    )
   }
   return (
     <>

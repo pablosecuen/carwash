@@ -16,6 +16,7 @@ export default async function Page() {
       <ContainerPage>
         <Title title='Servicios' />
         <EmptyPage
+          Icon={PlusCircle}
           title='No tienes servicios'
           subtitle='Puedes agregar un nuevo servicio.'
           link='/dashboard/services/new-service'

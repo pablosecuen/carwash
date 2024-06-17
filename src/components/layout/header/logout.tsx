@@ -8,14 +8,16 @@ export function LogOut() {
   const router = useRouter()
   return (
     <Button
-      variant={'outline'}
-      size={'icon'}
+      variant={'destructive'}
+      size={'default'}
+      className='w-fit'
       onClick={async () => {
         await logoutAction()
         router.refresh()
       }}
     >
-      <LogOutIcon className='h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all ' />
+      Cerrar sesion
+      <LogOutIcon className='ml-2 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all ' />
     </Button>
   )
 }
