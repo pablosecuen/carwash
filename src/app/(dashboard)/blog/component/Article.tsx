@@ -15,13 +15,14 @@ export const Article = ({ title, urlVideo, description, id }: ArticleProps) => {
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <iframe
-          width='100%'
-          height='100%'
+        <video
           src={urlVideo}
-          title='Aprendamos 2024 #3 - ELO 1000 - Apertura de arqueros'
-          className='h-[600px] w-full rounded-lg'
-        ></iframe>
+          title={title}
+          width={'900'}
+          height={'240'}
+          controls
+          autoPlay={false}
+        ></video>
       </CardContent>
     </Card>
   )
