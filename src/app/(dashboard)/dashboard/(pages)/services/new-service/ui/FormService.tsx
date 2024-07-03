@@ -22,6 +22,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useToast } from '@/components/ui/use-toast'
 import { z } from 'zod'
+import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
   name: z.string().min(4, 'Este campo es requerido *'),
@@ -36,6 +37,7 @@ const formSchema = z.object({
 // TODO: Tipar el componente para que pueda recibir un servicio
 
 export function FormService() {
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
 
   const { toast } = useToast()
@@ -80,6 +82,8 @@ export function FormService() {
           title: '✅ Servicio creado',
           duration: 1800
         })
+        form.reset()
+        router.push('/dashboard/services')
       })
       .catch(() => {
         toast({
@@ -89,7 +93,6 @@ export function FormService() {
         })
       })
     setLoading(false)
-    form.reset()
   }
 
   return (

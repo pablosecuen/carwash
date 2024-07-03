@@ -7,6 +7,8 @@ import Link from 'next/link'
 import { Title } from '@/components/layout'
 import { EmptyPage } from '@/components/layout/page/EmptyPage'
 
+import { Separator } from '@/components/ui/separator'
+
 export default async function Page() {
   const services = await getAllServices()
 
@@ -30,13 +32,17 @@ export default async function Page() {
     <ContainerPage>
       <header className='flex items-center justify-between fade-in'>
         <Title title='Servicios' />
-        <Button size='sm' asChild>
-          <Link href={'/dashboard/services/new-service'} className='h-8 gap-1'>
-            <PlusCircle className='h-3.5 w-3.5' />
-            <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>Crear servico</span>
-          </Link>
-        </Button>
+        <div className='flex items-center gap-4'>
+          <Button size='sm' asChild>
+            <Link href={'/dashboard/services/new-service'} className='h-8 gap-1'>
+              <PlusCircle className='h-3.5 w-3.5' />
+              <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>Crear servico</span>
+            </Link>
+          </Button>
+        </div>
       </header>
+      <Separator />
+
       <ServiceTable services={services} />
     </ContainerPage>
   )

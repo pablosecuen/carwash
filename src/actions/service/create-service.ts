@@ -2,6 +2,7 @@
 
 import { serviceRepository } from '@/db/repositories/service'
 import { VehicleType } from '@/utils/types'
+import { revalidatePath } from 'next/cache'
 
 export async function createServiceAction(formData: FormData) {
   const avaliableFor = Object.values(VehicleType).filter((type) =>
@@ -16,6 +17,8 @@ export async function createServiceAction(formData: FormData) {
   }
   try {
     const service = await serviceRepository.create(data)
+    revalidatePath('/dashboard/services')
+
     console.log({ service })
   } catch (error) {
     console.error(error)
