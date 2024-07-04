@@ -104,6 +104,11 @@ export default async function ManagerPage() {
               <Suspense fallback={<TableSkeleton />}>
                 <TableInfoDay />
               </Suspense>
+              <div className='flex items-center justify-end'>
+                <Button asChild variant={'secondary'} size={'lg'} className='mt-5'>
+                  <Link href={'/cash-closure'}>Cierre de caja</Link>
+                </Button>
+              </div>
             </>
           )}
         </div>

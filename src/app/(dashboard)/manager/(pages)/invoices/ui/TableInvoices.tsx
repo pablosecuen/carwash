@@ -27,7 +27,7 @@ import { translateStatus } from '@/utils/formatters'
 import { SelectStatus } from '@/components/invoice/select-status'
 import { Separator } from '@/components/ui/separator'
 import { DatePickerInvoice } from './date-picker-invoices'
-import { type Invoice } from '@/db/entities'
+import { type Product, type Invoice } from '@/db/entities'
 import { PaginationTable } from '@/app/(dashboard)/service/ui/pagination'
 import { ChangePaymentBtn } from './change-payment-btn'
 import { PAYMENT_METHODS } from '@/utils/constants'
@@ -36,6 +36,8 @@ import { ChangePaymentBtnsInvoice } from './change-pay-btns-invoice'
 import { SortButton } from '@/components/ui/sort-button'
 import { ExportToPdf } from './export-to-pdf'
 import { SendEmailBtn } from './send-email-btn'
+import { getAllProducts } from '@/actions/product/getters'
+import { AddItemModal } from './add-item-modal'
 
 interface Props {
   params?: {
@@ -58,6 +60,7 @@ export const TableInvoices = async ({ params }: Props) => {
     sortBy: params?.sortBy,
     sortDir: params?.sortDirection
   }
+  const products = await getAllProducts()
   // TODO: ver tema de filtrado por query
   const { invoices, metadata } = await getPaginatedInvoicesByBranch({
     page: page ?? 0,
@@ -82,7 +85,7 @@ export const TableInvoices = async ({ params }: Props) => {
       </div>
       <Card className='border-none fade-in'>
         <CardContent className='p-0'>
-          <TableInvoicesComponent invoices={invoices} />
+          <TableInvoicesComponent invoices={invoices} products={products} />
           <PaginationTable
             total={total}
             totalPages={totalPages}
@@ -96,7 +99,13 @@ export const TableInvoices = async ({ params }: Props) => {
   )
 }
 
-function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
+function TableInvoicesComponent({
+  invoices,
+  products
+}: {
+  invoices: Invoice[]
+  products: Product[]
+}) {
   if (invoices.length === 0) {
     return (
       <EmptyPage Icon={ArrowLeft} link='/manager' button_text='Regresar' title='No hay facturas' />
@@ -192,7 +201,9 @@ function TableInvoicesComponent({ invoices }: { invoices: Invoice[] }) {
                         {/* 
                           // TODO: cambiar estilos de los productos y servicios a una tabla
                         */}
-                        <DialogTitle className='font-bold'>Productos</DialogTitle>
+                        <DialogTitle className='font-bold'>
+                          Productos <AddItemModal products={products} invoiceId={id} />
+                        </DialogTitle>
                         {items.length > 0 &&
                           items.map(({ id: itemId, product, paymentMethod, totalPrice }) => (
                             <div key={itemId}>
