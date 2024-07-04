@@ -1,6 +1,8 @@
 'use server'
 
 import { invoiceRepository } from '@/db/repositories/invoice'
+import { ticketRepository } from '@/db/repositories/ticket'
+import { TicketStatus } from '@/utils/types'
 import { hasPermission } from '@/utils/user-validate'
 import { revalidatePath } from 'next/cache'
 
@@ -11,6 +13,10 @@ export async function setInvoiceCancelled({ invoiceId }: { invoiceId: number | s
     const isPermission = await hasPermission('EDITOR')
     if (!isPermission) return { ok: false, message: 'No tienes permisos' }
     await invoiceRepository.updateStatus({ id, status: 'cancelled' })
+    await ticketRepository.updateStatusByInvoiceId({
+      invoiceId: id,
+      status: TicketStatus.CANCELLED
+    })
     revalidatePath('/dashboard/invoices')
     revalidatePath('/manager/invoices')
     return {
