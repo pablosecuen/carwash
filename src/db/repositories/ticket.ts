@@ -75,6 +75,28 @@ export class TicketRepository extends BaseRepository<Ticket> {
     return ticket
   }
 
+  async updateStatusByInvoiceId({
+    invoiceId,
+    status
+  }: {
+    invoiceId: number
+    status: TicketStatus
+  }) {
+    await this.init()
+    if (!Object.values(TicketStatus).includes(status)) throw new Error('Invalid status')
+
+    const ticket = await this.repository.find({ where: { invoice: { id: invoiceId } } })
+    if (ticket.length === 0) throw new Error('Tickets not found')
+
+    await Promise.all(
+      ticket.map(async (t) => {
+        t.status = status
+        await this.repository.save(t)
+      })
+    )
+    return ticket
+  }
+
   async findAll(options: FilterOpts = {}) {
     await this.init()
     const { offset = 0, limit = 20, sort = {}, status, joins, branch, from, to } = options

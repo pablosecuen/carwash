@@ -12,27 +12,34 @@ export const Header = async () => {
   const branch = cookies().get('branch')?.value as Branch
   return (
     <div className='supports-backdrop-blur:bg-background/60  fixed left-0 right-0 top-0 z-20 border-b bg-background/95 backdrop-blur'>
-      <nav className='flex h-14 items-center justify-between px-4'>
-        <div className='hidden lg:flex lg:items-center lg:gap-x-2'>
+      <nav className='flex h-14 items-center justify-between px-4 lg:px-8'>
+        <div className='hidden lg:flex lg:flex-1 lg:items-center lg:justify-start lg:gap-x-24'>
           {/* TODO: poner logo de la empresa */}
-          <img className=' h-10 w-auto' src='/carwash-logo.webp' alt='Your Company' />
+          <div className='flex items-center gap-2'>
+            <img className=' h-10 w-auto' src='/carwash-logo.webp' alt='Your Company' />
 
-          <h1 className='text-xl font-semibold tracking-wide'>Carwash</h1>
+            <h1 className='text-xl font-semibold tracking-wide'>Carwash</h1>
+          </div>
+
           <small>
-            Ingreso como {SHOW_ROLES[role]}, en sucursal {BRANCHES[branch]}
+            Ingreso como <span className='font-bold uppercase'>{SHOW_ROLES[role]}</span>, en
+            sucursal <span className='font-bold uppercase'>{BRANCHES[branch]}</span>
           </small>
         </div>
         <div className={cn('flex flex-1 items-center gap-5 lg:!hidden')}>
           <MobileSidebarServer />
+
           <small>
-            Ingreso como {SHOW_ROLES[role]}, en sucursal {BRANCHES[branch]}
+            <span className='hidden md:block'>Ingreso como</span>{' '}
+            <span className='font-bold uppercase'>{SHOW_ROLES[role]}</span> en{' '}
+            <span className='font-bold uppercase'>{BRANCHES[branch]}</span>
           </small>
         </div>
 
         <div className='flex items-center gap-2'>
           {/* <UserNav /> */}
-          <LogOut />
           <ToggleTheme />
+          <LogOut />
         </div>
       </nav>
     </div>

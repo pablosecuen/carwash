@@ -203,6 +203,24 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
     await this.repository.update(id, { total })
   }
 
+  async addItem({ invoiceId, item }: { item: Item; invoiceId: number }) {
+    await this.init()
+    const invoice = await this.repository.findOne({
+      where: {
+        id: invoiceId
+      },
+      relations: {
+        items: true
+      }
+    })
+    if (invoice == null) {
+      throw new Error('Invoice not found')
+    }
+    invoice.items.push(item)
+    invoice.total += item.totalPrice
+    await this.repository.save(invoice)
+  }
+
   async findById(id: number, opts: { joins?: FindOptions['joins'] } = {}) {
     await this.init()
     const invoice = await this.repository.findOne({
