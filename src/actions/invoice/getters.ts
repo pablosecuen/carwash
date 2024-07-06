@@ -217,7 +217,13 @@ export const getInvoicesToCashClosure = async () => {
       status: ['completed', 'cancelled'],
       cashClosure: null,
       joins: {
-        customer: true
+        customer: true,
+        tickets: {
+          service: true
+        },
+        items: {
+          product: true
+        }
       }
     })
     return {
