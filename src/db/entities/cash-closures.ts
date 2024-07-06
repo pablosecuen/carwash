@@ -15,8 +15,17 @@ export class CashClosures {
   @Column('int')
   totalDaily!: number
 
+  @Column('int')
+  totalDailyCash!: number
+
   @Column('int', { default: 0 })
   totalCanceled!: number
+
+  @Column('int', { default: 0 })
+  totalCash!: number
+
+  @Column('int', { default: 0 })
+  totalCard!: number
 
   @Column('int', {
     nullable: false
@@ -31,6 +40,9 @@ export class CashClosures {
 
   @Column('int')
   employeePayment!: number
+
+  @Column('int', { default: 0 })
+  employeesNum!: number
 
   @OneToMany(() => Invoice, (invoice) => invoice.cashClosure)
   invoices!: Relation<Invoice[]>
