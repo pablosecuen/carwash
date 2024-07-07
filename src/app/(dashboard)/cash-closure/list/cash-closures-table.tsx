@@ -16,6 +16,16 @@ import { DateFormatter } from '@/utils/formatters'
 import { InfoIcon } from 'lucide-react'
 import Link from 'next/link'
 
+const calculatePayPerEmployee = ({
+  employeesNum,
+  employeePayment
+}: {
+  employeesNum: number
+  employeePayment: number
+}) => {
+  return Math.round(employeePayment / employeesNum)
+}
+
 export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures[] }) {
   return (
     <Card>
@@ -30,8 +40,10 @@ export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures
               <TableHead>
                 Total del día <SortButton sortBy='totalDaily' />
               </TableHead>
+              <TableHead>Total en efectivo</TableHead>
               <TableHead>Porcentaje del día</TableHead>
-              <TableHead>Bono al gerente</TableHead>
+              <TableHead>Pago al gerente</TableHead>
+              <TableHead>Número de empleados</TableHead>
               <TableHead>Pago a empleados</TableHead>
               <TableHead>Total Restante</TableHead>
               <TableHead>
@@ -47,20 +59,29 @@ export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures
               ({
                 branch,
                 totalDaily,
+
                 dailyPercentage,
                 managerBonus,
                 employeePayment,
+                totalDailyCash,
+                employeesNum,
                 createdAt,
                 id
               }) => (
                 <TableRow key={id}>
                   <TableCell>{branch}</TableCell>
                   <TableCell>{currencyFormat(totalDaily)}</TableCell>
+                  <TableCell>{currencyFormat(totalDailyCash)}</TableCell>
                   <TableCell>{dailyPercentage}%</TableCell>
-                  <TableCell>{currencyFormat(managerBonus)}</TableCell>
-                  <TableCell>{currencyFormat(employeePayment)}</TableCell>
                   <TableCell>
-                    {currencyFormat(totalDaily - managerBonus - employeePayment)}
+                    {currencyFormat(
+                      calculatePayPerEmployee({ employeesNum, employeePayment }) + managerBonus
+                    )}
+                  </TableCell>
+                  <TableCell>{currencyFormat(employeePayment)}</TableCell>
+                  <TableCell>{employeesNum}</TableCell>
+                  <TableCell>
+                    {currencyFormat(totalDailyCash - managerBonus - employeePayment)}
                   </TableCell>
                   <TableCell>{DateFormatter(new Date(createdAt))}</TableCell>
                   <TableCell>
