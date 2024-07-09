@@ -18,6 +18,16 @@ export const currencyFormat = (value: number) => {
   return formatter.format(value)
 }
 
+export const calculatePayPerEmployee = ({
+  employeesNum,
+  employeePayment
+}: {
+  employeesNum: number
+  employeePayment: number
+}) => {
+  return Math.round(employeePayment / employeesNum)
+}
+
 export const dateFormat = (date: Date) => {
   // Utilizamos Intl.DateTimeFormat con el código de idioma y la configuración de fecha de Argentina
   const formatter = new Intl.DateTimeFormat('es').format(date)
