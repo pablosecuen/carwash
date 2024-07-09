@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { currencyFormat, variantBadge } from '@/lib/utils'
+import { calculatePayPerEmployee, currencyFormat, variantBadge } from '@/lib/utils'
 import { DateFormatter, translateStatus } from '@/utils/formatters'
 import { ExportInvoicesToExcel } from './export-invoices-to-excel'
 import { ContainerPage } from '@/components/layout/page/ContainerPage'
@@ -32,6 +32,24 @@ export default async function Page({ params }: { params: { id: string } }) {
             </span>{' '}
           </p>
           <p>
+            Total del día en efectivo:{' '}
+            <span className='font-semibold opacity-100'>
+              {currencyFormat(cashClosure.totalDailyCash)}
+            </span>{' '}
+          </p>
+          <p>
+            Pagos en efectivo:{' '}
+            <span className='font-semibold opacity-100'>
+              {currencyFormat(cashClosure.totalCash)}
+            </span>{' '}
+          </p>
+          <p>
+            Pagos en credito:{' '}
+            <span className='font-semibold opacity-100'>
+              {currencyFormat(cashClosure.totalCard)}
+            </span>{' '}
+          </p>
+          <p>
             Total cancelado:{' '}
             <span className='font-semibold opacity-100'>
               {currencyFormat(cashClosure.totalCanceled)}
@@ -44,6 +62,16 @@ export default async function Page({ params }: { params: { id: string } }) {
             </span>
           </p>
           <p>
+            Número de empleados:{' '}
+            <span className='font-semibold opacity-100'>{cashClosure.employeesNum}</span>
+          </p>
+          <p>
+            Pago por empleado:{' '}
+            <span className='font-semibold opacity-100'>
+              {currencyFormat(calculatePayPerEmployee({ ...cashClosure }))}
+            </span>
+          </p>
+          <p>
             Bonus a los empleados:{' '}
             <span className='font-semibold opacity-100'>
               {currencyFormat(cashClosure.employeeBonus)}
@@ -53,6 +81,14 @@ export default async function Page({ params }: { params: { id: string } }) {
             Bonus a los manager:{' '}
             <span className='font-semibold opacity-100'>
               {currencyFormat(cashClosure.managerBonus)}
+            </span>
+          </p>
+          <p>
+            Pago al gerente:{' '}
+            <span className='font-semibold opacity-100'>
+              {currencyFormat(
+                calculatePayPerEmployee({ ...cashClosure }) + cashClosure.managerBonus
+              )}
             </span>
           </p>
         </div>
