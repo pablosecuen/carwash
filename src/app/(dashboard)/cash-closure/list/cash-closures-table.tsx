@@ -11,20 +11,10 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { type CashClosures } from '@/db/entities/cash-closures'
-import { currencyFormat } from '@/lib/utils'
+import { calculatePayPerEmployee, currencyFormat } from '@/lib/utils'
 import { DateFormatter } from '@/utils/formatters'
 import { InfoIcon } from 'lucide-react'
 import Link from 'next/link'
-
-const calculatePayPerEmployee = ({
-  employeesNum,
-  employeePayment
-}: {
-  employeesNum: number
-  employeePayment: number
-}) => {
-  return Math.round(employeePayment / employeesNum)
-}
 
 export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures[] }) {
   return (
@@ -45,6 +35,7 @@ export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures
               <TableHead>Pago al gerente</TableHead>
               <TableHead>Número de empleados</TableHead>
               <TableHead>Pago a empleados</TableHead>
+              <TableHead>Pago por empleado</TableHead>
               <TableHead>Total Restante</TableHead>
               <TableHead>
                 Fecha <SortButton sortBy='createdAt' />
@@ -59,7 +50,6 @@ export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures
               ({
                 branch,
                 totalDaily,
-
                 dailyPercentage,
                 managerBonus,
                 employeePayment,
@@ -78,8 +68,11 @@ export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures
                       calculatePayPerEmployee({ employeesNum, employeePayment }) + managerBonus
                     )}
                   </TableCell>
-                  <TableCell>{currencyFormat(employeePayment)}</TableCell>
                   <TableCell>{employeesNum}</TableCell>
+                  <TableCell>{currencyFormat(employeePayment)}</TableCell>
+                  <TableCell>
+                    {currencyFormat(calculatePayPerEmployee({ employeesNum, employeePayment }))}
+                  </TableCell>
                   <TableCell>
                     {currencyFormat(totalDailyCash - managerBonus - employeePayment)}
                   </TableCell>
