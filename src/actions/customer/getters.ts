@@ -6,10 +6,12 @@ import { getBranch, hasPermission } from '@/utils/user-validate'
 export async function getAllCustomers({
   name,
   vehicles,
+  withCurrentAccount,
   sort
 }: {
   name?: string
   vehicles?: boolean
+  withCurrentAccount?: boolean
   sort?: {
     sortBy?: string
     orderDir?: 'ASC' | 'DESC'
@@ -20,6 +22,7 @@ export async function getAllCustomers({
     const { customers, metadata } = await customerRepository.findAll({
       name,
       sort,
+      currentAccount: isAdmin ? withCurrentAccount : undefined,
       joins: {
         vehicles
       },
