@@ -102,6 +102,17 @@ export class CustomerRepository extends BaseRepository<Customer> {
     await this.repository.update({ id }, { ...data, id })
   }
 
+  async updateCurrentAccountById({
+    id: customerId,
+    currentAccount
+  }: {
+    id: number
+    currentAccount: boolean
+  }) {
+    await this.init()
+    await this.repository.update({ id: customerId }, { currentAccount })
+  }
+
   async deleteById(id: number) {
     await this.init()
     await this.repository.delete({ id })
