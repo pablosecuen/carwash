@@ -33,6 +33,7 @@ interface FindOptions {
     customer?: true
   }
   customerName?: string
+  withCurrentAccount?: boolean
   limit?: number
   offset?: number
   sort?: {
@@ -113,6 +114,7 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
     cashClosure,
     limit,
     customerName,
+    withCurrentAccount,
     sort,
     offset
   }: FindOptions = {}) {
@@ -127,7 +129,8 @@ export class InvoiceRepository extends BaseRepository<Invoice> {
         // customer: this.buildCustomerWhereClause({ customerId, customerName }),
         customer: {
           id: customerId ?? undefined,
-          name: customerName != null ? ILike(`%${customerName}%`) : undefined
+          name: customerName != null ? ILike(`%${customerName}%`) : undefined,
+          currentAccount: withCurrentAccount ?? undefined
         },
         branch,
         cashClosure: cashClosure === null ? IsNull() : cashClosure,

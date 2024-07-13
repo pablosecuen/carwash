@@ -18,7 +18,7 @@ import { InvoiceStatusEnum } from '@/utils/types'
 import { FormClashClosure } from './ui/FormClashClosure'
 
 export default async function Page() {
-  const { invoices } = await getInvoicesToCashClosure()
+  const { invoices } = await getInvoicesToCashClosure({ hasCurrentAccount: false })
   // TODO: refactor this shit
   const { totalDaily, cancelleds, totalCard, totalCash, totalDailyCash } = invoices.reduce(
     (acc, invoice) => {

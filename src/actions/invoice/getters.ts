@@ -209,13 +209,16 @@ export const getPaginatedInvoicesByBranchDashboard = async ({
   }
 }
 
-export const getInvoicesToCashClosure = async () => {
+export const getInvoicesToCashClosure = async ({
+  hasCurrentAccount
+}: { hasCurrentAccount?: boolean } = {}) => {
   try {
     const branch = getBranch()
     const { invoices, metadata } = await invoiceRepository.findAll({
       branch,
       status: ['completed', 'cancelled'],
       cashClosure: null,
+      withCurrentAccount: hasCurrentAccount,
       joins: {
         customer: true,
         tickets: {
