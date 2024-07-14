@@ -9,6 +9,7 @@ interface FilterOpts {
   branch?: Branch
   limit?: number
   offset?: number
+  currentAccount?: boolean
   joins?: {
     vehicles?: boolean
   }
@@ -31,6 +32,7 @@ export class CustomerRepository extends BaseRepository<Customer> {
     await this.init()
     const whereClause = {
       branch,
+      currentAccount: filter?.currentAccount ?? undefined,
       name: ILike(`%${filter?.name ?? ''}%`)
     }
     const [customers, count] = await Promise.all([
@@ -100,6 +102,17 @@ export class CustomerRepository extends BaseRepository<Customer> {
   async updateById(id: number, data: Partial<Customer>) {
     await this.init()
     await this.repository.update({ id }, { ...data, id })
+  }
+
+  async updateCurrentAccountById({
+    id: customerId,
+    currentAccount
+  }: {
+    id: number
+    currentAccount: boolean
+  }) {
+    await this.init()
+    await this.repository.update({ id: customerId }, { currentAccount })
   }
 
   async deleteById(id: number) {

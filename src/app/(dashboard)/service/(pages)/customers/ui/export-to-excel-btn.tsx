@@ -4,12 +4,12 @@ import { Button } from '@/components/ui/button'
 import { BRANCHES } from '@/utils/constants'
 import { exportToExcel } from '@/utils/export-to-excel'
 
-export function ExportToExcelBtn() {
+export function ExportToExcelBtn({ withCurrentAccount }: { withCurrentAccount?: boolean }) {
   return (
     <Button
       size={'sm'}
       onClick={async () => {
-        const { customers } = await getAllCustomers({ vehicles: true })
+        const { customers } = await getAllCustomers({ withCurrentAccount, vehicles: true })
         const exportData = customers.map(
           ({ id, branch, name, address, email, phone, vehicles }) => ({
             ID: id,

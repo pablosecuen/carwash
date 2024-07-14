@@ -6,6 +6,8 @@ import { getCustomerBySlug } from '@/actions/customer/get-customer-by-slug'
 import { AddFormCustomerVehicle } from './ui/AddFormCustomerVehicle'
 import { Suspense } from 'react'
 import { TableVehiclesCustomer } from './ui/TableVechiclesCustomer'
+import { UpdateCurrentAccountBtn } from './ui/update-current-account-btn'
+import { hasPermission } from '@/utils/user-validate'
 export default async function CustomerDetailPage({
   params: { slug }
 }: {
@@ -15,7 +17,15 @@ export default async function CustomerDetailPage({
 
   return (
     <ContainerPage>
-      <Title title={`Editar cliente: ${customer.name}`} />
+      <div className='flex gap-8'>
+        <Title title={`Editar cliente: ${customer.name}`} />
+        {(await hasPermission('ADMIN')) && (
+          <UpdateCurrentAccountBtn
+            currentStatus={customer.currentAccount}
+            customerId={customer.id}
+          />
+        )}
+      </div>
 
       <div className='grid gap-2 md:grid-cols-2 md:gap-4'>
         <EditFormCustomer customer={customer} slug={slug} className='' />

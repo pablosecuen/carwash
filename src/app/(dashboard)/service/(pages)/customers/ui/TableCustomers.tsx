@@ -17,15 +17,17 @@ import { SortButton } from '@/components/ui/sort-button'
 
 export const TableCustomers = async ({
   name,
+  withCurrentAccount,
   sort
 }: {
   name?: string
+  withCurrentAccount?: boolean
   sort?: {
     sortBy?: string
     orderDir?: 'ASC' | 'DESC'
   }
 }) => {
-  const { customers } = await getAllCustomers({ name, sort })
+  const { customers } = await getAllCustomers({ name, sort, withCurrentAccount })
 
   return (
     <Card>
