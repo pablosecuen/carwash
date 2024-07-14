@@ -12,6 +12,7 @@ import { TableSkeleton } from '@/components/skeletons/table-skeleton'
 import { hasPermission } from '@/utils/user-validate'
 import { ExportToExcelBtn } from './ui/export-to-excel-btn'
 import { OnlyCurrentAccountCustomers } from './ui/only-current-account-customers'
+import { ExportToExcelCurrentAccount } from './ui/export-resume-current-account'
 
 export default async function CustomersPage({
   searchParams
@@ -20,7 +21,7 @@ export default async function CustomersPage({
     query?: string
     page?: string
     sortBy?: string
-    withCurrentAccount?: boolean
+    withCurrentAccount?: string
     sortDirection?: 'ASC' | 'DESC'
   }
 }) {
@@ -34,6 +35,7 @@ export default async function CustomersPage({
         <div className='flex gap-2'>
           {(await hasPermission('ADMIN')) && (
             <>
+              {searchParams?.withCurrentAccount === 'true' && <ExportToExcelCurrentAccount />}
               <OnlyCurrentAccountCustomers />
               <ExportToExcelBtn />
             </>
@@ -51,7 +53,7 @@ export default async function CustomersPage({
       <Suspense key={query + currentPage} fallback={<TableSkeleton />}>
         <TableCustomers
           name={query}
-          withCurrentAccount={searchParams?.withCurrentAccount}
+          withCurrentAccount={searchParams?.withCurrentAccount === 'true'}
           sort={{
             sortBy: searchParams?.sortBy,
             orderDir: searchParams?.sortDirection
