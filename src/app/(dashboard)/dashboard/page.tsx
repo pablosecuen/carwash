@@ -28,6 +28,13 @@ export default async function DashboardPage() {
               href='/dashboard/products'
               linkLabel='Ir a productos'
             />
+            <DashboardCard
+              className='sm:col-span-2 md:col-span-full lg:col-span-2'
+              title='Cierres de caja'
+              description='Esta sección te permite ver los cierres de caja de todas las sucursales.'
+              href='/cash-closure/list'
+              linkLabel='Ir a cierres de caja'
+            />
           </div>
         </div>
       </div>

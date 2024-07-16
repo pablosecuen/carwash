@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/table'
 import { type CashClosures } from '@/db/entities/cash-closures'
 import { calculatePayPerEmployee, currencyFormat } from '@/lib/utils'
+import { BRANCHES } from '@/utils/constants'
 import { DateFormatter } from '@/utils/formatters'
 import { InfoIcon } from 'lucide-react'
 import Link from 'next/link'
@@ -59,7 +60,7 @@ export function CashClosuresTable({ cashClosures }: { cashClosures: CashClosures
                 id
               }) => (
                 <TableRow key={id}>
-                  <TableCell>{branch}</TableCell>
+                  <TableCell>{BRANCHES[branch]}</TableCell>
                   <TableCell>{currencyFormat(totalDaily)}</TableCell>
                   <TableCell>{currencyFormat(totalDailyCash)}</TableCell>
                   <TableCell>{dailyPercentage}%</TableCell>
