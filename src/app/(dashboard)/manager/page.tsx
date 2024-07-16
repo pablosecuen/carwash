@@ -24,7 +24,7 @@ export default async function ManagerPage() {
           {/* Cards */}
           {isManager && (
             <>
-              <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-6'>
+              <div className='grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-8'>
                 <DashboardCard
                   className='sm:col-span-2'
                   title='Facturas'
@@ -43,6 +43,13 @@ export default async function ManagerPage() {
                   className='sm:col-span-2 md:col-span-full lg:col-span-2'
                   title='Productos'
                   description='Esta sección te permite administrar los productos que se ofrecen en el sistema.'
+                />
+                <DashboardCard
+                  className='sm:col-span-2 md:col-span-full lg:col-span-2'
+                  title='Cierres de caja'
+                  description='Esta sección te permite ver los cierres de caja de todas las sucursales.'
+                  href='/cash-closure/list'
+                  linkLabel='Ir a cierres de caja'
                 />
               </div>
               <div>
